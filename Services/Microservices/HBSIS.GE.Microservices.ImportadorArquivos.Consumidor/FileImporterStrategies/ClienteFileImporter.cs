@@ -28,6 +28,7 @@ namespace HBSIS.GE.Microservices.FileImporter.Consumer.FileImporterStrategies
                 // Funcionalidade desabilitada no momento.
                 // Aguardando requisitos.
                 //CreateCliente(data);
+                return;
             }
 
             else
@@ -106,6 +107,8 @@ namespace HBSIS.GE.Microservices.FileImporter.Consumer.FileImporterStrategies
             cliente.DtFimExpediente = GetHoursWithMinutesFromString(clienteExcel.PrimeiroFechamento);
             cliente.DtInicioExpedienteAlternativo = GetHoursWithMinutesFromString(clienteExcel.SegundaAbertura);
             cliente.DtFimExpedienteAlternativo = GetHoursWithMinutesFromString(clienteExcel.SegundoFechamento);
+
+            _persistenceDataContext.ClienteRepository.UpdateImportacao(cliente);
         }
 
         private bool GetBooleanFromString(string textToFind)
@@ -128,6 +131,8 @@ namespace HBSIS.GE.Microservices.FileImporter.Consumer.FileImporterStrategies
 
         private DateTime GetHoursWithMinutesFromString(string textToFind)
         {
+            textToFind = Regex.Match(textToFind, @"[0-9]{1,2}:[0-9]{1,2}").Value;
+
             string[] timePlaces = textToFind.Split(":");
             int hour = 0;
             int minute = 0;

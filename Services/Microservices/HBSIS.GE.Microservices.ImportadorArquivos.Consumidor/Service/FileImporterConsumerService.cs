@@ -34,13 +34,20 @@ namespace HBSIS.GE.Microservices.FileImporter.Consumer.Service
         
         protected override Result Process(FileImporterMessage message)
         {
-            foreach(var strategy in _singletonFileProcessStrategies)
+            //foreach(var strategyPair in _singletonFileProcessStrategies)
+            //{
+            //    if(strategyPair.Key.ToLower().Contains(message.FileType.ToLower()))
+            //    {
+            //        var strategy = (FileImporterStrategy<SpreadsheetLineBase>)(strategyPair.Value);
+            //        strategy.ImportData(message.Data);
+
+            //        break;
+            //    }
+            //}
+
+            if(message.FileType.ToUpper().Contains("GE-CLIENTES-01-"))
             {
-                if(strategy.Key.Contains(message.FileType))
-                {
-                    ((FileImporterStrategy<SpreadsheetLineBase>)strategy.Value).ImportData(message.Data);
-                    break;
-                }
+                new ClienteFileImporter().ImportData((ClienteSpreadsheetLine)message.Data);
             }
 
             return ResultBuilder.Success();
@@ -48,10 +55,6 @@ namespace HBSIS.GE.Microservices.FileImporter.Consumer.Service
         
         protected override Result ValidateMessage(FileImporterMessage message)
         {
-            //if (Guid.Empty.Equals(message.IdTransporteParada)) return ResultBuilder.Warning(ValidationMessages.ParadaNaoInformada);
-
-            //if (string.IsNullOrEmpty(message.EventName)) return ResultBuilder.Warning(ValidationMessages.OperacaoInvalida);
-
             return ResultBuilder.Success();
         }
     }

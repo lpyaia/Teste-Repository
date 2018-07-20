@@ -44,7 +44,7 @@ namespace HBSIS.GE.FileImporter.Services.Persistence.Repository
             }
         }
 
-        public override void Update(Cliente cliente)
+        public void UpdateImportacao(Cliente cliente)
         {
             using (var dapperConnection = AbreConexao())
             {
@@ -53,7 +53,7 @@ namespace HBSIS.GE.FileImporter.Services.Persistence.Repository
                 dapperConnection.ExecuteScalar(@"
                     UPDATE [OPMDM].[TB_CLIENTE]
                     SET DtInicioExpediente = @DtInicioExpediente,
-                        DtFimExpediente = @DtFimExpediente
+                        DtFimExpediente = @DtFimExpediente,
                         DtInicioExpedienteAlternativo = @DtInicioExpedienteAlternativo,
                         DtFimExpedienteAlternativo = @DtFimExpedienteAlternativo,
                         IdDiasRestricao = @IdDiasRestricao,
@@ -78,7 +78,7 @@ namespace HBSIS.GE.FileImporter.Services.Persistence.Repository
             }
         }
 
-        public long InsertCliente(Cliente cliente)
+        public long InsertImportacao(Cliente cliente)
         {
             long cdCliente = 0;
 
