@@ -1,0 +1,44 @@
+0000000000000000000000000000000000000000 5584dfc16e9857c000cd78adf75fbdb1f3f1201c Lucas Pyaia França <lucas.franca@hbsis.com.br> 1525353824 -0300	commit (initial): Adicionado o README.md do projeto
+5584dfc16e9857c000cd78adf75fbdb1f3f1201c cfc53d0c264caf5f6b8cbf1985abe8a04bb23ee3 Lucas Pyaia França <lucas.franca@hbsis.com.br> 1525356833 -0300	commit: Solution Visual Studio Fluxo LES adicionado
+cfc53d0c264caf5f6b8cbf1985abe8a04bb23ee3 b3b75763b34a62f1a585ea88ae52b42f28cd3d85 Lucas Pyaia França <lucas.franca@hbsis.com.br> 1525358791 -0300	commit: Adicionado arquivos que estão faltando
+b3b75763b34a62f1a585ea88ae52b42f28cd3d85 8c1c08e04991d622309179e7753adb588d0597bc Lucas Pyaia França <lucas.franca@hbsis.com.br> 1525359183 -0300	commit: Adicionado arquivos que faltam.
+8c1c08e04991d622309179e7753adb588d0597bc 98843368c719e9e9d00ead1b9ae515e3279ef774 Lucas Pyaia França <lucas.franca@hbsis.com.br> 1525364053 -0300	commit: Remoção de bin e obj
+98843368c719e9e9d00ead1b9ae515e3279ef774 9ad8874ed6dcffff8e20b126bac9b704e5d287a5 Lucas Pyaia França <lucas.franca@hbsis.com.br> 1525364655 -0300	commit: Adicionado o arquivo gitignore ao projeto
+9ad8874ed6dcffff8e20b126bac9b704e5d287a5 7e337809f57c10eb6b18c5fdb74b6c5a3d61e3b5 Lucas Pyaia França <lucas.franca@hbsis.com.br> 1525364905 -0300	commit: Atualizado o arquivo de ignores do git.
+7e337809f57c10eb6b18c5fdb74b6c5a3d61e3b5 0fa4999417722a8807c9873910618ae8b2576f3c Lucas Pyaia França <lucas.franca@hbsis.com.br> 1525364963 -0300	commit: Removido arquivo .suo
+0fa4999417722a8807c9873910618ae8b2576f3c 0a3a5321f4afd3db0a0112a6f21f73722fcdbdcc Lucas Pyaia França <lucas.franca@hbsis.com.br> 1525365825 -0300	commit: Removido pasta .vs
+0a3a5321f4afd3db0a0112a6f21f73722fcdbdcc 1c8b42ccaffe670051243d48aa5de54c4becf7c9 Lucas Pyaia França <lucas.franca@hbsis.com.br> 1525365863 -0300	pull origin master: Merge made by the 'recursive' strategy.
+1c8b42ccaffe670051243d48aa5de54c4becf7c9 e78ea383d513c5964e1d2554da3a944a1ad51445 Lucas Pyaia França <lucas.franca@hbsis.com.br> 1525784069 -0300	commit: Arquivos de configuração
+e78ea383d513c5964e1d2554da3a944a1ad51445 fc3906f990239d4a7e85df128d634e8a1b838d58 Lucas Pyaia França <lucas.franca@hbsis.com.br> 1525897165 -0300	commit: Conexão com o banco de dados através do dapper.
+fc3906f990239d4a7e85df128d634e8a1b838d58 50f5a5fb2422b3c7bab1a0e2fdb3390ec8d4eae3 Lucas Pyaia França <lucas.franca@hbsis.com.br> 1525983955 -0300	commit: Criada persistencia com o dapper. Add ocorrências fluxo les.
+50f5a5fb2422b3c7bab1a0e2fdb3390ec8d4eae3 53951a1c3f4fd893e4a1a2938f84d9718062839c Lucas Pyaia França <lucas.franca@hbsis.com.br> 1526049208 -0300	commit: Processamento das ocorrencias e criação do xml
+53951a1c3f4fd893e4a1a2938f84d9718062839c f28a0070bd487a6cc6f458f59466b70c57a6bd2a Lucas Pyaia França <lucas.franca@hbsis.com.br> 1526069792 -0300	commit: Correções e melhorias para o processamento de mensagens da fila.
+f28a0070bd487a6cc6f458f59466b70c57a6bd2a 5d16a5333523a06a760cabb2612e2809a7af8c2a Lucas Pyaia França <lucas.franca@hbsis.com.br> 1526519843 -0300	commit: Desenvolvido três indicadores do FluxoLES.
+5d16a5333523a06a760cabb2612e2809a7af8c2a 06562e3d5b271fc5159b17685b06e1fe449c10c3 Lucas Pyaia França <lucas.franca@hbsis.com.br> 1526675951 -0300	commit: Desenvolvido indicador Devolução Transportador. Criado novos repositories.
+06562e3d5b271fc5159b17685b06e1fe449c10c3 997e8514b292853eeab611ade4db1a7573fcb348 Lucas Pyaia França <lucas.franca@hbsis.com.br> 1527100765 -0300	commit: Indicadores Reentrega e Adicional de Balsa.
+997e8514b292853eeab611ade4db1a7573fcb348 199c9845fbe2bd7ea3dcafc8e927408dab9de321 Lucas Pyaia França <lucas.franca@hbsis.com.br> 1527538910 -0300	commit: Divergencia em KM => Aderencia KPI no Raio, Inicio ou Fim no Raio, Motorista ou Sistema finalizou a rota.
+199c9845fbe2bd7ea3dcafc8e927408dab9de321 3b3d4552c5d761bb7543cbae417d832e9621f17c Lucas Pyaia França <lucas.franca@hbsis.com.br> 1527643716 -0300	commit: Adicionado campo MultiTransporte. Adicionado regra avaliar usuário que finalizou a rota (divergência KM).
+3b3d4552c5d761bb7543cbae417d832e9621f17c 63c904f0c3a418d1af96e477747999c065499549 Lucas Pyaia França <lucas.franca@hbsis.com.br> 1527645280 -0300	commit: Bug fix e correções na formatação do xml.
+63c904f0c3a418d1af96e477747999c065499549 3d4114f736648b6a6410a7910b5cd59a9ff68052 Lucas Pyaia França <lucas.franca@hbsis.com.br> 1527698280 -0300	commit: Adicionado Unidade de Negócio.
+3d4114f736648b6a6410a7910b5cd59a9ff68052 3a1cbf26a332228b87203b3ed2b8b31df5f7b3de Lucas Pyaia França <lucas.franca@hbsis.com.br> 1527698448 -0300	commit: IUnidadeNegocioRepository fix
+3a1cbf26a332228b87203b3ed2b8b31df5f7b3de 8684178825f22f6c35e62a3ac0a87852adc90b46 Lucas Pyaia França <lucas.franca@hbsis.com.br> 1527715275 -0300	commit: Houve adicional de MEIA-PERNOITE (Cruzamento de raios para verificação)
+8684178825f22f6c35e62a3ac0a87852adc90b46 ecb7bdbc7c2191eaa9c07183945db2718f1dc54d Lucas Pyaia França <lucas.franca@hbsis.com.br> 1527865179 -0300	commit: AdicionalMeiaPernoite
+ecb7bdbc7c2191eaa9c07183945db2718f1dc54d 645c12f888edba405daf7ebb79bc0ed01ec70a23 Lucas Pyaia França <lucas.franca@hbsis.com.br> 1527879957 -0300	commit: Refatoração DbContext e Repositories.
+645c12f888edba405daf7ebb79bc0ed01ec70a23 91ff592f49ac7ac5f380fc1f98278edcd7f6866a Lucas Pyaia França <lucas.franca@hbsis.com.br> 1528201633 -0300	pull origin master: Fast-forward
+91ff592f49ac7ac5f380fc1f98278edcd7f6866a 23ea14b23b9324c9adde0553cbfa5a9e872e8ede Lucas Pyaia França <lucas.franca@hbsis.com.br> 1528210487 -0300	pull origin master: Fast-forward
+23ea14b23b9324c9adde0553cbfa5a9e872e8ede 08b07a26d3236524bff915f7d9d4b19b8b8d1d5a Lucas Pyaia França <lucas.franca@hbsis.com.br> 1528310765 -0300	commit: Criacao do Job de reenvio das requisições que falharam.
+08b07a26d3236524bff915f7d9d4b19b8b8d1d5a 717928b9426a0ada6c69aeb0308bdbbf3abc2533 Lucas Pyaia França <lucas.franca@hbsis.com.br> 1528310976 -0300	commit (merge): Merge.
+717928b9426a0ada6c69aeb0308bdbbf3abc2533 7b37acebfa12a4810c84e6319ed8d0b64f6a59b9 Lucas Pyaia França <lucas.franca@hbsis.com.br> 1528734602 -0300	commit: Correções no build do projeto.
+7b37acebfa12a4810c84e6319ed8d0b64f6a59b9 95d3abf31ed4b4f24708cc16d470c8b54ee4cc10 Lucas Pyaia França <lucas.franca@hbsis.com.br> 1528734652 -0300	commit (merge): Merge
+95d3abf31ed4b4f24708cc16d470c8b54ee4cc10 20b5248c3dcb0be4342cd3ce02ce666bb45a8892 Lucas Pyaia França <lucas.franca@hbsis.com.br> 1528741179 -0300	commit: Adicionado novo arquivo de log para o job.
+20b5248c3dcb0be4342cd3ce02ce666bb45a8892 590b3e2cdf3ff14d73ebf683d9057b1c46b261da Lucas Pyaia França <lucas.franca@hbsis.com.br> 1528741223 -0300	commit: Adicionado arquivos de configuração.
+590b3e2cdf3ff14d73ebf683d9057b1c46b261da d365bccc5fed67e041de0e78ad0626c7aed8d366 Lucas Pyaia França <lucas.franca@hbsis.com.br> 1528920149 -0300	commit: Avaliar deslocamentos para almoço, pernoite e abastecimento
+d365bccc5fed67e041de0e78ad0626c7aed8d366 ff3466c6f073328c7106a5438003922cf54520f3 Lucas Pyaia França <lucas.franca@hbsis.com.br> 1529095376 -0300	commit: Avaliar zona de sombra e celular desligado.
+ff3466c6f073328c7106a5438003922cf54520f3 1f134bdce788c86202bfc05153961e775770356a Lucas Pyaia França <lucas.franca@hbsis.com.br> 1529355465 -0300	commit: inicio do dev do indicador Avaliacao PNP
+1f134bdce788c86202bfc05153961e775770356a 1e20f55304d4303e28d61a8183ef541135d0317a Lucas Pyaia França <lucas.franca@hbsis.com.br> 1529435528 -0300	commit: Avaliar PNPs da rota
+1e20f55304d4303e28d61a8183ef541135d0317a be8cf3f82dfe65f3e49ed16064f2d3eb0c3073aa lpyaia <lucas.franca@hbsis.com.br> 1531767423 -0300	commit: Alterações para os jiras 2266 e 2267 (alterar regra divergência diária; inserir código sequência para as ocorrências)
+be8cf3f82dfe65f3e49ed16064f2d3eb0c3073aa efc9947da291a60f4c9259400c199e68e2d2b1ec lpyaia <lucas.franca@hbsis.com.br> 1531839401 -0300	commit: Melhorias na arquitetura.
+efc9947da291a60f4c9259400c199e68e2d2b1ec 07c4a378a0a98032ad9876972266c0351f99f127 lpyaia <lucas.franca@hbsis.com.br> 1531839467 -0300	commit: Atualização da solution.
+07c4a378a0a98032ad9876972266c0351f99f127 e0fff585b35658b18e2876df77ab578a53f44611 lpyaia <lucas.franca@hbsis.com.br> 1531839611 -0300	commit: Atualização da solution.
+e0fff585b35658b18e2876df77ab578a53f44611 5d44d9f5f39f7daa8cdff5b4faa3a43f777de3c8 lpyaia <lucas.franca@hbsis.com.br> 1531860645 -0300	commit: Conversão da entidade para o obj do request do WS.
+5d44d9f5f39f7daa8cdff5b4faa3a43f777de3c8 8188cb5c6d0e657a6e5c10bb2454706bca0ede1e lpyaia <lucas.franca@hbsis.com.br> 1531925096 -0300	commit: Integração com o Webservice da BRF.

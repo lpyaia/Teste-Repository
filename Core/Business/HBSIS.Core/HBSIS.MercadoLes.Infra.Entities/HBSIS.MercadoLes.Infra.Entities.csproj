@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\Framework\HBSIS.Framework.Commons\HBSIS.Framework.Commons.csproj" />
+    <ProjectReference Include="..\..\..\Core\Framework\HBSIS.Framework.Data.Dapper\HBSIS.Framework.Data.Dapper.csproj" />
+  </ItemGroup>
+
+</Project>

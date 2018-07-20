@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="SI_RET_TRANSPORTE" targetNamespace="http://www.hbsis.com.br/" xmlns:p1="http://www.hbsis.com.br/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation/>
+  <wsp:UsingPolicy wsdl:required="true"/>
+  <wsp:Policy wsu:Id="OP_SI_RET_TRANSPORTE"/>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.hbsis.com.br/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.hbsis.com.br/">
+      <xsd:element name="FMT_ENVIO_Fault">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="standard" type="ExchangeFaultData"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="MT_RET_TRANSPORTE" type="DT_RET_TRANSPORTE"/>
+      <xsd:element name="MT_RET_TRANSPORTE_Response" type="DT_RET_TRANSPORTE_Response"/>
+      <xsd:complexType name="ExchangeLogData">
+        <xsd:annotation>
+          <xsd:appinfo source="http://sap.com/xi/VersionID">ace747c450cb11e5c9b400000147fe36</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="severity" type="xsd:string" minOccurs="0"/>
+          <xsd:element name="text" type="xsd:string"/>
+          <xsd:element name="url" type="xsd:string" minOccurs="0"/>
+          <xsd:element name="id" type="xsd:string" minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DT_RET_TRANSPORTE_Response">
+        <xsd:annotation>
+          <xsd:appinfo source="http://sap.com/xi/VersionID">1f74dfbf024311e6c85900000147fe36</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="E_RETORNO" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">ea3bf64a50dd11e5bdc3641c67763b74</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="TP_MES" type="xsd:string" minOccurs="0">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">ea3b794650dd11e58f09641c67763b74</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="MESSAGE" type="xsd:string" minOccurs="0">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">ea3b794850dd11e5a389641c67763b74</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ExchangeFaultData">
+        <xsd:annotation>
+          <xsd:appinfo source="http://sap.com/xi/VersionID">acc34cbf50cb11e5917100000147fe36</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="faultText" type="xsd:string"/>
+          <xsd:element name="faultUrl" type="xsd:string" minOccurs="0"/>
+          <xsd:element name="faultDetail" type="ExchangeLogData" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DT_RET_TRANSPORTE">
+        <xsd:annotation>
+          <xsd:appinfo source="http://sap.com/xi/VersionID">29eec17e0c7c11e698d500000147fe36</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="I_MAPA" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">ea3bf64a50dd11e5bdc3641c67763b74</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="FATURA" type="xsd:string" minOccurs="0">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">768824745bd511e5a7dd641c67763b74</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="TRANSPORTE" type="xsd:string" minOccurs="0">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">ea3b794450dd11e58bb9641c67763b74</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="DT_ENTREGA" type="xsd:string" minOccurs="0">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">ea3b794650dd11e58f09641c67763b74</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="HR_ENTREGA" type="xsd:string" minOccurs="0">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">ea3b794850dd11e5a389641c67763b74</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="MT_RET_TRANSPORTE">
+    <wsdl:documentation/>
+    <wsdl:part name="MT_RET_TRANSPORTE" element="p1:MT_RET_TRANSPORTE"/>
+  </wsdl:message>
+  <wsdl:message name="MT_RET_TRANSPORTE_Response">
+    <wsdl:documentation/>
+    <wsdl:part name="MT_RET_TRANSPORTE_Response" element="p1:MT_RET_TRANSPORTE_Response"/>
+  </wsdl:message>
+  <wsdl:message name="FMT_ENVIO_Fault">
+    <wsdl:documentation/>
+    <wsdl:part name="FMT_ENVIO_Fault" element="p1:FMT_ENVIO_Fault"/>
+  </wsdl:message>
+  <wsdl:portType name="SI_RET_TRANSPORTE">
+    <wsdl:documentation/>
+    <wsdl:operation name="SI_RET_TRANSPORTE">
+      <wsdl:documentation/>
+      <wsp:Policy>
+        <wsp:PolicyReference URI="#OP_SI_RET_TRANSPORTE"/>
+      </wsp:Policy>
+      <wsdl:input message="p1:MT_RET_TRANSPORTE"/>
+      <wsdl:output message="p1:MT_RET_TRANSPORTE_Response"/>
+      <wsdl:fault name="FMT_ENVIO_Fault" message="p1:FMT_ENVIO_Fault"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SI_RET_TRANSPORTEBinding" type="p1:SI_RET_TRANSPORTE">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+    <wsdl:operation name="SI_RET_TRANSPORTE">
+      <soap:operation soapAction="http://sap.com/xi/WebService/soap1.1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      <wsdl:input>
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </wsdl:output>
+      <wsdl:fault name="FMT_ENVIO_Fault">
+        <soap:fault use="literal" name="FMT_ENVIO_Fault" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SI_RET_TRANSPORTEService">
+    <wsdl:port name="HTTP_Port" binding="p1:SI_RET_TRANSPORTEBinding">
+      <soap:address location="http://spouxp2q:50400/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=BC_HB_SIS&amp;receiverParty=&amp;receiverService=&amp;interface=SI_RET_TRANSPORTE&amp;interfaceNamespace=http%3A%2F%2Fwww.hbsis.com.br%2F" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+    </wsdl:port>
+    <wsdl:port name="HTTPS_Port" binding="p1:SI_RET_TRANSPORTEBinding">
+      <soap:address location="https://spouxp2q:50401/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=BC_HB_SIS&amp;receiverParty=&amp;receiverService=&amp;interface=SI_RET_TRANSPORTE&amp;interfaceNamespace=http%3A%2F%2Fwww.hbsis.com.br%2F" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

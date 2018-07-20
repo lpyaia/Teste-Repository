@@ -1,0 +1,70 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{C04AD8B9-BBC8-4C39-B7C8-FDE44D0C732E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{E8390F90-EAB2-4CED-9315-0A5997570946}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integracao", "Integracao", "{20F20404-A8A1-46E7-838D-E6934A19BE04}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microservices", "Microservices", "{7BDADF7B-37A4-4B95-86EF-42A82F98D6A0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{3AD26226-C769-4209-BEF0-48AC691563DB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{24988875-BFD7-4999-8B20-7DA0E12A7BF2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HBSIS.MercadoLes.Services.Commons.Tests", "HBSIS.MercadoLes.Services.Commons.Tests\HBSIS.MercadoLes.Services.Commons.Tests.csproj", "{05EFD76C-6890-46F5-9C06-D0D2E2A769E2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HBSIS.Core", "..\Core\Business\HBSIS.Core\HBSIS.Core.csproj", "{1FD5896B-4238-44B8-AAA1-C71F881F7724}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HBSIS.Framework", "..\Core\Framework\HBSIS.Framework\HBSIS.Framework.csproj", "{272C3267-12A3-4669-A52D-C869246994DF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HBSIS.GE.Microservices.FileImporter.Consumer", "..\Services\Microservices\HBSIS.GE.Microservices.ImportadorArquivos.Consumidor\HBSIS.GE.Microservices.FileImporter.Consumer.csproj", "{B3F3C7D8-40FD-42B1-AC0B-EEC88F04F0DE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HBSIS.GE.Microservices.FileImporter.Producer", "..\Services\Microservices\HBSIS.GE.Microservices.ImportadorArquivos.Produtor\HBSIS.GE.Microservices.FileImporter.Producer.csproj", "{10B1FC3C-8A45-452A-B5DB-E000B02374BA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{05EFD76C-6890-46F5-9C06-D0D2E2A769E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05EFD76C-6890-46F5-9C06-D0D2E2A769E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05EFD76C-6890-46F5-9C06-D0D2E2A769E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05EFD76C-6890-46F5-9C06-D0D2E2A769E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FD5896B-4238-44B8-AAA1-C71F881F7724}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FD5896B-4238-44B8-AAA1-C71F881F7724}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FD5896B-4238-44B8-AAA1-C71F881F7724}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FD5896B-4238-44B8-AAA1-C71F881F7724}.Release|Any CPU.Build.0 = Release|Any CPU
+		{272C3267-12A3-4669-A52D-C869246994DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{272C3267-12A3-4669-A52D-C869246994DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{272C3267-12A3-4669-A52D-C869246994DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{272C3267-12A3-4669-A52D-C869246994DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3F3C7D8-40FD-42B1-AC0B-EEC88F04F0DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3F3C7D8-40FD-42B1-AC0B-EEC88F04F0DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3F3C7D8-40FD-42B1-AC0B-EEC88F04F0DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3F3C7D8-40FD-42B1-AC0B-EEC88F04F0DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10B1FC3C-8A45-452A-B5DB-E000B02374BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10B1FC3C-8A45-452A-B5DB-E000B02374BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10B1FC3C-8A45-452A-B5DB-E000B02374BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10B1FC3C-8A45-452A-B5DB-E000B02374BA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3AD26226-C769-4209-BEF0-48AC691563DB} = {C04AD8B9-BBC8-4C39-B7C8-FDE44D0C732E}
+		{24988875-BFD7-4999-8B20-7DA0E12A7BF2} = {7BDADF7B-37A4-4B95-86EF-42A82F98D6A0}
+		{05EFD76C-6890-46F5-9C06-D0D2E2A769E2} = {3AD26226-C769-4209-BEF0-48AC691563DB}
+		{1FD5896B-4238-44B8-AAA1-C71F881F7724} = {C04AD8B9-BBC8-4C39-B7C8-FDE44D0C732E}
+		{272C3267-12A3-4669-A52D-C869246994DF} = {E8390F90-EAB2-4CED-9315-0A5997570946}
+		{B3F3C7D8-40FD-42B1-AC0B-EEC88F04F0DE} = {7BDADF7B-37A4-4B95-86EF-42A82F98D6A0}
+		{10B1FC3C-8A45-452A-B5DB-E000B02374BA} = {7BDADF7B-37A4-4B95-86EF-42A82F98D6A0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F1C08CD3-A547-4761-89AF-2F538724074B}
+	EndGlobalSection
+EndGlobal

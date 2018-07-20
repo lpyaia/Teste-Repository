@@ -1,0 +1,25 @@
+<Integracao>
+  <NumeroRota>110737991</NumeroRota>
+  <MultiTransporte>
+    <NumeroRota>110737992</NumeroRota>
+    <NumeroRota>110737993</NumeroRota>
+  </MultiTransporte>
+  <Data>2106-07-28T00:00:00Z</Data>
+  <Placa>OOM8334</Placa>
+  <CnpjTransportador>97374409000290</CnpjTransportador>
+  <UnidadeNegocio>CD_CBA</UnidadeNegocio>
+  <Ocorrencias>
+    <Ocorrencia>
+      <Nome>DivergenciaDiaria</Nome>
+      <Quantidade>1</Quantidade>
+    </Ocorrencia>
+    <Ocorrencia>
+      <Nome>DivergenciaPernoite</Nome>
+      <Quantidade>0</Quantidade>
+    </Ocorrencia>
+    <Ocorrencia>
+      <Nome>DivergenciaKM</Nome>
+      <HouveDivergencia>false</HouveDivergencia>
+    </Ocorrencia>
+  </Ocorrencias>
+</Integracao>
