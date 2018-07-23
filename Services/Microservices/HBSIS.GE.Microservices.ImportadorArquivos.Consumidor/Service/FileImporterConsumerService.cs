@@ -59,7 +59,7 @@ namespace HBSIS.GE.Microservices.FileImporter.Consumer.Service
             {
                 ClienteSpreadsheetLine clienteMessage = (ClienteSpreadsheetLine)message.Data;
                 new ClienteFileImporter().ImportData(clienteMessage);
-                var data = new { fileGuid = message.FileGuid, totalFileRows = message.TotalFileRows };
+                var data = new { fileName = message.FileName, totalFileRows = message.TotalFileRows };
                 string jsonData = JsonConvert.SerializeObject(data);
 
                 var result = client.PostAsync("Servico.svc/servico/AtualizarStatusImportacaoArquivos", new StringContent(jsonData, Encoding.UTF8, "application/json")).GetAwaiter().GetResult();

@@ -14,15 +14,15 @@ namespace HBSIS.GE.FileImporter.Services.Messages.Message
 
         public int TotalFileRows { get; set; }
 
-        public string FileGuid { get; set; }
+        public string FileName { get; set; }
 
         public FileImporterMessage() { }
             
-        public FileImporterMessage(string fileType, SpreadsheetLineBase data, string fileGuid, int countRows, int totalFileRows)
+        public FileImporterMessage(string fileType, SpreadsheetLineBase data, string fileName, int countRows, int totalFileRows)
         {
             FileType = fileType;
             Data = data;
-            FileGuid = fileGuid;
+            FileName = fileName;
             CountRows = countRows;
             TotalFileRows = totalFileRows;
         }

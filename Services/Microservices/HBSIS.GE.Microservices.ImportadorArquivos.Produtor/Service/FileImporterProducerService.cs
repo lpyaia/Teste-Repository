@@ -68,6 +68,7 @@ namespace HBSIS.GE.Microservices.FileImporter.Producer.Service
             {
                 try
                 {
+                    string fileName = GetFileName(file);
                     bool processedFile = false;
 
                     using (FileStream stream = File.Open(file, FileMode.Open, FileAccess.Read))
@@ -80,7 +81,7 @@ namespace HBSIS.GE.Microservices.FileImporter.Producer.Service
                             if(stream.Name.ToLower().Contains(fileProcessPair.Key.ToLower()))
                             {
                                 var strategy = fileProcessPair.Value;
-                                strategy.Process(excelDataSet);
+                                strategy.Process(excelDataSet, fileName);
 
                                 processedFile = true;
                                 break;
@@ -90,7 +91,6 @@ namespace HBSIS.GE.Microservices.FileImporter.Producer.Service
 
                     if (processedFile)
                     {
-                        string fileName = GetFileName(file);
                         System.IO.File.Move(file, _sentFiles + fileName);
                     }
                 }

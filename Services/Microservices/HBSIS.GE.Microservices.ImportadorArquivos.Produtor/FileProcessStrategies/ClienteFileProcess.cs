@@ -9,11 +9,10 @@ namespace HBSIS.GE.Microservices.FileImporter.Producer.FileProcessStrategies
 {
     public class ClienteFileProcess : FileProcessStrategy
     {
-        public override void Process(DataSet excelSpreadsheet)
+        public override void Process(DataSet excelSpreadsheet, string fileName)
         {
             int totalFileRows = excelSpreadsheet.Tables[0].Rows.Count;
             int countRows = 1;
-            string fileGuid = Guid.NewGuid().ToString();
 
             foreach (DataRow rowColumn in excelSpreadsheet.Tables[0].Rows)
             {
@@ -58,7 +57,7 @@ namespace HBSIS.GE.Microservices.FileImporter.Producer.FileProcessStrategies
                     clienteSpreadsheetLine.TelefoneContato5 = rowColumn[28].ToString();
                     clienteSpreadsheetLine.EnviarSmsContato5 = rowColumn[29].ToString();
 
-                    FileImporterMessage message = new FileImporterMessage("GE-Clientes-01-", clienteSpreadsheetLine, fileGuid, countRows, totalFileRows);
+                    FileImporterMessage message = new FileImporterMessage("GE-Clientes-01-", clienteSpreadsheetLine, fileName, countRows, totalFileRows);
                     countRows++;
 
                     SendMessage(message);

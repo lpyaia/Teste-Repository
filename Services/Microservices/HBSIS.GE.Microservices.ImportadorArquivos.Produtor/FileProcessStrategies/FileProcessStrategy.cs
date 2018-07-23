@@ -10,7 +10,7 @@ namespace HBSIS.GE.Microservices.FileImporter.Producer.FileProcessStrategies
 {
     public abstract class FileProcessStrategy
     {
-        public abstract void Process(DataSet dataSet);
+        public abstract void Process(DataSet dataSet, string fileName);
 
         protected void SendMessage(FileImporterMessage message)
         {
