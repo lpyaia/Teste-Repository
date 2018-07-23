@@ -19,6 +19,7 @@ namespace HBSIS.Framework.Commons.Config
         public const string AppNameKey = "FWK_COMMONS_APPNAME";
         public const string Log4NetKey = "FWK_LOG_LOG4NET";
         public const string FileImporterPath = "FWK_FILEIMPORTER_PATH";
+        public const string EndpointWebServiceGE = "FWK_ENDPOINTWSGE";
         private const string SentFilesPath = "FWK_SENTFILES_PATH";
         private const string SQLConnectionStringKey = "FWK_DATA_SQL_CONNECTIONSTRING";
         private const string BusFactoryKey = "FWK_BUS_FACTORY";
@@ -135,6 +136,12 @@ namespace HBSIS.Framework.Commons.Config
         public static IConfiguration GetFileImporterPath(this IConfiguration configuration)
         {
             configuration.Put(FileImporterPath, AppSettingConfigurator.GetValueOrDefault("files"));
+            return configuration;
+        }
+
+        public static IConfiguration GetEndointWebServiceGE(this IConfiguration configuration)
+        {
+            configuration.Put(EndpointWebServiceGE, AppSettingConfigurator.GetValueOrDefault("endpointWebServiceGE"));
             return configuration;
         }
 

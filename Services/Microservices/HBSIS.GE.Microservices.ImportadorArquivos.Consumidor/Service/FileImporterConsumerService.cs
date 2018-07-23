@@ -7,15 +7,19 @@ using HBSIS.GE.FileImporter.Services.Messages.Message;
 using System.Collections.Generic;
 using HBSIS.GE.Microservices.FileImporter.Consumer.FileImporterStrategies;
 using HBSIS.Core.HBSIS.GE.FileImporter.Infra.ExcelModels;
+using System.Net.Http;
+using HBSIS.Framework.Commons.Config;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace HBSIS.GE.Microservices.FileImporter.Consumer.Service
 {
     public class FileImporterConsumerService : BusinessService<FileImporterMessage>
     {
-        private const int _tentativas = 10;
-        private const int _tempoEspera = 30 * 1000;
         private PersistenceDataContext _dbContext;
-        private IFileImporterConsumerConfigurator _configurator;
+        private IConfiguration _configurator;
+        private string _endpointWebServiceGE;
+        private HttpClient client;
 
         /// <summary>
         /// Key: Nome do tipo do arquivo a ser processado.
@@ -23,13 +27,19 @@ namespace HBSIS.GE.Microservices.FileImporter.Consumer.Service
         /// </summary>
         private Dictionary<string, IFileImporterStrategy> _singletonFileProcessStrategies;
 
-        public FileImporterConsumerService(IFileImporterConsumerConfigurator configurator)
+        public FileImporterConsumerService(IConfiguration configurator)
         {
             _dbContext = new PersistenceDataContext();
             _configurator = configurator;
+            
+            _endpointWebServiceGE = configurator.Get<string>("FWK_ENDPOINTWSGE");
 
             _singletonFileProcessStrategies = new Dictionary<string, IFileImporterStrategy>();
             _singletonFileProcessStrategies.Add("GE-CLIENTES-01-", new ClienteFileImporter());
+
+            client = new HttpClient();
+            client.BaseAddress = new System.Uri(_endpointWebServiceGE);
+            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
         }
         
         protected override Result Process(FileImporterMessage message)
@@ -47,7 +57,12 @@ namespace HBSIS.GE.Microservices.FileImporter.Consumer.Service
 
             if(message.FileType.ToUpper().Contains("GE-CLIENTES-01-"))
             {
-                new ClienteFileImporter().ImportData((ClienteSpreadsheetLine)message.Data);
+                ClienteSpreadsheetLine clienteMessage = (ClienteSpreadsheetLine)message.Data;
+                new ClienteFileImporter().ImportData(clienteMessage);
+                var data = new { fileGuid = message.FileGuid, totalFileRows = message.TotalFileRows };
+                string jsonData = JsonConvert.SerializeObject(data);
+
+                var result = client.PostAsync("Servico.svc/servico/AtualizarStatusImportacaoArquivos", new StringContent(jsonData, Encoding.UTF8, "application/json")).GetAwaiter().GetResult();
             }
 
             return ResultBuilder.Success();

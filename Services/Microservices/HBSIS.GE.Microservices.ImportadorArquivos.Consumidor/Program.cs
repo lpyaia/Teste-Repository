@@ -27,10 +27,11 @@ namespace HBSIS.GE.Microservices.FileImporter.Consumer
                      .UseMongoConnectionString("hbsis.importer-log")
                      .GetFileImporterPath()
                      .GetSentFilesPath()
+                     .GetEndointWebServiceGE()
                      .Configure();
 
             var consumerService = ConsumerServiceControl.Create<FileImporterConsumerService, FileImporterMessage>
-                (new FileImporterConsumerService(FileImporterConsumerConfigurator.GetInstance()), "GE-ImportacaoArquivos");
+                (new FileImporterConsumerService(Configuration.Actual), "GE-ImportacaoArquivos");
 
             while (!consumerService.Start())
             {

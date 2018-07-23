@@ -34,8 +34,8 @@ namespace HBSIS.GE.Microservices.FileImporter.Producer.Service
             _dbContext = new PersistenceDataContext();
             _configurator = configurator;
 
-            _filePath = Configuration.Actual.Get<string>("FWK_FILEIMPORTER_PATH");
-            _sentFiles = Configuration.Actual.Get<string>("FWK_SENTFILES_PATH");
+            _filePath = configurator.Get<string>("FWK_FILEIMPORTER_PATH");
+            _sentFiles = configurator.Get<string>("FWK_SENTFILES_PATH");
 
             CreateDirectoryIfNotExists(_filePath);
             CreateDirectoryIfNotExists(_sentFiles);
@@ -75,11 +75,13 @@ namespace HBSIS.GE.Microservices.FileImporter.Producer.Service
                         var excelDataSet = ConvertExcelToDataSet(stream);
 
                         // Seleciona a strategy a ser utilizada através do nome do arquivo lido
-                        foreach(var strategy in _singletonFileProcessStrategies)
+                        foreach(var fileProcessPair in _singletonFileProcessStrategies)
                         {
-                            if(stream.Name.ToLower().Contains(strategy.Key.ToLower()))
+                            if(stream.Name.ToLower().Contains(fileProcessPair.Key.ToLower()))
                             {
-                                strategy.Value.Process(excelDataSet);
+                                var strategy = fileProcessPair.Value;
+                                strategy.Process(excelDataSet);
+
                                 processedFile = true;
                                 break;
                             }
