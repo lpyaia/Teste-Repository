@@ -34,7 +34,7 @@ namespace HBSIS.GE.Microservices.FileImporter.Producer
                      .Configure();
 
             fileImporterProducerService = new FileImporterProducerService(Configuration.Actual);
-            Timer timer = new Timer(FileProcess, null, 0, 1000 * 60 * 5);
+            Timer timer = new Timer(FileProcess, null, 0, 1000);
 
             while (Console.ReadLine() != "q") ;
 

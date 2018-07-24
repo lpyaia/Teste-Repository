@@ -22,13 +22,14 @@ namespace HBSIS.GE.Microservices.FileImporter.Producer.Service
         private string _sentFiles;
         private PersistenceDataContext _dbContext;
         private IConfiguration _configurator;
+        private List<string> _lockedFiles;
 
         /// <summary>
         /// Key: Nome do tipo do arquivo a ser processado.
         /// Value: A partir do nome do tipo do arquivo irá se obter o strategy correspondente
         /// </summary>
         private Dictionary<string, FileProcessStrategy> _singletonFileProcessStrategies;
-        
+
         public FileImporterProducerService(IConfiguration configurator)
         {
             _dbContext = new PersistenceDataContext();
@@ -39,6 +40,8 @@ namespace HBSIS.GE.Microservices.FileImporter.Producer.Service
 
             CreateDirectoryIfNotExists(_filePath);
             CreateDirectoryIfNotExists(_sentFiles);
+
+            _lockedFiles = new List<string>();
 
             _singletonFileProcessStrategies = new Dictionary<string, FileProcessStrategy>();
             _singletonFileProcessStrategies.Add("GE-CLIENTES-01-", new ClienteFileProcess());
@@ -57,45 +60,50 @@ namespace HBSIS.GE.Microservices.FileImporter.Producer.Service
             DirectoryInfo directoryInfo = new DirectoryInfo(_filePath);
             var directoryFiles = Directory
                 .EnumerateFiles(_filePath)
-                .Where(file => file.ToLower().EndsWith(".xls") 
-                    || file.ToLower().EndsWith(".xlsx") 
+                .Where(file => file.ToLower().EndsWith(".xls")
+                    || file.ToLower().EndsWith(".xlsx")
                     || file.ToLower().EndsWith(".csv"));
 
             // Registra o encoding para funcionar o ExcelDataReader no dotnet core
             System.Text.Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-            foreach (var file in directoryFiles)
+            foreach (var filePath in directoryFiles)
             {
                 try
                 {
-                    string fileName = GetFileName(file);
-                    bool processedFile = false;
+                    string fileName = GetFileName(filePath);
 
-                    using (FileStream stream = File.Open(file, FileMode.Open, FileAccess.Read))
+                    if (File.Exists(filePath) && !IsFileLocked(fileName))
                     {
-                        var excelDataSet = ConvertExcelToDataSet(stream);
+                        bool processedFile = false;
 
-                        // Seleciona a strategy a ser utilizada através do nome do arquivo lido
-                        foreach(var fileProcessPair in _singletonFileProcessStrategies)
+                        using (FileStream stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
                         {
-                            if(stream.Name.ToLower().Contains(fileProcessPair.Key.ToLower()))
-                            {
-                                var strategy = fileProcessPair.Value;
-                                strategy.Process(excelDataSet, fileName);
+                            var excelDataSet = ConvertExcelToDataSet(stream);
 
-                                processedFile = true;
-                                break;
+                            // Seleciona a strategy a ser utilizada através do nome do arquivo lido
+                            foreach (var fileProcessPair in _singletonFileProcessStrategies)
+                            {
+                                if (stream.Name.ToLower().Contains(fileProcessPair.Key.ToLower()))
+                                {
+                                    var strategy = fileProcessPair.Value;
+                                    strategy.Process(excelDataSet, fileName);
+
+                                    processedFile = true;
+                                    break;
+                                }
                             }
                         }
-                    }
 
-                    if (processedFile)
-                    {
-                        System.IO.File.Move(file, _sentFiles + fileName);
+                        if (processedFile)
+                        {
+                            System.IO.File.Move(filePath, _sentFiles + fileName);
+                            _lockedFiles.Remove(fileName);
+                        }
                     }
                 }
 
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     LoggerHelper.Error($"{ex.Message} - INNER EXCEPTION: {ex.InnerException?.ToString()}");
                 }
@@ -107,6 +115,15 @@ namespace HBSIS.GE.Microservices.FileImporter.Producer.Service
             throw new NotImplementedException();
         }
 
+        private bool IsFileLocked(string fileName)
+        {
+            if (_lockedFiles.Contains(fileName))
+                return true;
+
+            _lockedFiles.Add(fileName);
+            return false;
+        }
+        
         private DataSet ConvertExcelToDataSet(FileStream stream)
         {
             IExcelDataReader excelReader;
