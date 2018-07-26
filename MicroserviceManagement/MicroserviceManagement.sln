@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HBSIS.GE.MicroserviceManagement.Model", "HBSIS.GE.MicroserviceManagement.Model\HBSIS.GE.MicroserviceManagement.Model.csproj", "{1665C3C0-3547-4EDE-846B-6737F8E163B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HBSIS.GE.MicroserviceManagement.Data.Entity", "HBSIS.GE.MicroserviceManagement.Data.Entity\HBSIS.GE.MicroserviceManagement.Data.Entity.csproj", "{B26CE030-DD73-41E6-9C42-A26C02EA32AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HBSIS.GE.MicroserviceManagement.Repository", "HBSIS.GE.MicroserviceManagement.Repository\HBSIS.GE.MicroserviceManagement.Repository.csproj", "{9BA56917-090F-4FDD-B20B-9B1BF207C5A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HBSIS.GE.MicroserviceManagement.Service", "HBSIS.GE.MicroserviceManagement.Service\HBSIS.GE.MicroserviceManagement.Service.csproj", "{64E20A1E-818E-4480-A67D-4F0D997FE55A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HBSIS.GE.MicroserviceManagement.WinService", "HBSIS.GE.MicroserviceManagement.WinService\HBSIS.GE.MicroserviceManagement.WinService.csproj", "{80296443-CDFA-4B93-881D-4A016B2611D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HBSIS.GE.MicroserviceManagement.WinFormPresentation", "HBSIS.GE.MicroserviceManagement.WinFormPresentation\HBSIS.GE.MicroserviceManagement.WinFormPresentation.csproj", "{45470FB5-14D3-47E4-8D74-01A623DCF518}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1665C3C0-3547-4EDE-846B-6737F8E163B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1665C3C0-3547-4EDE-846B-6737F8E163B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1665C3C0-3547-4EDE-846B-6737F8E163B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1665C3C0-3547-4EDE-846B-6737F8E163B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B26CE030-DD73-41E6-9C42-A26C02EA32AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B26CE030-DD73-41E6-9C42-A26C02EA32AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B26CE030-DD73-41E6-9C42-A26C02EA32AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B26CE030-DD73-41E6-9C42-A26C02EA32AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BA56917-090F-4FDD-B20B-9B1BF207C5A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BA56917-090F-4FDD-B20B-9B1BF207C5A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BA56917-090F-4FDD-B20B-9B1BF207C5A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BA56917-090F-4FDD-B20B-9B1BF207C5A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64E20A1E-818E-4480-A67D-4F0D997FE55A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64E20A1E-818E-4480-A67D-4F0D997FE55A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64E20A1E-818E-4480-A67D-4F0D997FE55A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64E20A1E-818E-4480-A67D-4F0D997FE55A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80296443-CDFA-4B93-881D-4A016B2611D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80296443-CDFA-4B93-881D-4A016B2611D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80296443-CDFA-4B93-881D-4A016B2611D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80296443-CDFA-4B93-881D-4A016B2611D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45470FB5-14D3-47E4-8D74-01A623DCF518}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45470FB5-14D3-47E4-8D74-01A623DCF518}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45470FB5-14D3-47E4-8D74-01A623DCF518}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45470FB5-14D3-47E4-8D74-01A623DCF518}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FC206D14-6F4B-427E-BCAB-8890F89551F0}
+	EndGlobalSection
+EndGlobal

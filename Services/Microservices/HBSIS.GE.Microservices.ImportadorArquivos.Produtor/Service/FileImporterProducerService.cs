@@ -35,8 +35,10 @@ namespace HBSIS.GE.Microservices.FileImporter.Producer.Service
             _dbContext = new PersistenceDataContext();
             _configurator = configurator;
 
-            _filePath = configurator.Get<string>("FWK_FILEIMPORTER_PATH");
-            _sentFiles = configurator.Get<string>("FWK_SENTFILES_PATH");
+            var configuracaoGE = _dbContext.ConfiguracaoRepository.GetAll().First();
+            
+            _filePath = configuracaoGE.DsEnderecoSistema.TrimEnd('\\') + "\\ArquivosImportacao"; 
+            _sentFiles = _filePath + "\\ArquivosImportados";
 
             CreateDirectoryIfNotExists(_filePath);
             CreateDirectoryIfNotExists(_sentFiles);

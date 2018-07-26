@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HBSIS.GE.MicroserviceManagement.Data.Entity\HBSIS.GE.MicroserviceManagement.Data.Entity.csproj" />
+    <ProjectReference Include="..\HBSIS.GE.MicroserviceManagement.Model\HBSIS.GE.MicroserviceManagement.Model.csproj" />
+  </ItemGroup>
+
+</Project>

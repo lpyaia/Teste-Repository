@@ -133,21 +133,9 @@ namespace HBSIS.Framework.Commons.Config
             return ConnectionStringConfigurator.GetConnectionString(name);
         }
 
-        public static IConfiguration GetFileImporterPath(this IConfiguration configuration)
-        {
-            configuration.Put(FileImporterPath, AppSettingConfigurator.GetValueOrDefault("files"));
-            return configuration;
-        }
-
         public static IConfiguration GetEndointWebServiceGE(this IConfiguration configuration)
         {
             configuration.Put(EndpointWebServiceGE, AppSettingConfigurator.GetValueOrDefault("endpointWebServiceGE"));
-            return configuration;
-        }
-
-        public static IConfiguration GetSentFilesPath(this IConfiguration configuration)
-        {
-            configuration.Put(SentFilesPath, AppSettingConfigurator.GetValueOrDefault("sentFiles"));
             return configuration;
         }
 

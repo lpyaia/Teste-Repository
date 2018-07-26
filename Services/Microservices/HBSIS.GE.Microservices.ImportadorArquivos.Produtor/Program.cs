@@ -29,8 +29,6 @@ namespace HBSIS.GE.Microservices.FileImporter.Producer
                      .UseDataDapperFactory()
                      .UseDataMongoFactory()
                      .UseMongoConnectionString("hbsis.importer-log")
-                     .GetFileImporterPath()
-                     .GetSentFilesPath()
                      .Configure();
 
             fileImporterProducerService = new FileImporterProducerService(Configuration.Actual);
