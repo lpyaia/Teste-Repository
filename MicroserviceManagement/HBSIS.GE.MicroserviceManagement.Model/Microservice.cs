@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HBSIS.GE.MicroserviceManagement.Model;
+using System;
 using System.Collections.Generic;
 
 namespace HBSIS.GE.MicroserviceManagement
@@ -12,5 +13,7 @@ namespace HBSIS.GE.MicroserviceManagement
         public string FileExtension { get; set; }
         public string Directory { get; set; }
         public string Description { get; set; }
+
+        public ICollection<CustomerMicroservice> CustomersMicroservice { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HBSIS.GE.MicroserviceManagement.Model;
+using HBSIS.GE.MicroserviceManagement.Service;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,8 +18,39 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
         {
             InitializeComponent();
         }
+        
+        private void btnCreateCustomer_Click(object sender, EventArgs e)
+        {
+            Customer customer = new Customer();
+            customer.Name = txtName.Text;
+            customer.BaseDirectory = txtCustomerFolder.Text.TrimEnd('\\') + @"\";
 
-        private void txtCustomerFolder_TextChanged(object sender, EventArgs e)
+            CustomerService customerService = new CustomerService();
+            customerService.Insert(customer);
+
+            DialogResult dialog = MessageBox.Show("Cliente adicionado com sucesso.");
+
+            if(dialog == DialogResult.OK)
+            {
+                Sair();
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Sair();
+        }
+
+        private void Sair()
+        {
+            ListCustomerForm listCustomerForm = new ListCustomerForm();
+            listCustomerForm.Show();
+
+            this.Dispose();
+            this.Close();
+        }
+
+        private void txtCustomerFolder_Click(object sender, EventArgs e)
         {
             DialogResult dialogResult = folderDialog.ShowDialog();
 
@@ -26,6 +59,16 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
                 txtCustomerFolder.Text = folderDialog.SelectedPath;
                 Environment.SpecialFolder root = folderDialog.RootFolder;
             }
+        }
+
+        private void CreateCustomerForm_Load(object sender, EventArgs e)
+        {
+            Sair();
+        }
+
+        private void CreateCustomerForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Sair();
         }
     }
 }

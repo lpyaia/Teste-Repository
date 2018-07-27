@@ -28,20 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lstCustomer = new System.Windows.Forms.ListBox();
+            this.lstItemsCustomer = new System.Windows.Forms.ListBox();
             this.btnAddCustomer = new System.Windows.Forms.Button();
             this.btnEditCustomer = new System.Windows.Forms.Button();
             this.btnDeleteCustomer = new System.Windows.Forms.Button();
             this.btnSair = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // lstCustomer
+            // lstItemsCustomer
             // 
-            this.lstCustomer.FormattingEnabled = true;
-            this.lstCustomer.Location = new System.Drawing.Point(12, 12);
-            this.lstCustomer.Name = "lstCustomer";
-            this.lstCustomer.Size = new System.Drawing.Size(203, 277);
-            this.lstCustomer.TabIndex = 0;
+            this.lstItemsCustomer.FormattingEnabled = true;
+            this.lstItemsCustomer.Location = new System.Drawing.Point(12, 12);
+            this.lstItemsCustomer.Name = "lstItemsCustomer";
+            this.lstItemsCustomer.Size = new System.Drawing.Size(203, 277);
+            this.lstItemsCustomer.TabIndex = 0;
             // 
             // btnAddCustomer
             // 
@@ -51,6 +51,7 @@
             this.btnAddCustomer.TabIndex = 1;
             this.btnAddCustomer.Text = "Adicionar Cliente";
             this.btnAddCustomer.UseVisualStyleBackColor = true;
+            this.btnAddCustomer.Click += new System.EventHandler(this.btnAddCustomer_Click);
             // 
             // btnEditCustomer
             // 
@@ -60,6 +61,7 @@
             this.btnEditCustomer.TabIndex = 4;
             this.btnEditCustomer.Text = "Editar Cliente";
             this.btnEditCustomer.UseVisualStyleBackColor = true;
+            this.btnEditCustomer.Click += new System.EventHandler(this.btnEditCustomer_Click);
             // 
             // btnDeleteCustomer
             // 
@@ -69,6 +71,7 @@
             this.btnDeleteCustomer.TabIndex = 5;
             this.btnDeleteCustomer.Text = "Excluir Cliente";
             this.btnDeleteCustomer.UseVisualStyleBackColor = true;
+            this.btnDeleteCustomer.Click += new System.EventHandler(this.btnDeleteCustomer_Click);
             // 
             // btnSair
             // 
@@ -78,8 +81,9 @@
             this.btnSair.TabIndex = 6;
             this.btnSair.Text = "Sair";
             this.btnSair.UseVisualStyleBackColor = true;
+            this.btnSair.Click += new System.EventHandler(this.btnSair_Click);
             // 
-            // ListCustomersForm
+            // ListCustomerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -88,8 +92,8 @@
             this.Controls.Add(this.btnDeleteCustomer);
             this.Controls.Add(this.btnEditCustomer);
             this.Controls.Add(this.btnAddCustomer);
-            this.Controls.Add(this.lstCustomer);
-            this.Name = "ListCustomersForm";
+            this.Controls.Add(this.lstItemsCustomer);
+            this.Name = "ListCustomerForm";
             this.Text = "Empresas Cadastradas";
             this.ResumeLayout(false);
 
@@ -97,7 +101,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox lstCustomer;
+        private System.Windows.Forms.ListBox lstItemsCustomer;
         private System.Windows.Forms.Button btnAddCustomer;
         private System.Windows.Forms.Button btnEditCustomer;
         private System.Windows.Forms.Button btnDeleteCustomer;

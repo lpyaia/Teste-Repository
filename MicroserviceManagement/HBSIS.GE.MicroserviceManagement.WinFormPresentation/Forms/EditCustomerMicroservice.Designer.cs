@@ -1,6 +1,6 @@
 ﻿namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
 {
-    partial class CreateCustomerMicroservicecs
+    partial class EditCustomerMicroservice
     {
         /// <summary>
         /// Required designer variable.

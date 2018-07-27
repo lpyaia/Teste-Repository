@@ -8,5 +8,7 @@ namespace HBSIS.GE.MicroserviceManagement.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public string BaseDirectory { get; set; }
+
+        public ICollection<CustomerMicroservice> CustomerMicroservices { get; set; }
     }
 }

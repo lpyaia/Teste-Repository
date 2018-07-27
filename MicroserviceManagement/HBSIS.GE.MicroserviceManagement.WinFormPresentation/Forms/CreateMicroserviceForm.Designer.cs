@@ -32,16 +32,17 @@
             this.lblExecutableFolder = new System.Windows.Forms.Label();
             this.lblDescription = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtFileFolder = new System.Windows.Forms.TextBox();
+            this.txtDescription = new System.Windows.Forms.TextBox();
             this.btnCreateMicroservice = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // lblDisplayName
             // 
             this.lblDisplayName.AutoSize = true;
-            this.lblDisplayName.Location = new System.Drawing.Point(19, 28);
+            this.lblDisplayName.Location = new System.Drawing.Point(14, 30);
             this.lblDisplayName.Name = "lblDisplayName";
             this.lblDisplayName.Size = new System.Drawing.Size(96, 13);
             this.lblDisplayName.TabIndex = 0;
@@ -50,11 +51,11 @@
             // lblExecutableFolder
             // 
             this.lblExecutableFolder.AutoSize = true;
-            this.lblExecutableFolder.Location = new System.Drawing.Point(7, 54);
+            this.lblExecutableFolder.Location = new System.Drawing.Point(47, 54);
             this.lblExecutableFolder.Name = "lblExecutableFolder";
-            this.lblExecutableFolder.Size = new System.Drawing.Size(108, 13);
+            this.lblExecutableFolder.Size = new System.Drawing.Size(63, 13);
             this.lblExecutableFolder.TabIndex = 1;
-            this.lblExecutableFolder.Text = "Pasta do Executável:";
+            this.lblExecutableFolder.Text = "Executável:";
             // 
             // lblDescription
             // 
@@ -72,19 +73,20 @@
             this.txtName.Size = new System.Drawing.Size(158, 20);
             this.txtName.TabIndex = 4;
             // 
-            // textBox1
+            // txtFileFolder
             // 
-            this.textBox1.Location = new System.Drawing.Point(121, 51);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(158, 20);
-            this.textBox1.TabIndex = 5;
+            this.txtFileFolder.Location = new System.Drawing.Point(121, 51);
+            this.txtFileFolder.Name = "txtFileFolder";
+            this.txtFileFolder.Size = new System.Drawing.Size(158, 20);
+            this.txtFileFolder.TabIndex = 5;
+            this.txtFileFolder.Click += new System.EventHandler(this.txtFileFolder_Click);
             // 
-            // textBox2
+            // txtDescription
             // 
-            this.textBox2.Location = new System.Drawing.Point(121, 77);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(158, 20);
-            this.textBox2.TabIndex = 6;
+            this.txtDescription.Location = new System.Drawing.Point(121, 77);
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(158, 20);
+            this.txtDescription.TabIndex = 6;
             // 
             // btnCreateMicroservice
             // 
@@ -94,6 +96,7 @@
             this.btnCreateMicroservice.TabIndex = 7;
             this.btnCreateMicroservice.Text = "Criar";
             this.btnCreateMicroservice.UseVisualStyleBackColor = true;
+            this.btnCreateMicroservice.Click += new System.EventHandler(this.btnCreateMicroservice_Click);
             // 
             // btnCancel
             // 
@@ -103,6 +106,7 @@
             this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Cancelar";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // CreateMicroserviceForm
             // 
@@ -111,14 +115,15 @@
             this.ClientSize = new System.Drawing.Size(296, 151);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnCreateMicroservice);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtDescription);
+            this.Controls.Add(this.txtFileFolder);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.lblExecutableFolder);
             this.Controls.Add(this.lblDisplayName);
             this.Name = "CreateMicroserviceForm";
             this.Text = "Criar Microsserviço";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CreateMicroserviceForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -130,9 +135,10 @@
         private System.Windows.Forms.Label lblExecutableFolder;
         private System.Windows.Forms.Label lblDescription;
         private System.Windows.Forms.TextBox txtName;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtFileFolder;
+        private System.Windows.Forms.TextBox txtDescription;
         private System.Windows.Forms.Button btnCreateMicroservice;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }

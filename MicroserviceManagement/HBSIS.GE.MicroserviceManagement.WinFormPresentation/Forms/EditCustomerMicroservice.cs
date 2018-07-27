@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
 {
-    public partial class CreateCustomerMicroservicecs : Form
+    public partial class EditCustomerMicroservice : Form
     {
-        public CreateCustomerMicroservicecs()
+        public EditCustomerMicroservice()
         {
             InitializeComponent();
         }

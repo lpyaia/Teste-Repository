@@ -59,7 +59,7 @@ namespace HBSIS.GE.MicroserviceManagement.Repository
 
         public T GetById(int id)
         {
-            return _dbSet.Where(customer => customer.Id == id).First();
+            return _dbSet.Where(customer => customer.Id == id).FirstOrDefault();
         }
     }
 }

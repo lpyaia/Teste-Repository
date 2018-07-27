@@ -45,6 +45,7 @@
             this.btnCreateCustomer.TabIndex = 0;
             this.btnCreateCustomer.Text = "Criar";
             this.btnCreateCustomer.UseVisualStyleBackColor = true;
+            this.btnCreateCustomer.Click += new System.EventHandler(this.btnCreateCustomer_Click);
             // 
             // btnCancel
             // 
@@ -54,6 +55,7 @@
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancelar";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // lblName
             // 
@@ -86,7 +88,7 @@
             this.txtCustomerFolder.Name = "txtCustomerFolder";
             this.txtCustomerFolder.Size = new System.Drawing.Size(158, 20);
             this.txtCustomerFolder.TabIndex = 5;
-            this.txtCustomerFolder.TextChanged += new System.EventHandler(this.txtCustomerFolder_TextChanged);
+            this.txtCustomerFolder.Click += new System.EventHandler(this.txtCustomerFolder_Click);
             // 
             // CreateCustomerForm
             // 
@@ -101,6 +103,7 @@
             this.Controls.Add(this.btnCreateCustomer);
             this.Name = "CreateCustomerForm";
             this.Text = "Criar Cliente";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CreateCustomerForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.EntityFrameworkCore, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.EntityFrameworkCore.2.1.1\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
@@ -134,11 +137,11 @@
     <Compile Include="Forms\EditCustomerMicroservice.Designer.cs">
       <DependentUpon>EditCustomerMicroservice.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\CreateCustomerMicroservice.cs">
+    <Compile Include="Forms\CreateCustomerMicroserviceForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\CreateCustomerMicroservice.Designer.cs">
-      <DependentUpon>CreateCustomerMicroservice.cs</DependentUpon>
+    <Compile Include="Forms\CreateCustomerMicroserviceForm.Designer.cs">
+      <DependentUpon>CreateCustomerMicroserviceForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\EditMicroserviceForm.cs">
       <SubType>Form</SubType>
@@ -187,8 +190,8 @@
     <EmbeddedResource Include="Forms\EditCustomerMicroservice.resx">
       <DependentUpon>EditCustomerMicroservice.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\CreateCustomerMicroservice.resx">
-      <DependentUpon>CreateCustomerMicroservice.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\CreateCustomerMicroserviceForm.resx">
+      <DependentUpon>CreateCustomerMicroserviceForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditMicroserviceForm.resx">
       <DependentUpon>EditMicroserviceForm.cs</DependentUpon>
@@ -220,6 +223,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="app.manifest" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -235,6 +239,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HBSIS.GE.MicroserviceManagement.Data.Entity\HBSIS.GE.MicroserviceManagement.Data.Entity.csproj">
+      <Project>{b26ce030-dd73-41e6-9c42-a26c02ea32ab}</Project>
+      <Name>HBSIS.GE.MicroserviceManagement.Data.Entity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HBSIS.GE.MicroserviceManagement.Model\HBSIS.GE.MicroserviceManagement.Model.csproj">
       <Project>{1665c3c0-3547-4ede-846b-6737f8e163b7}</Project>
       <Name>HBSIS.GE.MicroserviceManagement.Model</Name>

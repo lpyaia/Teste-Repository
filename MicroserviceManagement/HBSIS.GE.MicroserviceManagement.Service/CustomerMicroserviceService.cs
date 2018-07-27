@@ -43,5 +43,10 @@ namespace HBSIS.GE.MicroserviceManagement.Service
             return _customerMicroserviceRepository.GetById(id);
         }
 
+        public List<CustomerMicroservice> GetAllWithRelationships()
+        {
+            return _customerMicroserviceRepository.GetAllWithRelationships();
+        }
+
     }
 }
