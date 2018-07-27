@@ -164,11 +164,17 @@
     <Compile Include="Forms\CreateMicroserviceForm.Designer.cs">
       <DependentUpon>CreateMicroserviceForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ListCustomersForm.cs">
+    <Compile Include="Forms\ListMicroserviceForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ListCustomersForm.Designer.cs">
-      <DependentUpon>ListCustomersForm.cs</DependentUpon>
+    <Compile Include="Forms\ListMicroserviceForm.Designer.cs">
+      <DependentUpon>ListMicroserviceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ListCustomerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ListCustomerForm.Designer.cs">
+      <DependentUpon>ListCustomerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
@@ -196,8 +202,11 @@
     <EmbeddedResource Include="Forms\CreateMicroserviceForm.resx">
       <DependentUpon>CreateMicroserviceForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ListCustomersForm.resx">
-      <DependentUpon>ListCustomersForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ListMicroserviceForm.resx">
+      <DependentUpon>ListMicroserviceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ListCustomerForm.resx">
+      <DependentUpon>ListCustomerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

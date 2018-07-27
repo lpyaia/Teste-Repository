@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
 {
-    public partial class ListCustomersForm : Form
+    public partial class ListCustomerForm : Form
     {
-        public ListCustomersForm()
+        public ListCustomerForm()
         {
             InitializeComponent();
         }
