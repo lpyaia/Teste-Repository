@@ -1,6 +1,7 @@
 ﻿using HBSIS.GE.MicroserviceManagement.Model;
 using Microsoft.EntityFrameworkCore;
-using System.Configuration;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace HBSIS.GE.MicroserviceManagement.Data.Entity
 {
@@ -11,10 +12,17 @@ namespace HBSIS.GE.MicroserviceManagement.Data.Entity
         public DbSet<CustomerMicroservice> CustomerMicroservice { get; set; }
         public DbSet<Log> Log { get; set; }
 
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlServer(@"Server=172.30.8.20;Database=GE_MICROSERVICE_MANAGER;User=smdm;Password=hbsis.smdm;");
-            optionsBuilder.UseSqlServer(@"Server=.\Tests;Database=GE_MICROSERVICE_MANAGER;Trusted_Connection=true;");
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("config.json");
+
+            var config = builder.Build();
+            
+            optionsBuilder.UseSqlServer(config["connString"]);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

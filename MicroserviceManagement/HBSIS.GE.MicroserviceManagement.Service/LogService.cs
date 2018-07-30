@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace HBSIS.GE.MicroserviceManagement.Service
@@ -15,14 +16,22 @@ namespace HBSIS.GE.MicroserviceManagement.Service
 
         public static void WriteLog(string message)
         {
-            string file = "log-" + _appName + ".txt";
             DateTime dtNow = DateTime.Now;
+            string file = string.Format("log/log-{0}-{1}{2}{3}.txt", _appName, dtNow.Day, dtNow.Month, dtNow.Year);
+            
+            if(!Directory.Exists("log"))
+            {
+                Directory.CreateDirectory("log");
+            }
 
-        }
+            if (!File.Exists(file))
+            {
+                File.Create(file).Close();
+            }
 
-        private static void CreateFileLog()
-        {
-
+            TextWriter textWriter = new StreamWriter(file, true);
+            textWriter.WriteLine(string.Format("{0} - {1}", dtNow.ToString(), message));
+            textWriter.Close();
         }
     }
 }

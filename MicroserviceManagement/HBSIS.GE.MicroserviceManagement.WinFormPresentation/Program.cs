@@ -2,6 +2,7 @@
 using System;
 using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
+using HBSIS.GE.MicroserviceManagement.Service;
 
 namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
 {
@@ -17,6 +18,8 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
         {
             MicroserviceManagerDbContext context = new MicroserviceManagerDbContext();
             context.Database.Migrate();
+
+            LogService.SetAppName("WinForm");
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

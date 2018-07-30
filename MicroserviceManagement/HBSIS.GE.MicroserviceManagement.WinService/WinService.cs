@@ -20,7 +20,8 @@ namespace HBSIS.GE.MicroserviceManagement.WinService
         public WinService()
         {
             InitializeComponent();
-
+            LogService.SetAppName("WinService");
+            LogService.WriteLog("TESTINHO");
 #if DEBUG
             managementProcessService = new ManagementProcessService();
             managementProcessService.InitProcesses();
@@ -42,7 +43,7 @@ namespace HBSIS.GE.MicroserviceManagement.WinService
 
             catch(Exception ex)
             {
-
+                LogService.WriteLog(ex.Message);
             }
         }
 
@@ -58,7 +59,7 @@ namespace HBSIS.GE.MicroserviceManagement.WinService
 
             catch(Exception ex)
             {
-
+                LogService.WriteLog(ex.Message);
             }
         }
 

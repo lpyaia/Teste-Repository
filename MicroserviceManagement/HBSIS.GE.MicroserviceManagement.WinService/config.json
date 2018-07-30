@@ -1,0 +1,3 @@
+{
+  "connString": "Server=.\\Tests;Database=GE_MICROSERVICE_MANAGER;Trusted_Connection=true;"
+}
