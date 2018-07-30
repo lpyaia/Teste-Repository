@@ -45,8 +45,9 @@
             this.btnEditCustomer.Name = "btnEditCustomer";
             this.btnEditCustomer.Size = new System.Drawing.Size(75, 23);
             this.btnEditCustomer.TabIndex = 0;
-            this.btnEditCustomer.Text = "Edit";
+            this.btnEditCustomer.Text = "Editar";
             this.btnEditCustomer.UseVisualStyleBackColor = true;
+            this.btnEditCustomer.Click += new System.EventHandler(this.btnEditCustomer_Click);
             // 
             // btnCancel
             // 
@@ -56,6 +57,7 @@
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // lblName
             // 
@@ -64,7 +66,7 @@
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(38, 13);
             this.lblName.TabIndex = 2;
-            this.lblName.Text = "Name:";
+            this.lblName.Text = "Nome:";
             // 
             // txtName
             // 
@@ -78,9 +80,9 @@
             this.lblDirecotry.AutoSize = true;
             this.lblDirecotry.Location = new System.Drawing.Point(12, 71);
             this.lblDirecotry.Name = "lblDirecotry";
-            this.lblDirecotry.Size = new System.Drawing.Size(86, 13);
+            this.lblDirecotry.Size = new System.Drawing.Size(87, 13);
             this.lblDirecotry.TabIndex = 4;
-            this.lblDirecotry.Text = "Customer Folder:";
+            this.lblDirecotry.Text = "Pasta do Cliente:";
             // 
             // txtCustomerFolder
             // 
@@ -88,7 +90,7 @@
             this.txtCustomerFolder.Name = "txtCustomerFolder";
             this.txtCustomerFolder.Size = new System.Drawing.Size(158, 20);
             this.txtCustomerFolder.TabIndex = 5;
-            this.txtCustomerFolder.TextChanged += new System.EventHandler(this.txtCustomerFolder_TextChanged);
+            this.txtCustomerFolder.Click += new System.EventHandler(this.txtCustomerFolder_Click);
             // 
             // lblTextId
             // 

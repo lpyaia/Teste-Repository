@@ -17,8 +17,12 @@ namespace HBSIS.GE.MicroserviceManagement.Service
             _microserviceRepository.Insert(microservice);
         }
 
-        public void Delete(Microservice microservice)
+        public void Delete(int microserviceId)
         {
+            CustomerMicroserviceService customerMicroserviceService = new CustomerMicroserviceService();
+            customerMicroserviceService.DeleteMicroservicesByMicroserviceId(microserviceId);
+
+            Microservice microservice = GetById(microserviceId);
             _microserviceRepository.Delete(microservice);
         }
 

@@ -14,11 +14,13 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
 {
     public partial class MainForm : Form
     {
+        private CustomerMicroserviceService customerMicroserviceService;
         private int selectedId = 0;
 
         public MainForm()
         {
             InitializeComponent();
+            customerMicroserviceService = new CustomerMicroserviceService();
         }
 
         private void microsserviçosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -41,26 +43,57 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
 
         private void btnEditSelectedMicroservice_Click(object sender, EventArgs e)
         {
-
+            if (selectedId > 0)
+            {
+                EditCustomerMicroserviceForm editCustomerMicroserviceForm = new EditCustomerMicroserviceForm(selectedId);
+                editCustomerMicroserviceForm.Show();
+            }
         }
 
         private void btnDeleteSelectedMicroservice_Click(object sender, EventArgs e)
         {
+            if (selectedId > 0)
+            {
+                DialogResult result = MessageBox.Show("Deseja excluir o microsserviço para este cliente?", "Atenção", MessageBoxButtons.YesNo);
 
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        customerMicroserviceService.Delete(selectedId);
+                        UpdateMicroservicesStatus();
+
+                        if (customerMicroservicesGrid.Rows.Count == 0)
+                            selectedId = 0;
+                    }
+
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Erro");
+                    }
+                }
+            }
         }
 
         private void btnStartMicroservice_Click(object sender, EventArgs e)
         {
             if(selectedId > 0)
             {
-                CustomerMicroserviceService customerMicroserviceService = new CustomerMicroserviceService();
-                CustomerMicroservice customerMicroservice = customerMicroserviceService.GetById(selectedId);
+                try
+                {
+                    CustomerMicroservice customerMicroservice = customerMicroserviceService.GetById(selectedId);
 
-                customerMicroservice.Active = true;
+                    customerMicroservice.Active = true;
 
-                customerMicroserviceService.Update(customerMicroservice);
+                    customerMicroserviceService.Update(customerMicroservice);
 
-                UpdateMicroservicesStatus();
+                    UpdateMicroservicesStatus();
+                }
+
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Erro");
+                }
             }
         }
 
@@ -68,14 +101,21 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
         {
             if(selectedId > 0)
             {
-                CustomerMicroserviceService customerMicroserviceService = new CustomerMicroserviceService();
-                CustomerMicroservice customerMicroservice = customerMicroserviceService.GetById(selectedId);
+                try
+                {
+                    CustomerMicroservice customerMicroservice = customerMicroserviceService.GetById(selectedId);
 
-                customerMicroservice.Active = false;
+                    customerMicroservice.Active = false;
 
-                customerMicroserviceService.Update(customerMicroservice);
+                    customerMicroserviceService.Update(customerMicroservice);
 
-                UpdateMicroservicesStatus();
+                    UpdateMicroservicesStatus();
+                }
+
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Erro");
+                }
             }
         }
 
@@ -95,7 +135,6 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
 
         public void UpdateMicroservicesStatus()
         {
-            CustomerMicroserviceService customerMicroserviceService = new CustomerMicroserviceService();
             List<CustomerMicroservice> lstCustomerMicroservice = customerMicroserviceService.GetAllWithRelationships();
 
             customerMicroservicesGrid.Rows.Clear();

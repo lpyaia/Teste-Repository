@@ -1,6 +1,6 @@
 ﻿namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
 {
-    partial class EditCustomerMicroservice
+    partial class EditCustomerMicroserviceForm
     {
         /// <summary>
         /// Required designer variable.
@@ -52,6 +52,7 @@
             // 
             // ddlCustomer
             // 
+            this.ddlCustomer.Enabled = false;
             this.ddlCustomer.FormattingEnabled = true;
             this.ddlCustomer.Location = new System.Drawing.Point(153, 40);
             this.ddlCustomer.Name = "ddlCustomer";
@@ -60,6 +61,7 @@
             // 
             // ddlMicrosservice
             // 
+            this.ddlMicrosservice.Enabled = false;
             this.ddlMicrosservice.FormattingEnabled = true;
             this.ddlMicrosservice.Location = new System.Drawing.Point(153, 72);
             this.ddlMicrosservice.Name = "ddlMicrosservice";
@@ -109,6 +111,7 @@
             this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Cancelar";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnEditCustomerMicrosservice
             // 
@@ -118,6 +121,7 @@
             this.btnEditCustomerMicrosservice.TabIndex = 7;
             this.btnEditCustomerMicrosservice.Text = "Editar";
             this.btnEditCustomerMicrosservice.UseVisualStyleBackColor = true;
+            this.btnEditCustomerMicrosservice.Click += new System.EventHandler(this.btnEditCustomerMicrosservice_Click);
             // 
             // lblId
             // 
@@ -136,7 +140,7 @@
             this.lblTextId.TabIndex = 11;
             this.lblTextId.Text = "Id:";
             // 
-            // CreateCustomerMicroservicecs
+            // EditCustomerMicroserviceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -152,7 +156,7 @@
             this.Controls.Add(this.lblMicroservice);
             this.Controls.Add(this.ddlCustomer);
             this.Controls.Add(this.lblCustomer);
-            this.Name = "CreateCustomerMicroservicecs";
+            this.Name = "EditCustomerMicroserviceForm";
             this.Text = "Editar Microsserviços de Clientes";
             this.ResumeLayout(false);
             this.PerformLayout();

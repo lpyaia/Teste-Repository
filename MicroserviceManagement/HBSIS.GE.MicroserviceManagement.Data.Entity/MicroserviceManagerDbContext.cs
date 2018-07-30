@@ -13,7 +13,8 @@ namespace HBSIS.GE.MicroserviceManagement.Data.Entity
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=172.30.8.20;Database=GE_MICROSERVICE_MANAGER;User=smdm;Password=hbsis.smdm;");
+            //optionsBuilder.UseSqlServer(@"Server=172.30.8.20;Database=GE_MICROSERVICE_MANAGER;User=smdm;Password=hbsis.smdm;");
+            optionsBuilder.UseSqlServer(@"Server=.\Tests;Database=GE_MICROSERVICE_MANAGER;Trusted_Connection=true;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

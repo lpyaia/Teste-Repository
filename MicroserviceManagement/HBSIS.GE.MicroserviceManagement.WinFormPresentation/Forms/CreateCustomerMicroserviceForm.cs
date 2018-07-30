@@ -15,18 +15,33 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
 {
     public partial class CreateCustomerMicroserviceForm : Form
     {
+        private CustomerMicroserviceService customerMicroserviceService;
+        private CustomerService customerService;
+        private MicroserviceService microserviceService;
+
         public CreateCustomerMicroserviceForm()
         {
             InitializeComponent();
 
-            CustomerService customerService = new CustomerService();
+            customerMicroserviceService = new CustomerMicroserviceService();
+            customerService = new CustomerService();
+            microserviceService = new MicroserviceService();
+
+            LoadCustomerList();
+            LoadMicroserviceList();
+        }
+
+        private void LoadCustomerList()
+        {
             List<Customer> lstCustomer = customerService.GetAll();
 
             ddlCustomer.DataSource = lstCustomer;
             ddlCustomer.DisplayMember = "Name";
             ddlCustomer.ValueMember = "Id";
+        }
 
-            MicroserviceService microserviceService = new MicroserviceService();
+        private void LoadMicroserviceList()
+        {
             List<Microservice> lstMicroservice = microserviceService.GetAll();
 
             ddlMicrosservice.DataSource = lstMicroservice;
@@ -36,34 +51,44 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
 
         private void btnCreateCustomerMicrosservice_Click(object sender, EventArgs e)
         {
-            CustomerMicroserviceService customerMicroserviceService = new CustomerMicroserviceService();
-            CustomerService customerService = new CustomerService();
-            MicroserviceService microserviceService = new MicroserviceService();
-            
+            if (ddlCustomer.SelectedValue == null || ddlMicrosservice.SelectedValue == null)
+            {
+                MessageBox.Show("Selecione um cliente e um microsserviço.");
+                return;
+            }
+
             int selectedCustomerId = (int)ddlCustomer.SelectedValue;
             int selectedMicroserviceId = (int)ddlMicrosservice.SelectedValue;
 
-            Customer customer = customerService.GetById(selectedCustomerId);
-            Microservice microservice = microserviceService.GetById(selectedMicroserviceId);
+            try
+            {
+                Customer customer = customerService.GetById(selectedCustomerId);
+                Microservice microservice = microserviceService.GetById(selectedMicroserviceId);
 
-            CustomerMicroservice customerMicroservice = new CustomerMicroservice();
-            customerMicroservice.Active = false;
-            customerMicroservice.HasVisibleWindow = chkVisibleWindow.Checked;
-            customerMicroservice.ProgramArguments = txtArguments.Text;
-            customerMicroservice.CustomerId = selectedCustomerId;
-            customerMicroservice.MicroserviceId = selectedMicroserviceId;
+                CustomerMicroservice customerMicroservice = new CustomerMicroservice();
+                customerMicroservice.Active = false;
+                customerMicroservice.HasVisibleWindow = chkVisibleWindow.Checked;
+                customerMicroservice.ProgramArguments = txtArguments.Text;
+                customerMicroservice.CustomerId = selectedCustomerId;
+                customerMicroservice.MicroserviceId = selectedMicroserviceId;
 
-            customerMicroserviceService.Insert(customerMicroservice);
+                customerMicroserviceService.Insert(customerMicroservice);
 
-            string sourceFolder = microservice.Directory.TrimEnd('\\');
-            string destinationFolder = customer.BaseDirectory + microservice.DisplayName + " - " + customerMicroservice.Id;
+                string sourceFolder = microservice.Directory.TrimEnd('\\');
+                string destinationFolder = customer.BaseDirectory + microservice.DisplayName + " - " + customerMicroservice.Id;
 
-            customerMicroservice.Directory = destinationFolder;
-            customerMicroservice.FullPath = destinationFolder + "\\" + microservice.FileName + microservice.FileExtension;
+                customerMicroservice.Directory = destinationFolder;
+                customerMicroservice.FullPath = destinationFolder + "\\" + microservice.FileName + microservice.FileExtension;
 
-            customerMicroserviceService.Update(customerMicroservice);
+                customerMicroserviceService.Update(customerMicroservice);
 
-            CopyMicroserviceFolderToCustomerFolder(sourceFolder, destinationFolder);
+                CopyMicroserviceFolderToCustomerFolder(sourceFolder, destinationFolder);
+            }
+
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro");
+            }
 
             DialogResult dialog = MessageBox.Show("Microsserviço adicionado com sucesso.");
 
@@ -83,29 +108,37 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
 
         private void CopyMicroserviceFolderToCustomerFolder(string sourceFolder, string destinationFolder)
         {
-            if (!Directory.Exists(destinationFolder))
+            try
             {
-                Directory.CreateDirectory(destinationFolder);
+                if (!Directory.Exists(destinationFolder))
+                {
+                    Directory.CreateDirectory(destinationFolder);
+                }
+
+                foreach (var fileName in Directory.GetFiles(sourceFolder))
+                {
+                    FileInfo file = new FileInfo(fileName);
+                    File.Copy(fileName, destinationFolder + "\\" + file.Name);
+                }
+
+                var directories = Directory.GetDirectories(sourceFolder);
+
+                foreach (var directoryName in directories)
+                {
+                    DirectoryInfo directory = new DirectoryInfo(directoryName);
+                    CopyMicroserviceFolderToCustomerFolder(directoryName, destinationFolder + "\\" + directory.Name);
+                }
             }
 
-            foreach (var fileName in Directory.GetFiles(sourceFolder))
+            catch(Exception ex)
             {
-                FileInfo file = new FileInfo(fileName);
-                File.Copy(fileName, destinationFolder + "\\" + file.Name);
-            }
-
-            var directories = Directory.GetDirectories(sourceFolder);
-
-            foreach(var directoryName in directories)
-            {
-                DirectoryInfo directory = new DirectoryInfo(directoryName);
-                CopyMicroserviceFolderToCustomerFolder(directoryName, destinationFolder + "\\" + directory.Name);
+                MessageBox.Show(ex.Message, "Erro");
             }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-
+            Sair();
         }
     }
 }

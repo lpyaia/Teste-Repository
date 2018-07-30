@@ -131,23 +131,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\EditCustomerMicroservice.cs">
+    <Compile Include="Forms\EditMicroserviceForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\EditCustomerMicroservice.Designer.cs">
-      <DependentUpon>EditCustomerMicroservice.cs</DependentUpon>
+    <Compile Include="Forms\EditMicroserviceForm.Designer.cs">
+      <DependentUpon>EditMicroserviceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditCustomerMicroserviceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditCustomerMicroserviceForm.Designer.cs">
+      <DependentUpon>EditCustomerMicroserviceForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\CreateCustomerMicroserviceForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\CreateCustomerMicroserviceForm.Designer.cs">
       <DependentUpon>CreateCustomerMicroserviceForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\EditMicroserviceForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\EditMicroserviceForm.Designer.cs">
-      <DependentUpon>EditMicroserviceForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\EditCustomerForm.cs">
       <SubType>Form</SubType>
@@ -187,14 +187,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\EditCustomerMicroservice.resx">
-      <DependentUpon>EditCustomerMicroservice.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\EditMicroserviceForm.resx">
+      <DependentUpon>EditMicroserviceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditCustomerMicroserviceForm.resx">
+      <DependentUpon>EditCustomerMicroserviceForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CreateCustomerMicroserviceForm.resx">
       <DependentUpon>CreateCustomerMicroserviceForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\EditMicroserviceForm.resx">
-      <DependentUpon>EditMicroserviceForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditCustomerForm.resx">
       <DependentUpon>EditCustomerForm.cs</DependentUpon>

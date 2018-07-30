@@ -45,6 +45,7 @@
             this.lstItemsMicroservice.Name = "lstItemsMicroservice";
             this.lstItemsMicroservice.Size = new System.Drawing.Size(203, 277);
             this.lstItemsMicroservice.TabIndex = 0;
+            this.lstItemsMicroservice.SelectedIndexChanged += new System.EventHandler(this.lstItemsMicroservice_SelectedIndexChanged);
             // 
             // btnAddMicroservice
             // 
@@ -100,6 +101,7 @@
             // 
             this.lblDescricao.AutoSize = true;
             this.lblDescricao.Location = new System.Drawing.Point(9, 20);
+            this.lblDescricao.MaximumSize = new System.Drawing.Size(110, 0);
             this.lblDescricao.Name = "lblDescricao";
             this.lblDescricao.Size = new System.Drawing.Size(0, 13);
             this.lblDescricao.TabIndex = 0;

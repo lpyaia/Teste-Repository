@@ -14,15 +14,20 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
 {
     public partial class ListCustomerForm : Form
     {
+        CustomerService customerService;
+        private int _selectedCustomerId;
+
         public ListCustomerForm()
         {
             InitializeComponent();
+
+            customerService = new CustomerService();
+
             UpdateCustomerList();
         }
 
         private void UpdateCustomerList()
         {
-            CustomerService customerService = new CustomerService();
             List<Customer> lstCustomer = customerService.GetAll();
 
             lstItemsCustomer.Items.Clear();
@@ -45,13 +50,46 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
 
         private void btnEditCustomer_Click(object sender, EventArgs e)
         {
-            EditCustomerForm editCustomerForm = new EditCustomerForm();
+            if(_selectedCustomerId == 0)
+            {
+                MessageBox.Show("Por favor, selecione um cliente para editar.");
+                return;
+            }
+
+            EditCustomerForm editCustomerForm = new EditCustomerForm(_selectedCustomerId);
             editCustomerForm.Show();
+            Sair();
         }
 
         private void btnDeleteCustomer_Click(object sender, EventArgs e)
         {
+            if (_selectedCustomerId == 0)
+            {
+                MessageBox.Show("Por favor, selecione um cliente para excluir.");
+                return;
+            }
 
+            DialogResult result = MessageBox.Show("Deseja realmente excluir?", "Atenção", MessageBoxButtons.YesNo);
+
+            if(result == DialogResult.Yes)
+            {
+                Excluir(_selectedCustomerId);
+                UpdateCustomerList();
+                _selectedCustomerId = 0;
+            }
+        }
+
+        private void Excluir(int selectedCustomerId)
+        {
+            try
+            {
+                customerService.Delete(selectedCustomerId);
+            }
+
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
         }
 
         private void btnSair_Click(object sender, EventArgs e)
@@ -61,8 +99,19 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
 
         private void Sair()
         {
-            this.Close();
-            this.Dispose();
+            Close();
+            Dispose();
+        }
+
+        private void ListCustomerForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lstItemsCustomer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Customer customer = (Customer)lstItemsCustomer.SelectedItem;
+            _selectedCustomerId = customer != null ? customer.Id : 0;
         }
     }
 }

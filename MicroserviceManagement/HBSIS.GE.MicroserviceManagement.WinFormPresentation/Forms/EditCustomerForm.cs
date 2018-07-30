@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HBSIS.GE.MicroserviceManagement.Model;
+using HBSIS.GE.MicroserviceManagement.Service;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,12 +14,23 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
 {
     public partial class EditCustomerForm : Form
     {
-        public EditCustomerForm()
+        private CustomerService customerService;
+        private int _selectedCustomerId;
+
+        public EditCustomerForm(int selectedCustomerId)
         {
             InitializeComponent();
+
+            customerService = new CustomerService();
+            _selectedCustomerId = selectedCustomerId;
+
+            Customer customer = customerService.GetById(_selectedCustomerId);
+            txtName.Text = customer.Name;
+            txtCustomerFolder.Text = customer.BaseDirectory;
+            lblId.Text = customer.Id.ToString();
         }
 
-        private void txtCustomerFolder_TextChanged(object sender, EventArgs e)
+        private void txtCustomerFolder_Click(object sender, EventArgs e)
         {
             DialogResult dialogResult = folderDialog.ShowDialog();
 
@@ -26,6 +39,45 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
                 txtCustomerFolder.Text = folderDialog.SelectedPath;
                 Environment.SpecialFolder root = folderDialog.RootFolder;
             }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Sair();
+        }
+
+        private void btnEditCustomer_Click(object sender, EventArgs e)
+        {
+            if(string.IsNullOrEmpty(txtCustomerFolder.Text) || string.IsNullOrEmpty(txtName.Text))
+            {
+                MessageBox.Show("Preencha os campos nome e pasta do cliente.");
+                return;
+            }
+
+            try
+            {
+                Customer customer = customerService.GetById(_selectedCustomerId);
+                customer.Name = txtName.Text;
+                customer.BaseDirectory = txtCustomerFolder.Text;
+                customerService.Update(customer);
+
+                MessageBox.Show("Cliente atualizado com sucesso.");
+                Sair();
+            }
+
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro");
+            }
+        }
+
+        private void Sair()
+        {
+            ListCustomerForm listCustomerForm = new ListCustomerForm();
+            listCustomerForm.Show();
+
+            Dispose();
+            Close();
         }
     }
 }

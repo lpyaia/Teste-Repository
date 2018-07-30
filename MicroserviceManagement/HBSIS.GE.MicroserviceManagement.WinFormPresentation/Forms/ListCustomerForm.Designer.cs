@@ -42,6 +42,7 @@
             this.lstItemsCustomer.Name = "lstItemsCustomer";
             this.lstItemsCustomer.Size = new System.Drawing.Size(203, 277);
             this.lstItemsCustomer.TabIndex = 0;
+            this.lstItemsCustomer.SelectedIndexChanged += new System.EventHandler(this.lstItemsCustomer_SelectedIndexChanged);
             // 
             // btnAddCustomer
             // 
@@ -95,6 +96,7 @@
             this.Controls.Add(this.lstItemsCustomer);
             this.Name = "ListCustomerForm";
             this.Text = "Empresas Cadastradas";
+            this.Load += new System.EventHandler(this.ListCustomerForm_Load);
             this.ResumeLayout(false);
 
         }

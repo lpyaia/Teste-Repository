@@ -1,5 +1,6 @@
 ﻿using HBSIS.GE.MicroserviceManagement.Model;
 using HBSIS.GE.MicroserviceManagement.Repository;
+using System;
 using System.Collections.Generic;
 
 namespace HBSIS.GE.MicroserviceManagement.Service
@@ -18,9 +19,15 @@ namespace HBSIS.GE.MicroserviceManagement.Service
             _customerMicroserviceRepository.Insert(customerMicroservice);
         }
 
-        public void Delete(CustomerMicroservice customerMicroservice)
+        public void Delete(int customerId)
         {
+            var customerMicroservice = GetById(customerId);
             _customerMicroserviceRepository.Delete(customerMicroservice);
+        }
+
+        internal void DeleteMicroservicesByMicroserviceId(int microserviceId)
+        {
+            _customerMicroserviceRepository.DeleteMicroservicesByMicroserviceId(microserviceId);
         }
 
         public void Update(CustomerMicroservice customerMicroservice)
@@ -48,5 +55,9 @@ namespace HBSIS.GE.MicroserviceManagement.Service
             return _customerMicroserviceRepository.GetAllWithRelationships();
         }
 
+        public void DeleteMicroservicesByCustomerId(int customerId)
+        {
+            _customerMicroserviceRepository.DeleteMicroservicesByCustomerId(customerId);
+        }
     }
 }

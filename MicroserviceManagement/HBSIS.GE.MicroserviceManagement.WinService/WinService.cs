@@ -35,15 +35,31 @@ namespace HBSIS.GE.MicroserviceManagement.WinService
 
         private void WatchProcesses(object state)
         {
-            managementProcessService.CheckLifeCycleProcesses();
+            try
+            {
+                managementProcessService.CheckLifeCycleProcesses();
+            }
+
+            catch(Exception ex)
+            {
+
+            }
         }
 
         protected override void OnStart(string[] args)
         {
-            managementProcessService = new ManagementProcessService();
-            managementProcessService.InitProcesses();
+            try
+            {
+                managementProcessService = new ManagementProcessService();
+                managementProcessService.InitProcesses();
 
-            processWatcher = new Timer(WatchProcesses, null, 0, 1000 * 10);
+                processWatcher = new Timer(WatchProcesses, null, 0, 1000 * 10);
+            }
+
+            catch(Exception ex)
+            {
+
+            }
         }
 
         protected override void OnStop()

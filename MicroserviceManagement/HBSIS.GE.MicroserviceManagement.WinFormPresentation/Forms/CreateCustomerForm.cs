@@ -21,6 +21,12 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
         
         private void btnCreateCustomer_Click(object sender, EventArgs e)
         {
+            if(!IsValidForm())
+            {
+                MessageBox.Show("Preencha todos os campos do formulário.");
+                return;
+            }
+
             Customer customer = new Customer();
             customer.Name = txtName.Text;
             customer.BaseDirectory = txtCustomerFolder.Text.TrimEnd('\\') + @"\";
@@ -69,6 +75,16 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
         private void CreateCustomerForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Sair();
+        }
+
+        private bool IsValidForm()
+        {
+            if(string.IsNullOrEmpty(txtCustomerFolder.Text) || string.IsNullOrEmpty(txtName.Text))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

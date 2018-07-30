@@ -18,11 +18,6 @@ namespace HBSIS.GE.MicroserviceManagement.Service
             _customerRepository.Insert(customer);
         }
 
-        public void Delete(Customer customer)
-        {
-            _customerRepository.Delete(customer);
-        }
-
         public void Update(Customer customer)
         {
             _customerRepository.Update(customer);
@@ -36,6 +31,15 @@ namespace HBSIS.GE.MicroserviceManagement.Service
         public Customer GetById(int id)
         {
             return _customerRepository.GetById(id);
+        }
+
+        public void Delete(int customerId)
+        {
+            CustomerMicroserviceService customerMicroserviceService = new CustomerMicroserviceService();
+            customerMicroserviceService.DeleteMicroservicesByCustomerId(customerId);
+
+            Customer customer = GetById(customerId);
+            _customerRepository.Delete(customer);
         }
     }
 }
