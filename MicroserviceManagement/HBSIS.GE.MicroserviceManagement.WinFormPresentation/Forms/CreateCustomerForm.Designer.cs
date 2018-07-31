@@ -108,6 +108,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Criar Cliente";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CreateCustomerForm_FormClosing);
+            this.Load += new System.EventHandler(this.CreateCustomerForm_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 

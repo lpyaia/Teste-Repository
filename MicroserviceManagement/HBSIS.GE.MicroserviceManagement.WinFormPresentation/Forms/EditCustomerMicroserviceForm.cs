@@ -22,7 +22,7 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
         {
             InitializeComponent();
             _selectedCustomerMicroserviceId = selectedCustomerMicroserviceId;
-
+            
             try
             {
                 customerMicroserviceService = new CustomerMicroserviceService();
@@ -97,6 +97,11 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Sair();
+        }
+
+        private void EditCustomerMicroserviceForm_Load(object sender, EventArgs e)
+        {
+            btnEditCustomerMicrosservice.Focus();
         }
     }
 }

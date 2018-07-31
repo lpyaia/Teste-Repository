@@ -112,5 +112,10 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
             _selectedMicroserviceId = microservice != null ? microservice.Id : 0;
             lblDescricao.Text = microservice != null ? microservice.Description : "";
         }
+
+        private void ListMicroserviceForm_Load(object sender, EventArgs e)
+        {
+            btnSair.Focus();
+        }
     }
 }

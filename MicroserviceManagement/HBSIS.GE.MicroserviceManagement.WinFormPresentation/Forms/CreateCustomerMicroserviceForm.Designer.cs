@@ -140,6 +140,7 @@
             this.MinimizeBox = false;
             this.Name = "CreateCustomerMicroserviceForm";
             this.Text = "Criar Microsserviços de Clientes";
+            this.Load += new System.EventHandler(this.CreateCustomerMicroserviceForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

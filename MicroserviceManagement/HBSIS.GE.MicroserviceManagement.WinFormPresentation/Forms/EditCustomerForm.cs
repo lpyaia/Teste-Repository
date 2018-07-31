@@ -58,7 +58,7 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
             {
                 Customer customer = customerService.GetById(_selectedCustomerId);
                 customer.Name = txtName.Text;
-                customer.BaseDirectory = txtCustomerFolder.Text;
+                customer.BaseDirectory = txtCustomerFolder.Text.TrimEnd('\\') + @"\"; ;
                 customerService.Update(customer);
 
                 MessageBox.Show("Cliente atualizado com sucesso.");
@@ -78,6 +78,11 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
 
             Dispose();
             Close();
+        }
+
+        private void EditCustomerForm_Load(object sender, EventArgs e)
+        {
+            btnEditCustomer.Focus();
         }
     }
 }

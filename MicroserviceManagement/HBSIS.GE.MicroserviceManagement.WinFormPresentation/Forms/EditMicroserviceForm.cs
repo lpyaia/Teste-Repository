@@ -40,7 +40,7 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
                 return;
             }
 
-            string[] splittedPath = txtFileFolder.Text.Split('\\');
+            string[] splittedPath = txtFileFolder.Text.TrimEnd('\\').Split('\\');
 
             if (splittedPath.Count() > 0)
             {
@@ -50,7 +50,7 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
                     
                     Microservice microservice = microserviceService.GetById(_selectedMicroserviceId);
                     microservice.DisplayName = txtName.Text;
-                    microservice.Directory = RemoveExecutableNameFromFullPath(txtFileFolder.Text, fullName);
+                    microservice.Directory = RemoveExecutableNameFromFullPath(txtFileFolder.Text.TrimEnd('\\'), fullName);
                     microservice.FileName = fullName.Replace(".exe", "");
                     microservice.FileExtension = ".exe";
                     microservice.Description = txtDescription.Text;
@@ -106,6 +106,11 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
         private void EditMicroserviceForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Sair();
+        }
+
+        private void EditMicroserviceForm_Load_1(object sender, EventArgs e)
+        {
+            btnEditMicroservice.Focus();
         }
     }
 }

@@ -127,6 +127,7 @@
             this.Name = "CreateMicroserviceForm";
             this.Text = "Criar Microsserviço";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CreateMicroserviceForm_FormClosing);
+            this.Load += new System.EventHandler(this.CreateMicroserviceForm_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 

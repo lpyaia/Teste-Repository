@@ -140,5 +140,10 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
         {
             Sair();
         }
+
+        private void CreateCustomerMicroserviceForm_Load(object sender, EventArgs e)
+        {
+            btnCreateCustomerMicrosservice.Focus();
+        }
     }
 }

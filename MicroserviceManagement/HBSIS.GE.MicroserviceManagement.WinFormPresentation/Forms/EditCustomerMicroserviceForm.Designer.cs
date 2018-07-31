@@ -161,6 +161,7 @@
             this.MinimizeBox = false;
             this.Name = "EditCustomerMicroserviceForm";
             this.Text = "Editar Microsserviços de Clientes";
+            this.Load += new System.EventHandler(this.EditCustomerMicroserviceForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -66,9 +66,9 @@
             // 
             // btnDeleteCustomer
             // 
-            this.btnDeleteCustomer.Location = new System.Drawing.Point(221, 202);
+            this.btnDeleteCustomer.Location = new System.Drawing.Point(221, 198);
             this.btnDeleteCustomer.Name = "btnDeleteCustomer";
-            this.btnDeleteCustomer.Size = new System.Drawing.Size(157, 87);
+            this.btnDeleteCustomer.Size = new System.Drawing.Size(157, 91);
             this.btnDeleteCustomer.TabIndex = 5;
             this.btnDeleteCustomer.Text = "Excluir Cliente";
             this.btnDeleteCustomer.UseVisualStyleBackColor = true;

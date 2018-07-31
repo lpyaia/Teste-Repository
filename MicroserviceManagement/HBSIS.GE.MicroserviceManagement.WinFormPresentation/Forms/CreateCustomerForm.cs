@@ -86,5 +86,10 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
 
             return true;
         }
+
+        private void CreateCustomerForm_Load_1(object sender, EventArgs e)
+        {
+            btnCreateCustomer.Focus();
+        }
     }
 }

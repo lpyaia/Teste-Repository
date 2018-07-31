@@ -148,6 +148,7 @@
             this.Name = "EditMicroserviceForm";
             this.Text = "Editar Microsserviço";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditMicroserviceForm_FormClosing);
+            this.Load += new System.EventHandler(this.EditMicroserviceForm_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 

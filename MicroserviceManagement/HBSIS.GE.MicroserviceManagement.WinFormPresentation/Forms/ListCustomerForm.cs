@@ -105,7 +105,7 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
 
         private void ListCustomerForm_Load(object sender, EventArgs e)
         {
-
+            btnSair.Focus();
         }
 
         private void lstItemsCustomer_SelectedIndexChanged(object sender, EventArgs e)

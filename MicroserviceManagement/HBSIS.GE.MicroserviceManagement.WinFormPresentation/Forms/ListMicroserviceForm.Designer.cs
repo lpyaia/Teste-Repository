@@ -122,6 +122,7 @@
             this.MinimizeBox = false;
             this.Name = "ListMicroserviceForm";
             this.Text = "Microsserviços Cadastrados";
+            this.Load += new System.EventHandler(this.ListMicroserviceForm_Load);
             this.gboxDescricao.ResumeLayout(false);
             this.gboxDescricao.PerformLayout();
             this.ResumeLayout(false);

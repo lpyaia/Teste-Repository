@@ -131,6 +131,7 @@ namespace HBSIS.GE.MicroserviceManagement.WinFormPresentation.Forms
         private void MainForm_Load(object sender, EventArgs e)
         {
             UpdateMicroservicesStatus();
+            btnAddCustomerMicroservice.Focus();
         }
 
         public void UpdateMicroservicesStatus()

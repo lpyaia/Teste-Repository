@@ -126,7 +126,8 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "EditCustomerForm";
-            this.Text = "Create Customer";
+            this.Text = "Editar Cliente";
+            this.Load += new System.EventHandler(this.EditCustomerForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
