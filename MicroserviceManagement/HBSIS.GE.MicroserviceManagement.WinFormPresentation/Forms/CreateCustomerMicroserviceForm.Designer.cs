@@ -135,6 +135,9 @@
             this.Controls.Add(this.lblMicroservice);
             this.Controls.Add(this.ddlCustomer);
             this.Controls.Add(this.lblCustomer);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "CreateCustomerMicroserviceForm";
             this.Text = "Criar Microsserviços de Clientes";
             this.ResumeLayout(false);

@@ -94,6 +94,9 @@
             this.Controls.Add(this.btnEditCustomer);
             this.Controls.Add(this.btnAddCustomer);
             this.Controls.Add(this.lstItemsCustomer);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ListCustomerForm";
             this.Text = "Empresas Cadastradas";
             this.Load += new System.EventHandler(this.ListCustomerForm_Load);

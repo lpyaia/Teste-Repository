@@ -205,7 +205,10 @@
             this.Controls.Add(this.btnAddCustomerMicroservice);
             this.Controls.Add(this.customerMicroservicesGrid);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MainForm";
             this.Text = "Gerenciador de Microsserviços";
             this.Load += new System.EventHandler(this.MainForm_Load);

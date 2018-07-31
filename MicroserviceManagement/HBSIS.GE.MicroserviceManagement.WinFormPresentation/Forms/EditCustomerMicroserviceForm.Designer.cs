@@ -156,6 +156,9 @@
             this.Controls.Add(this.lblMicroservice);
             this.Controls.Add(this.ddlCustomer);
             this.Controls.Add(this.lblCustomer);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "EditCustomerMicroserviceForm";
             this.Text = "Editar Microsserviços de Clientes";
             this.ResumeLayout(false);

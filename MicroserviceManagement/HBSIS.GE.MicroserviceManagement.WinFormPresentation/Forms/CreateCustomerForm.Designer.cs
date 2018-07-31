@@ -101,7 +101,11 @@
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnCreateCustomer);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "CreateCustomerForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Criar Cliente";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CreateCustomerForm_FormClosing);
             this.ResumeLayout(false);

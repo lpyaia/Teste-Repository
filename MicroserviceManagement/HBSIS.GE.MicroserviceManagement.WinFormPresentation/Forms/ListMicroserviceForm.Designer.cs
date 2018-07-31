@@ -117,6 +117,9 @@
             this.Controls.Add(this.btnEditMicroservice);
             this.Controls.Add(this.btnAddMicroservice);
             this.Controls.Add(this.lstItemsMicroservice);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ListMicroserviceForm";
             this.Text = "Microsserviços Cadastrados";
             this.gboxDescricao.ResumeLayout(false);

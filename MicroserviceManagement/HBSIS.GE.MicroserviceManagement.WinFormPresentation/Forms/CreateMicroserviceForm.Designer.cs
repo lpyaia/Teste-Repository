@@ -121,6 +121,9 @@
             this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.lblExecutableFolder);
             this.Controls.Add(this.lblDisplayName);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "CreateMicroserviceForm";
             this.Text = "Criar Microsserviço";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CreateMicroserviceForm_FormClosing);
