@@ -39,9 +39,9 @@
             // 
             // serviceInstaller1
             // 
-            this.serviceInstaller1.Description = "Gerenciador de microsserviços do Gestão de Entregas";
-            this.serviceInstaller1.DisplayName = "HBSIS.GE.MicroservicesManagement";
-            this.serviceInstaller1.ServiceName = "HBSIS.GE.MicroservicesManagement";
+            this.serviceInstaller1.Description = "Gerenciador de microsserviços do Gestão de Entregas HBSIS";
+            this.serviceInstaller1.DisplayName = "HBSIS GE Microservices";
+            this.serviceInstaller1.ServiceName = "HBSIS-GE-Microservices";
             this.serviceInstaller1.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // ProjectInstaller

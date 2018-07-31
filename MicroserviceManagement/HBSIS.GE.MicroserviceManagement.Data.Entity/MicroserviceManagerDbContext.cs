@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using System.Reflection;
 
 namespace HBSIS.GE.MicroserviceManagement.Data.Entity
 {
@@ -17,7 +18,7 @@ namespace HBSIS.GE.MicroserviceManagement.Data.Entity
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
                 .AddJsonFile("config.json");
 
             var config = builder.Build();

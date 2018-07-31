@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace HBSIS.GE.MicroserviceManagement.Service
@@ -17,11 +18,13 @@ namespace HBSIS.GE.MicroserviceManagement.Service
         public static void WriteLog(string message)
         {
             DateTime dtNow = DateTime.Now;
-            string file = string.Format("log/log-{0}-{1}{2}{3}.txt", _appName, dtNow.Day, dtNow.Month, dtNow.Year);
+            string assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string logPath = assemblyPath + @"\log\";
+            string file = string.Format(@"{0}log-{1}-{2}{3}{4}.txt", logPath, _appName, dtNow.Day, dtNow.Month, dtNow.Year);
             
-            if(!Directory.Exists("log"))
+            if(!Directory.Exists(logPath))
             {
-                Directory.CreateDirectory("log");
+                Directory.CreateDirectory(logPath);
             }
 
             if (!File.Exists(file))
