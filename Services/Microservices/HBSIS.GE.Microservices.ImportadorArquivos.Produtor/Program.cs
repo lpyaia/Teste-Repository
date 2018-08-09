@@ -17,31 +17,52 @@ namespace HBSIS.GE.Microservices.FileImporter.Producer
 
         public static void Main(string[] args)
         {
-            var config = FileImporterProducerConfigurator.GetInstance().Get();
-            
-            Configuration
-                     .UseStaticDictionary()
-                     .UseThreadContextPersister()
-                     .UseAppName("FileImporterProducer")
-                     .UseServiceLog4Net()
-                     .UseBusEasyNetQFactory()
-                     .UseSqlConnectionString("hbsis.importer-sql")
-                     .UseDataDapperFactory()
-                     .UseDataMongoFactory()
-                     .UseMongoConnectionString("hbsis.importer-log")
-                     .Configure();
+            try
+            {
+                var config = FileImporterProducerConfigurator.GetInstance().Get();
 
-            fileImporterProducerService = new FileImporterProducerService(Configuration.Actual);
-            Timer timer = new Timer(FileProcess, null, 0, 1000);
+                Configuration
+                         .UseStaticDictionary()
+                         .UseThreadContextPersister()
+                         .UseAppName("FileImporterProducer")
+                         .UseServiceLog4Net()
+                         .UseBusEasyNetQFactory()
+                         .UseSqlConnectionString("hbsis.importer-sql")
+                         .UseDataDapperFactory()
+                         .UseDataMongoFactory()
+                         .UseMongoConnectionString("hbsis.importer-log")
+                         .Configure();
+
+                fileImporterProducerService = new FileImporterProducerService();
+                Timer timer = new Timer(FileProcess, null, 0, 1000);
+            }
+
+            catch (Exception ex)
+            {
+                LoggerHelper.Error($"Main => {ex.Message} - INNER EXCEPTION: {ex.GetInnerExceptionMessage()}");
+            }
 
             while (Console.ReadLine() != "q") ;
 
             timer.Dispose();
         }
 
+        private void Configure()
+        {
+
+        }
+
         private static void FileProcess(object state)
         {
-            fileImporterProducerService.FileProcess();
+            try
+            {
+                fileImporterProducerService.FileProcess();
+            }
+
+            catch (Exception ex)
+            {
+                LoggerHelper.Error($"Main => {ex.Message} - INNER EXCEPTION: {ex.GetInnerExceptionMessage()}");
+            }
         }
 
         private static void JobEvent(object source, System.Timers.ElapsedEventArgs e)

@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HBSIS.Core", "..\..\Core\Bu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HBSIS.Framework", "..\..\Core\Framework\HBSIS.Framework\HBSIS.Framework.csproj", "{1562645D-F538-44C2-B22A-68D084929819}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HBSIS.GE.Microservices.ImportadorArquivos.Consumidor", "HBSIS.GE.Microservices.ImportadorArquivos.Consumidor\HBSIS.GE.Microservices.ImportadorArquivos.Consumidor.csproj", "{08A89A1C-07C2-4015-A7FF-708C73DCADA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HBSIS.GE.Microservices.FileImporter.Consumer", "HBSIS.GE.Microservices.ImportadorArquivos.Consumidor\HBSIS.GE.Microservices.FileImporter.Consumer.csproj", "{40F11EBE-7F86-4DCE-AAF9-A1B8AA047720}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HBSIS.GE.Microservices.ImportadorArquivos.Produtor", "HBSIS.GE.Microservices.ImportadorArquivos.Produtor\HBSIS.GE.Microservices.ImportadorArquivos.Produtor.csproj", "{81D30579-1450-4741-8112-6D781BBB580D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HBSIS.GE.Microservices.FileImporter.Producer", "HBSIS.GE.Microservices.ImportadorArquivos.Produtor\HBSIS.GE.Microservices.FileImporter.Producer.csproj", "{4D8E9A15-FFFF-4201-ACC2-852B3D34488D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,14 +31,14 @@ Global
 		{1562645D-F538-44C2-B22A-68D084929819}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1562645D-F538-44C2-B22A-68D084929819}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1562645D-F538-44C2-B22A-68D084929819}.Release|Any CPU.Build.0 = Release|Any CPU
-		{08A89A1C-07C2-4015-A7FF-708C73DCADA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{08A89A1C-07C2-4015-A7FF-708C73DCADA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{08A89A1C-07C2-4015-A7FF-708C73DCADA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{08A89A1C-07C2-4015-A7FF-708C73DCADA7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{81D30579-1450-4741-8112-6D781BBB580D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{81D30579-1450-4741-8112-6D781BBB580D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{81D30579-1450-4741-8112-6D781BBB580D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{81D30579-1450-4741-8112-6D781BBB580D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40F11EBE-7F86-4DCE-AAF9-A1B8AA047720}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40F11EBE-7F86-4DCE-AAF9-A1B8AA047720}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40F11EBE-7F86-4DCE-AAF9-A1B8AA047720}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40F11EBE-7F86-4DCE-AAF9-A1B8AA047720}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D8E9A15-FFFF-4201-ACC2-852B3D34488D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D8E9A15-FFFF-4201-ACC2-852B3D34488D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D8E9A15-FFFF-4201-ACC2-852B3D34488D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D8E9A15-FFFF-4201-ACC2-852B3D34488D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,8 +46,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{B5177B7B-143F-4396-B0A1-87740A0AFD57} = {1BC0F8A5-0F7D-40E7-9C8E-55890B5B08DB}
 		{1562645D-F538-44C2-B22A-68D084929819} = {0036CD1C-A55B-496A-A987-FA5982D5729B}
-		{08A89A1C-07C2-4015-A7FF-708C73DCADA7} = {4ACCC374-72F3-4587-A780-5986810DB157}
-		{81D30579-1450-4741-8112-6D781BBB580D} = {4ACCC374-72F3-4587-A780-5986810DB157}
+		{40F11EBE-7F86-4DCE-AAF9-A1B8AA047720} = {4ACCC374-72F3-4587-A780-5986810DB157}
+		{4D8E9A15-FFFF-4201-ACC2-852B3D34488D} = {4ACCC374-72F3-4587-A780-5986810DB157}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19E04869-5A30-4C99-A572-A6AA2EE65D69}

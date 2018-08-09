@@ -20,8 +20,6 @@ namespace HBSIS.GE.Microservices.FileImporter.Producer.Service
     {
         private string _filePath;
         private string _sentFiles;
-        private PersistenceDataContext _dbContext;
-        private IConfiguration _configurator;
         private List<string> _lockedFiles;
 
         /// <summary>
@@ -30,20 +28,18 @@ namespace HBSIS.GE.Microservices.FileImporter.Producer.Service
         /// </summary>
         private Dictionary<string, FileProcessStrategy> _singletonFileProcessStrategies;
 
-        public FileImporterProducerService(IConfiguration configurator)
+        public FileImporterProducerService()
         {
-            _dbContext = new PersistenceDataContext();
-            _configurator = configurator;
-
+            PersistenceDataContext _dbContext = new PersistenceDataContext();
+            _lockedFiles = new List<string>();
+            
             var configuracaoGE = _dbContext.ConfiguracaoRepository.GetAll().First();
             
-            _filePath = configuracaoGE.DsEnderecoSistema.TrimEnd('\\') + "\\ArquivosImportacao"; 
-            _sentFiles = _filePath + "\\ArquivosImportados";
+            _filePath = configuracaoGE.DsDiretorioImportacaoArquivo.TrimEnd('\\'); 
+            _sentFiles = _filePath + "\\Arquivos Processados";
 
             CreateDirectoryIfNotExists(_filePath);
             CreateDirectoryIfNotExists(_sentFiles);
-
-            _lockedFiles = new List<string>();
 
             _singletonFileProcessStrategies = new Dictionary<string, FileProcessStrategy>();
             _singletonFileProcessStrategies.Add("GE-CLIENTES-01-", new ClienteFileProcess());
@@ -83,23 +79,26 @@ namespace HBSIS.GE.Microservices.FileImporter.Producer.Service
                         {
                             var excelDataSet = ConvertExcelToDataSet(stream);
 
-                            // Seleciona a strategy a ser utilizada através do nome do arquivo lido
-                            foreach (var fileProcessPair in _singletonFileProcessStrategies)
+                            foreach (DataTable excelDataTable in excelDataSet.Tables)
                             {
-                                if (stream.Name.ToLower().Contains(fileProcessPair.Key.ToLower()))
+                                // Seleciona a strategy a ser utilizada através do nome do arquivo lido
+                                foreach (var fileProcessPair in _singletonFileProcessStrategies)
                                 {
-                                    var strategy = fileProcessPair.Value;
-                                    strategy.Process(excelDataSet, fileName);
+                                    if (stream.Name.ToLower().Contains(fileProcessPair.Key.ToLower()))
+                                    {
+                                        var strategy = fileProcessPair.Value;
+                                        strategy.Process(excelDataTable, fileName);
 
-                                    processedFile = true;
-                                    break;
+                                        processedFile = true;
+                                        break;
+                                    }
                                 }
                             }
                         }
 
                         if (processedFile)
                         {
-                            System.IO.File.Move(filePath, _sentFiles + fileName);
+                            System.IO.File.Move(filePath, _sentFiles  + "\\" + fileName);
                             _lockedFiles.Remove(fileName);
                         }
                     }
@@ -107,7 +106,7 @@ namespace HBSIS.GE.Microservices.FileImporter.Producer.Service
 
                 catch (Exception ex)
                 {
-                    LoggerHelper.Error($"{ex.Message} - INNER EXCEPTION: {ex.InnerException?.ToString()}");
+                    LoggerHelper.Error($"FileProcess => {ex.Message} - INNER EXCEPTION: {ex.GetInnerExceptionMessage()}");
                 }
             }
         }
@@ -123,6 +122,7 @@ namespace HBSIS.GE.Microservices.FileImporter.Producer.Service
                 return true;
 
             _lockedFiles.Add(fileName);
+
             return false;
         }
         

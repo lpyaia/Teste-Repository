@@ -2,6 +2,7 @@
 using HBSIS.Core.HBSIS.GE.FileImporter.Infra.ExcelModels;
 using HBSIS.GE.FileImporter.Infra.Entities;
 using HBSIS.GE.FileImporter.Services.Persistence;
+using HBSIS.GE.Microservices.FileImporter.Consumer.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,55 +22,71 @@ namespace HBSIS.GE.Microservices.FileImporter.Consumer.FileImporterStrategies
 
         public override void ImportData(ClienteSpreadsheetLine data)
         {
-            Cliente cliente = _persistenceDataContext.ClienteRepository.GetByCodigoClienteNegocio(data.Codigo);
-
-            if (cliente == null)
+            try
             {
-                // Funcionalidade desabilitada no momento.
-                // Aguardando requisitos.
-                //CreateCliente(data);
-                return;
-            }
+                Cliente cliente = _persistenceDataContext.ClienteRepository.GetByCodigoClienteNegocio(data.Codigo);
 
-            else
-            {
-                UpdateCliente(cliente, data);
-            }
-
-            UpdateClienteCelular(cliente.CdCliente, data.Contato1, data.TelefoneContato1, data.EnviarSmsContato1);
-            UpdateClienteCelular(cliente.CdCliente, data.Contato2, data.TelefoneContato2, data.EnviarSmsContato2);
-            UpdateClienteCelular(cliente.CdCliente, data.Contato3, data.TelefoneContato3, data.EnviarSmsContato3);
-            UpdateClienteCelular(cliente.CdCliente, data.Contato4, data.TelefoneContato4, data.EnviarSmsContato4);
-            UpdateClienteCelular(cliente.CdCliente, data.Contato5, data.TelefoneContato5, data.EnviarSmsContato5);
-        }
-
-        private void UpdateClienteCelular(long cdCliente, string nome, string telefone, string enviarSMS)
-        {
-            if (!string.IsNullOrEmpty(nome) && !string.IsNullOrEmpty(telefone))
-            {
-                bool enviaSMS = GetBooleanFromString(enviarSMS);
-                telefone = telefone.Replace("-", "").Replace("(", "").Replace(")", "").Replace(" ", "");
-
-                ClienteCelular clienteCelular =
-                    _persistenceDataContext.ClienteCelularRepository.GetByNumeroCelularAndCdCliente(cdCliente, telefone);
-
-                if (clienteCelular == null)
+                if (cliente == null)
                 {
-                    clienteCelular = new ClienteCelular();
-                    clienteCelular.CdCliente = cdCliente;
-                    clienteCelular.NrCelular = telefone;
-                    clienteCelular.DtCriacao = DateTime.Now;
-                    clienteCelular.IdExcluido = false;
-                    clienteCelular.NmContato = nome;
-                    clienteCelular.IdEnviarSMS = enviaSMS;
-
-                    _persistenceDataContext.ClienteCelularRepository.InsertImportacao(clienteCelular);
+                    // Funcionalidade desabilitada no momento.
+                    // Aguardando requisitos.
+                    //CreateCliente(data);
+                    return;
                 }
 
                 else
                 {
-                    _persistenceDataContext.ClienteCelularRepository.AtualizarNomeContato(clienteCelular.CdCelular, nome);
+                    UpdateCliente(cliente, data);
                 }
+
+                UpdateClienteCelular(cliente.CdCliente, data.Contato1, data.TelefoneContato1, data.EnviarSmsContato1);
+                UpdateClienteCelular(cliente.CdCliente, data.Contato2, data.TelefoneContato2, data.EnviarSmsContato2);
+                UpdateClienteCelular(cliente.CdCliente, data.Contato3, data.TelefoneContato3, data.EnviarSmsContato3);
+                UpdateClienteCelular(cliente.CdCliente, data.Contato4, data.TelefoneContato4, data.EnviarSmsContato4);
+                UpdateClienteCelular(cliente.CdCliente, data.Contato5, data.TelefoneContato5, data.EnviarSmsContato5);
+            }
+
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void UpdateClienteCelular(long cdCliente, string nome, string telefone, string enviarSMS)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(nome) && !string.IsNullOrEmpty(telefone))
+                {
+                    bool enviaSMS = GetBooleanFromString(enviarSMS);
+                    telefone = telefone.Replace("-", "").Replace("(", "").Replace(")", "").Replace(" ", "");
+
+                    ClienteCelular clienteCelular =
+                        _persistenceDataContext.ClienteCelularRepository.GetByNumeroCelularAndCdCliente(cdCliente, telefone);
+
+                    if (clienteCelular == null)
+                    {
+                        clienteCelular = new ClienteCelular();
+                        clienteCelular.CdCliente = cdCliente;
+                        clienteCelular.NrCelular = telefone;
+                        clienteCelular.DtCriacao = DateTime.Now;
+                        clienteCelular.IdExcluido = false;
+                        clienteCelular.NmContato = nome;
+                        clienteCelular.IdEnviarSMS = enviaSMS;
+
+                        _persistenceDataContext.ClienteCelularRepository.InsertImportacao(clienteCelular);
+                    }
+
+                    else
+                    {
+                        _persistenceDataContext.ClienteCelularRepository.AtualizarNomeContato(clienteCelular.CdCelular, nome);
+                    }
+                }
+            }
+
+            catch(Exception ex)
+            {
+                throw ex;
             }
         }
 
@@ -83,32 +100,55 @@ namespace HBSIS.GE.Microservices.FileImporter.Consumer.FileImporterStrategies
             cliente.NmBairro = clienteExcel.Bairro;
             cliente.NmCidade = clienteExcel.Cidade;
             cliente.NmEstado = clienteExcel.Estado;
-
-            // Campos que podem ser alterados
-            cliente.DsObservacao = clienteExcel.Tipo;
-            cliente.IdPotencialCliente = GetNumberFromString(clienteExcel.PotencialCVA);
-            cliente.TempoAtendimentoEntrega = GetHoursWithMinutesFromString(clienteExcel.TempoAtendimento);
-            cliente.TempoTratativaDevEntrega = GetHoursWithMinutesFromString(clienteExcel.TempoTratativa);
-            cliente.IdDiasRestricao = GetNumberFromString(clienteExcel.RestricaoDias);
-            cliente.DtInicioExpediente = GetHoursWithMinutesFromString(clienteExcel.PrimeiraAbertura);
-            cliente.DtFimExpediente = GetHoursWithMinutesFromString(clienteExcel.PrimeiroFechamento);
-            cliente.DtInicioExpedienteAlternativo = GetHoursWithMinutesFromString(clienteExcel.SegundaAbertura);
-            cliente.DtFimExpedienteAlternativo = GetHoursWithMinutesFromString(clienteExcel.SegundoFechamento);
         }
         
         private void UpdateCliente(Cliente cliente, ClienteSpreadsheetLine clienteExcel)
         {
-            cliente.DsObservacao = clienteExcel.Tipo;
-            cliente.IdPotencialCliente = GetNumberFromString(clienteExcel.PotencialCVA);
-            cliente.TempoAtendimentoEntrega = GetHoursWithMinutesFromString(clienteExcel.TempoAtendimento);
-            cliente.TempoTratativaDevEntrega = GetHoursWithMinutesFromString(clienteExcel.TempoTratativa);
-            cliente.IdDiasRestricao = GetNumberFromString(clienteExcel.RestricaoDias);
-            cliente.DtInicioExpediente = GetHoursWithMinutesFromString(clienteExcel.PrimeiraAbertura);
-            cliente.DtFimExpediente = GetHoursWithMinutesFromString(clienteExcel.PrimeiroFechamento);
-            cliente.DtInicioExpedienteAlternativo = GetHoursWithMinutesFromString(clienteExcel.SegundaAbertura);
-            cliente.DtFimExpedienteAlternativo = GetHoursWithMinutesFromString(clienteExcel.SegundoFechamento);
+            try
+            {
+                cliente.DsObservacao = clienteExcel.Tipo.HasValue() ?
+                    clienteExcel.Tipo :
+                    cliente.DsObservacao;
 
-            _persistenceDataContext.ClienteRepository.UpdateImportacao(cliente);
+                cliente.IdPotencialCliente = clienteExcel.PotencialCVA.HasValue() ?
+                    GetNumberFromString(clienteExcel.PotencialCVA) :
+                    cliente.IdPotencialCliente;
+
+                cliente.TempoAtendimentoEntrega = clienteExcel.TempoAtendimento.HasValue() ?
+                    GetMinutesWithSecondsFromString(clienteExcel.TempoAtendimento) :
+                    cliente.TempoAtendimentoEntrega;
+
+                cliente.TempoTratativaDevEntrega = clienteExcel.TempoTratativa.HasValue() ?
+                    GetHoursWithMinutesFromString(clienteExcel.TempoTratativa) :
+                    cliente.TempoTratativaDevEntrega;
+
+                cliente.IdDiasRestricao = clienteExcel.RestricaoDias.HasValue() ?
+                    GetNumberFromString(clienteExcel.RestricaoDias) :
+                    cliente.IdDiasRestricao;
+
+                cliente.DtInicioExpediente = clienteExcel.PrimeiraAbertura.HasValue() ?
+                    GetHoursWithMinutesFromString(clienteExcel.PrimeiraAbertura) :
+                    cliente.DtInicioExpediente;
+
+                cliente.DtFimExpediente = clienteExcel.PrimeiroFechamento.HasValue() ?
+                    GetHoursWithMinutesFromString(clienteExcel.PrimeiroFechamento) :
+                    cliente.DtFimExpediente;
+
+                cliente.DtInicioExpedienteAlternativo = clienteExcel.SegundaAbertura.HasValue() ?
+                    GetHoursWithMinutesFromString(clienteExcel.SegundaAbertura) :
+                    cliente.DtInicioExpedienteAlternativo;
+
+                cliente.DtFimExpedienteAlternativo = clienteExcel.SegundoFechamento.HasValue() ?
+                    GetHoursWithMinutesFromString(clienteExcel.SegundoFechamento) :
+                    cliente.DtFimExpedienteAlternativo;
+
+                _persistenceDataContext.ClienteRepository.UpdateImportacao(cliente);
+            }
+
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private bool GetBooleanFromString(string textToFind)
@@ -127,6 +167,23 @@ namespace HBSIS.GE.Microservices.FileImporter.Consumer.FileImporterStrategies
             int.TryParse(resultString, out number);
 
             return number;
+        }
+
+        private DateTime GetMinutesWithSecondsFromString(string textToFind)
+        {
+            textToFind = Regex.Match(textToFind, @"[0-9]{1,2}:[0-9]{1,2}").Value;
+
+            string[] timePlaces = textToFind.Split(":");
+            int minutes = 0;
+            int seconds = 0;
+            
+            if (timePlaces.Count() >= 2)
+            {
+                minutes = GetNumberFromString(timePlaces[0]);
+                seconds = GetNumberFromString(timePlaces[1]);
+            }
+
+            return new DateTime(1900, 01, 01, 00, minutes, seconds);
         }
 
         private DateTime GetHoursWithMinutesFromString(string textToFind)

@@ -18,8 +18,6 @@ namespace HBSIS.GE.FileImporter.Services.Commons.Base.Service
         public override void StoreMessage(TMessage message)
         {
             var result = ProcessMessage(message);
-
-            //LoggerHelper.Log(result);
         }
 
         protected abstract Result Process(TMessage message);
@@ -33,9 +31,6 @@ namespace HBSIS.GE.FileImporter.Services.Commons.Base.Service
             SaveContext(message);
             PreProcess(message);
 
-            //// Criar e instanciar factory do Dapper para chama-lo no Program
-            //using (FactoryProvider.CurrentFactory.GetDataContext())
-            //{
             try
             {
                 TDto dto = null;
@@ -46,30 +41,9 @@ namespace HBSIS.GE.FileImporter.Services.Commons.Base.Service
 
                 if (isSuccess)
                 {
-                    //// Abrir Transação com o Dapper
-                    //using (var tx = TransactionFactory.GetTransaction())
-                    //{
                     result = Process(message);
-
-                    // if (result.IsSuccess())
-                    //   tx.Commit();
-                    //}
-
                     isSuccess = result.IsSuccess();
                 }
-
-                if (isSuccess)
-                {
-                    if (Caches.Count > 0)
-                    {
-                        dto = ProcessDto(Caches);
-                        dto.Send(message);
-                    }
-
-                    SendMessages(message);
-                }
-
-                MessageLogger.Consumed(message, isSuccess, result.MessageToString());
 
                 return ResultBuilder<TDto>.Return(result, dto);
             }

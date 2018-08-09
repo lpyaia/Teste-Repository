@@ -10,15 +10,23 @@ namespace HBSIS.GE.Microservices.FileImporter.Producer.FileProcessStrategies
 {
     public abstract class FileProcessStrategy
     {
-        public abstract void Process(DataSet dataSet, string fileName);
+        public abstract void Process(DataTable dataSet, string fileName);
 
         protected void SendMessage(FileImporterMessage message)
         {
-            BusEasyNetQFactory busEasyNetQFactory = new BusEasyNetQFactory();
-            var bus = busEasyNetQFactory.CreateContext();
+            try
+            {
+                BusEasyNetQFactory busEasyNetQFactory = new BusEasyNetQFactory();
+                var bus = busEasyNetQFactory.CreateContext();
 
-            bus.Connect();
-            bus.Enqueue<FileImporterMessage>("GE-ImportacaoArquivos", message);
+                bus.Connect();
+                bus.Enqueue<FileImporterMessage>("GE-ImportacaoArquivos", message);
+            }
+
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

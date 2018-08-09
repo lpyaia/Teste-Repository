@@ -123,6 +123,7 @@ namespace HBSIS.GE.FileImporter.Infra.Entities
         public bool IdArmazenamentoExternoEvidencias { get; set; }
         public bool IdValidarRiscoRota { get; set; }
         public bool IdTempoEsperaCliente { get; set; }
+        public string DsDiretorioImportacaoArquivo { get; set; }
         #endregion
     }
 }

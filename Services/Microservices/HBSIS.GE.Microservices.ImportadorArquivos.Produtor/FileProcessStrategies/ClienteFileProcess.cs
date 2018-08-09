@@ -1,4 +1,5 @@
 ﻿using HBSIS.Core.HBSIS.GE.FileImporter.Infra.ExcelModels;
+using HBSIS.Framework.Commons.Helper;
 using HBSIS.GE.FileImporter.Services.Messages.Message;
 using System;
 using System.Collections.Generic;
@@ -9,12 +10,12 @@ namespace HBSIS.GE.Microservices.FileImporter.Producer.FileProcessStrategies
 {
     public class ClienteFileProcess : FileProcessStrategy
     {
-        public override void Process(DataSet excelSpreadsheet, string fileName)
+        public override void Process(DataTable excelSpreadsheet, string fileName)
         {
-            int totalFileRows = excelSpreadsheet.Tables[0].Rows.Count;
+            int totalFileRows = excelSpreadsheet.Rows.Count;
             int countRows = 1;
 
-            foreach (DataRow rowColumn in excelSpreadsheet.Tables[0].Rows)
+            foreach (DataRow rowColumn in excelSpreadsheet.Rows)
             {
                 ClienteSpreadsheetLine clienteSpreadsheetLine = new ClienteSpreadsheetLine();
 
@@ -60,7 +61,15 @@ namespace HBSIS.GE.Microservices.FileImporter.Producer.FileProcessStrategies
                     FileImporterMessage message = new FileImporterMessage("GE-Clientes-01-", clienteSpreadsheetLine, fileName, countRows, totalFileRows);
                     countRows++;
 
-                    SendMessage(message);
+                    try
+                    {
+                        SendMessage(message);
+                    }
+
+                    catch(Exception ex)
+                    {
+                        LoggerHelper.Error($"Process => {ex.Message} - INNER EXCEPTION: {ex.GetInnerExceptionMessage()}");
+                    }
                 }
             }
         }
