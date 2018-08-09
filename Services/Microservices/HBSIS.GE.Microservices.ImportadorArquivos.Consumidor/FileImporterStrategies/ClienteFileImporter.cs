@@ -181,8 +181,11 @@ namespace HBSIS.GE.Microservices.FileImporter.Consumer.FileImporterStrategies
             {
                 minutes = GetNumberFromString(timePlaces[0]);
                 seconds = GetNumberFromString(timePlaces[1]);
-            }
 
+                minutes = minutes > 59 ? 0 : minutes;
+                seconds = seconds > 59 ? 0 : seconds;
+            }
+            
             return new DateTime(1900, 01, 01, 00, minutes, seconds);
         }
 
@@ -191,16 +194,19 @@ namespace HBSIS.GE.Microservices.FileImporter.Consumer.FileImporterStrategies
             textToFind = Regex.Match(textToFind, @"[0-9]{1,2}:[0-9]{1,2}").Value;
 
             string[] timePlaces = textToFind.Split(":");
-            int hour = 0;
-            int minute = 0;
+            int hours = 0;
+            int minutes = 0;
 
             if(timePlaces.Count() >= 2)
             {
-                hour = GetNumberFromString(timePlaces[0]);
-                minute = GetNumberFromString(timePlaces[1]);
+                hours = GetNumberFromString(timePlaces[0]);
+                minutes = GetNumberFromString(timePlaces[1]);
+
+                hours = hours > 23 ? 0 : hours;
+                minutes = minutes > 59 ? 0 : minutes;
             }
 
-            return new DateTime(1900, 01, 01, hour, minute, 0);
+            return new DateTime(1900, 01, 01, hours, minutes, 0);
         }
 
         
