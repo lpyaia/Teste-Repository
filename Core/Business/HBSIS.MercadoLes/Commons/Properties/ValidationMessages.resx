@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AnomaliaEntregaPendente" xml:space="preserve">
+    <value>Há anomalia de entrega pendente.</value>
+  </data>
+  <data name="AnomaliaJaGerada" xml:space="preserve">
+    <value>Anomalia já gerada no intervalo.</value>
+  </data>
+  <data name="AnomaliaNaoEncontrada" xml:space="preserve">
+    <value>Anomalia não encontrada.</value>
+  </data>
+  <data name="AnomaliaNaoImplementada" xml:space="preserve">
+    <value>Anomalia não implementada.</value>
+  </data>
+  <data name="ApontamentoConflitante" xml:space="preserve">
+    <value>Apontamento com Data conflitante.</value>
+  </data>
+  <data name="CavaloNaoInformado" xml:space="preserve">
+    <value>Cavalo não informado.</value>
+  </data>
+  <data name="CercaJaExistente" xml:space="preserve">
+    <value>Cerca Eletrônica já existente.</value>
+  </data>
+  <data name="ClienteNaoExiste" xml:space="preserve">
+    <value>Cliente informado não existe.</value>
+  </data>
+  <data name="ClienteNaoInformado" xml:space="preserve">
+    <value>Cliente não informado.</value>
+  </data>
+  <data name="CnpjInvalido" xml:space="preserve">
+    <value>CNPJ inválido.</value>
+  </data>
+  <data name="CodParadaNaoInformado" xml:space="preserve">
+    <value>Código da Parada não informada.</value>
+  </data>
+  <data name="ConversaNaoEncontrada" xml:space="preserve">
+    <value>Conversa não encontrada.</value>
+  </data>
+  <data name="CoordenadaNaoInformada" xml:space="preserve">
+    <value>Coordenada não informada.</value>
+  </data>
+  <data name="CpfInvalido" xml:space="preserve">
+    <value>CPF inválido.</value>
+  </data>
+  <data name="DataInicioNaoInformado" xml:space="preserve">
+    <value>Data Início não informado.</value>
+  </data>
+  <data name="DataMaiorAtual" xml:space="preserve">
+    <value>Data maior que atual.</value>
+  </data>
+  <data name="DataMenorAnterior" xml:space="preserve">
+    <value>Data menor que anterior.</value>
+  </data>
+  <data name="DataNaoInformada" xml:space="preserve">
+    <value>Data não informada.</value>
+  </data>
+  <data name="DataPosicaoNaoInformada" xml:space="preserve">
+    <value>Data Posição não informado.</value>
+  </data>
+  <data name="DataTerminoMenorDataInicio" xml:space="preserve">
+    <value>Data Término menor que a Data Início.</value>
+  </data>
+  <data name="DataTerminoMenorParadaAnterior" xml:space="preserve">
+    <value>Data menor que a Data Término da Parada anterior.</value>
+  </data>
+  <data name="DataTerminoNaoInformado" xml:space="preserve">
+    <value>Data Término não informado.</value>
+  </data>
+  <data name="EntregaNaoVinculada" xml:space="preserve">
+    <value>Parada de Entrega não vinculada ao faturamento.</value>
+  </data>
+  <data name="FaturaJaVinculada" xml:space="preserve">
+    <value>Fatura já vinculada em outro Transporte.</value>
+  </data>
+  <data name="FaturaNaoInformada" xml:space="preserve">
+    <value>Fatura não informada.</value>
+  </data>
+  <data name="IdMensagemNaoInformado" xml:space="preserve">
+    <value>IdMensagem não informado.</value>
+  </data>
+  <data name="LatitudeInvalida" xml:space="preserve">
+    <value>Latitude inválida.</value>
+  </data>
+  <data name="LatitudeNaoInformada" xml:space="preserve">
+    <value>Latitude não informada.</value>
+  </data>
+  <data name="LongitudeInvalida" xml:space="preserve">
+    <value>Longitude inválida.</value>
+  </data>
+  <data name="LongitudeNaoInformada" xml:space="preserve">
+    <value>Longitude não informada.</value>
+  </data>
+  <data name="MensagemNaoInformada" xml:space="preserve">
+    <value>Mensagem não informada.</value>
+  </data>
+  <data name="MotivoNaoEncontrado" xml:space="preserve">
+    <value>Motivo não encontrado.</value>
+  </data>
+  <data name="MotivoNaoInformado" xml:space="preserve">
+    <value>Motivo não informado.</value>
+  </data>
+  <data name="MotoristaNaoInformado" xml:space="preserve">
+    <value>Motorista não informado.</value>
+  </data>
+  <data name="NomeNaoInformado" xml:space="preserve">
+    <value>Nome não informado.</value>
+  </data>
+  <data name="NumeroAntenaNaoInformada" xml:space="preserve">
+    <value>Número da Antena não informado.</value>
+  </data>
+  <data name="NumeroNaoInformado" xml:space="preserve">
+    <value>Número não informado.</value>
+  </data>
+  <data name="NumeroPlacaInvalida" xml:space="preserve">
+    <value>Número da Placa inválida.</value>
+  </data>
+  <data name="NumeroPlacaNaoInformada" xml:space="preserve">
+    <value>Numero da Placa não informada.</value>
+  </data>
+  <data name="OfertaFreteNaoEncontrada" xml:space="preserve">
+    <value>Oferta de Frete não encontrada.</value>
+  </data>
+  <data name="OperacaoInvalida" xml:space="preserve">
+    <value>Operação inválida.</value>
+  </data>
+  <data name="OperacaoTransporteInvalida" xml:space="preserve">
+    <value>Operação Transporte inválida.</value>
+  </data>
+  <data name="OrigemNaoExiste" xml:space="preserve">
+    <value>Origem informada não existe.</value>
+  </data>
+  <data name="OrigemNaoInformada" xml:space="preserve">
+    <value>Origem não informada.</value>
+  </data>
+  <data name="ParadaInvalida" xml:space="preserve">
+    <value>Parada inválida.</value>
+  </data>
+  <data name="ParadaMotivoNaoInformado" xml:space="preserve">
+    <value>ParadaMotivo não informado.</value>
+  </data>
+  <data name="ParadaNaoEncontrada" xml:space="preserve">
+    <value>Parada não encontrada.</value>
+  </data>
+  <data name="ParadaNaoInformada" xml:space="preserve">
+    <value>Parada não informada.</value>
+  </data>
+  <data name="PedidoNaoInformado" xml:space="preserve">
+    <value>Pedido não informado.</value>
+  </data>
+  <data name="PlacaInvalida" xml:space="preserve">
+    <value>Placa inválida.</value>
+  </data>
+  <data name="PlacaMovimentoNaoEncontrada" xml:space="preserve">
+    <value>PlacaMovimento não encontrada.</value>
+  </data>
+  <data name="PlacaNaoEncontrada" xml:space="preserve">
+    <value>Placa não encontrada.</value>
+  </data>
+  <data name="PlacaNaoInformada" xml:space="preserve">
+    <value>Placa não informada.</value>
+  </data>
+  <data name="PlacaSinalNaoEncontrada" xml:space="preserve">
+    <value>PlacaSinal não encontrada.</value>
+  </data>
+  <data name="PlacaTemperaturaNaoEncontrada" xml:space="preserve">
+    <value>PlacaTemperatura não encontrada.</value>
+  </data>
+  <data name="PlacaTempoJornadaNaoEncontrada" xml:space="preserve">
+    <value>PlacaTempoJornada não encontrada.</value>
+  </data>
+  <data name="PlacaVelocidadeNaoEncontrada" xml:space="preserve">
+    <value>PlacaVelocidade não encontrada.</value>
+  </data>
+  <data name="PoligonoInvalido" xml:space="preserve">
+    <value>Polígono inválido.</value>
+  </data>
+  <data name="PosicaoNoPassado" xml:space="preserve">
+    <value>Posição no passado.</value>
+  </data>
+  <data name="MonitoramentoContinuoJaExistente" xml:space="preserve">
+    <value>Monitoramento contínuo já existente.</value>
+  </data>
+  <data name="RaioInvalido" xml:space="preserve">
+    <value>Raio inválido.</value>
+  </data>
+  <data name="RotaFinalizada" xml:space="preserve">
+    <value>Rota Finalizada.</value>
+  </data>
+  <data name="RotaInvalida" xml:space="preserve">
+    <value>Rota inválida.</value>
+  </data>
+  <data name="RotaNaoEncontrada" xml:space="preserve">
+    <value>Rota não encontrada.</value>
+  </data>
+  <data name="RotaNaoInformada" xml:space="preserve">
+    <value>Rota não informada.</value>
+  </data>
+  <data name="RotaParadaNaoEncontrada" xml:space="preserve">
+    <value>RotaParada não encontrada.</value>
+  </data>
+  <data name="RotaParadaNaoInformada" xml:space="preserve">
+    <value>RotaParada não informada.</value>
+  </data>
+  <data name="SemAnomaliaPendente" xml:space="preserve">
+    <value>Sem Anomalia Pendentes.</value>
+  </data>
+  <data name="SequenciaRepetida" xml:space="preserve">
+    <value>Sequência Repetida.</value>
+  </data>
+  <data name="StatusInvalido" xml:space="preserve">
+    <value>Status inválido.</value>
+  </data>
+  <data name="TextoNaoInformado" xml:space="preserve">
+    <value>Texto não informado.</value>
+  </data>
+  <data name="TipoAnomaliaNaoInformada" xml:space="preserve">
+    <value>Tipo Anomalia não informada.</value>
+  </data>
+  <data name="TipoEquipamentoInvalido" xml:space="preserve">
+    <value>Tipo Equipamento inválido.</value>
+  </data>
+  <data name="TipoEquipamentoNaoInformado" xml:space="preserve">
+    <value>Tipo Equipamento não informado.</value>
+  </data>
+  <data name="TipoNaoInformado" xml:space="preserve">
+    <value>Tipo não informado.</value>
+  </data>
+  <data name="TipoParadaInvalido" xml:space="preserve">
+    <value>Tipo Parada inválido.</value>
+  </data>
+  <data name="TipoParadaNaoInformada" xml:space="preserve">
+    <value>Tipo Parada não informada.</value>
+  </data>
+  <data name="TipoTecnologiaNaoInformada" xml:space="preserve">
+    <value>Tipo Tecnologia não informado.</value>
+  </data>
+  <data name="TokenNaoInformado" xml:space="preserve">
+    <value>Token não informado.</value>
+  </data>
+  <data name="TransportadoraNaoExiste" xml:space="preserve">
+    <value>Transportadora não existe.</value>
+  </data>
+  <data name="TransportadoraNaoInfomada" xml:space="preserve">
+    <value>Transportadora não informada.</value>
+  </data>
+  <data name="TransporteJaVinculado" xml:space="preserve">
+    <value>Transporte já vinculado em outra Rota.</value>
+  </data>
+  <data name="TransporteNaoEncontrado" xml:space="preserve">
+    <value>Transporte não encontrado.</value>
+  </data>
+  <data name="TransporteNaoInformado" xml:space="preserve">
+    <value>Transporte não informado.</value>
+  </data>
+  <data name="TransporteParadaNaoEncontrada" xml:space="preserve">
+    <value>Transporte Parada não encontrada.</value>
+  </data>
+  <data name="TransporteParadaNaoInformado" xml:space="preserve">
+    <value>Transporte Parada não informado.</value>
+  </data>
+  <data name="TratativaNaoImplementada" xml:space="preserve">
+    <value>Tratativa não implementada.</value>
+  </data>
+  <data name="UsuarioNaoEncontrado" xml:space="preserve">
+    <value>Usuario não encontrado.</value>
+  </data>
+  <data name="UsuarioNaoInformado" xml:space="preserve">
+    <value>Usuario não informado.</value>
+  </data>
+  <data name="UsuarioOuSenhaInvalido" xml:space="preserve">
+    <value>Usuário ou senha inválido.</value>
+  </data>
+  <data name="RotaAtiva" xml:space="preserve">
+    <value>Já existe uma rota possivelmente ativa para esta placa.</value>
+  </data>
+
+  <data name="EquipamentoNaoEncontrado" xml:space="preserve">
+    <value>Equipamento não encontrado.</value>
+  </data>
+  <data name="OfertaFreteJaVinculada" xml:space="preserve">
+    <value>Oferta frete já vínculada a uma placa.</value>
+  </data>
+  <data name="AnomaliaInativa" xml:space="preserve">
+    <value>Anomalia Inativa.</value>
+  </data>
+  <data name="ControleEntradaSaidaInvalido" xml:space="preserve">
+    <value>Controle de entrada e saída inválido.</value>
+  </data>
+</root>

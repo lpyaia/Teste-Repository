@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Infra\" />
+    <Folder Include="Commons\" />
+    <Folder Include="Messages\" />
+    <Folder Include="Persistence\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.2.1" />
+    <PackageReference Include="System.ServiceModel.Http" Version="4.5.2" />
+    <PackageReference Include="System.ServiceModel.Primitives" Version="4.5.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\HBSIS.Framework\HBSIS.Framework.csproj" />
+  </ItemGroup>
+
+</Project>

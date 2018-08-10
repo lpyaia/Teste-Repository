@@ -5,9 +5,11 @@ VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{3FF45899-633A-486B-B95E-7E858320C955}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HBSIS.Core", "HBSIS.Core\HBSIS.Core.csproj", "{C144CB2E-31D2-4D56-BA9C-317B503A8447}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HBSIS.MercadoLes", "HBSIS.MercadoLes\HBSIS.MercadoLes.csproj", "{C144CB2E-31D2-4D56-BA9C-317B503A8447}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HBSIS.Framework", "..\Framework\HBSIS.Framework\HBSIS.Framework.csproj", "{9EAE9FFC-A055-47FC-B587-70B63A1443EC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HBSIS.GE.FileImporter", "HBSIS.GE.FileImporter\HBSIS.GE.FileImporter.csproj", "{1DFAAA14-D043-4DFF-9D64-99BF81E45F59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{9EAE9FFC-A055-47FC-B587-70B63A1443EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EAE9FFC-A055-47FC-B587-70B63A1443EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EAE9FFC-A055-47FC-B587-70B63A1443EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DFAAA14-D043-4DFF-9D64-99BF81E45F59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DFAAA14-D043-4DFF-9D64-99BF81E45F59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DFAAA14-D043-4DFF-9D64-99BF81E45F59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DFAAA14-D043-4DFF-9D64-99BF81E45F59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

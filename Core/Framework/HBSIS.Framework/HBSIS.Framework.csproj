@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="HBSIS.Framework.Commons\FileImporterStratew\" />
+    <Folder Include="Commons\" />
   </ItemGroup>
 
   <ItemGroup>
