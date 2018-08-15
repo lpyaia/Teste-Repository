@@ -11,7 +11,6 @@ namespace HBSIS.GE.FileImporter.Services.Persistence.Repository
 {
     public class ClienteRepository : DapperRepository<Cliente, Guid>, IClienteRepository<Cliente>
     {
-
         public ClienteRepository(string _dbConnectionString) : base(_dbConnectionString)
         {
 
@@ -49,8 +48,8 @@ namespace HBSIS.GE.FileImporter.Services.Persistence.Repository
             using (var dapperConnection = AbreConexao())
             {
                 dapperConnection.Open();
-
-                dapperConnection.ExecuteScalar(@"
+                
+                dapperConnection.ExecuteAsync(@"
                     UPDATE [OPMDM].[TB_CLIENTE]
                     SET DtInicioExpediente = @DtInicioExpediente,
                         DtFimExpediente = @DtFimExpediente,
@@ -75,6 +74,59 @@ namespace HBSIS.GE.FileImporter.Services.Persistence.Repository
                         TempoAtendimentoEntrega = cliente.TempoAtendimentoEntrega,
                         TempoTratativaDevEntrega = cliente.TempoTratativaDevEntrega
                     });
+            }
+        }
+
+        public CommandDefinition GetUpdateImportacaoCommand(Cliente cliente)
+        {
+            CommandDefinition commandDefinition = new CommandDefinition(@"
+                    UPDATE [OPMDM].[TB_CLIENTE]
+                    SET DtInicioExpediente = @DtInicioExpediente,
+                        DtFimExpediente = @DtFimExpediente,
+                        DtInicioExpedienteAlternativo = @DtInicioExpedienteAlternativo,
+                        DtFimExpedienteAlternativo = @DtFimExpedienteAlternativo,
+                        IdDiasRestricao = @IdDiasRestricao,
+                        IdPotencialCliente = @IdPotencialCliente,
+                        DsObservacao = @DsObservacao,
+                        TempoAtendimentoEntrega = @TempoAtendimentoEntrega,
+                        TempoTratativaDevEntrega = @TempoTratativaDevEntrega
+                    WHERE CdClienteNegocio = @CdClienteNegocio",
+                    new
+                    {
+                        CdClienteNegocio = cliente.CdClienteNegocio,
+                        DtInicioExpediente = cliente.DtInicioExpediente,
+                        DtFimExpediente = cliente.DtFimExpediente,
+                        DtInicioExpedienteAlternativo = cliente.DtInicioExpedienteAlternativo,
+                        DtFimExpedienteAlternativo = cliente.DtFimExpedienteAlternativo,
+                        IdDiasRestricao = cliente.IdDiasRestricao,
+                        IdPotencialCliente = cliente.IdPotencialCliente,
+                        DsObservacao = cliente.DsObservacao,
+                        TempoAtendimentoEntrega = cliente.TempoAtendimentoEntrega,
+                        TempoTratativaDevEntrega = cliente.TempoTratativaDevEntrega
+                    });
+
+            return commandDefinition;
+        }
+
+        public void UpdateImportacao(List<Cliente> clientes)
+        {
+            using (var dapperConnection = AbreConexao())
+            {
+                dapperConnection.Open();
+
+                dapperConnection.ExecuteScalar(@"
+                    UPDATE [OPMDM].[TB_CLIENTE]
+                    SET DtInicioExpediente = @DtInicioExpediente,
+                        DtFimExpediente = @DtFimExpediente,
+                        DtInicioExpedienteAlternativo = @DtInicioExpedienteAlternativo,
+                        DtFimExpedienteAlternativo = @DtFimExpedienteAlternativo,
+                        IdDiasRestricao = @IdDiasRestricao,
+                        IdPotencialCliente = @IdPotencialCliente,
+                        DsObservacao = @DsObservacao,
+                        TempoAtendimentoEntrega = @TempoAtendimentoEntrega,
+                        TempoTratativaDevEntrega = @TempoTratativaDevEntrega
+                    WHERE CdClienteNegocio = @CdClienteNegocio",
+                    clientes);
             }
         }
 

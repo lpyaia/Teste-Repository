@@ -8,16 +8,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Dapper;
 
 namespace HBSIS.GE.FileImporter.Consumer.FileImporterStrategies
 {
     public class ClienteFileImporter : FileImporterStrategy<ClienteSpreadsheetLine>, IFileImporterStrategy
     {
         private PersistenceDataContext _persistenceDataContext;
+        private List<Cliente> _lstCliente;
+        private List<ClienteCelular> _lstClienteCelular;
+        private List<CommandDefinition> _lstCommands;
 
         public ClienteFileImporter()
         {
             _persistenceDataContext = new PersistenceDataContext();
+            _lstCliente = new List<Cliente>();
+            _lstClienteCelular = new List<ClienteCelular>();
+            _lstCommands = new List<CommandDefinition>();
         }
 
         public override void ImportData(ClienteSpreadsheetLine data)
@@ -26,33 +33,28 @@ namespace HBSIS.GE.FileImporter.Consumer.FileImporterStrategies
             {
                 Cliente cliente = _persistenceDataContext.ClienteRepository.GetByCodigoClienteNegocio(data.Codigo);
 
-                if (cliente == null)
-                {
-                    // Funcionalidade desabilitada no momento.
-                    // Aguardando requisitos.
-                    //CreateCliente(data);
-                    return;
-                }
+                if (cliente == null) return;
 
-                else
-                {
-                    UpdateCliente(cliente, data);
-                }
+                _lstCommands.Add(UpdateCliente(cliente, data));
 
-                UpdateClienteCelular(cliente.CdCliente, data.Contato1, data.TelefoneContato1, data.EnviarSmsContato1);
-                UpdateClienteCelular(cliente.CdCliente, data.Contato2, data.TelefoneContato2, data.EnviarSmsContato2);
-                UpdateClienteCelular(cliente.CdCliente, data.Contato3, data.TelefoneContato3, data.EnviarSmsContato3);
-                UpdateClienteCelular(cliente.CdCliente, data.Contato4, data.TelefoneContato4, data.EnviarSmsContato4);
-                UpdateClienteCelular(cliente.CdCliente, data.Contato5, data.TelefoneContato5, data.EnviarSmsContato5);
+                _lstCommands.Add(UpdateClienteCelular(cliente.CdCliente, data.Contato1, data.TelefoneContato1, data.EnviarSmsContato1));
+                _lstCommands.Add(UpdateClienteCelular(cliente.CdCliente, data.Contato2, data.TelefoneContato2, data.EnviarSmsContato2));
+                _lstCommands.Add(UpdateClienteCelular(cliente.CdCliente, data.Contato3, data.TelefoneContato3, data.EnviarSmsContato3));
+                _lstCommands.Add(UpdateClienteCelular(cliente.CdCliente, data.Contato4, data.TelefoneContato4, data.EnviarSmsContato4));
+                _lstCommands.Add(UpdateClienteCelular(cliente.CdCliente, data.Contato5, data.TelefoneContato5, data.EnviarSmsContato5));
+
+                _lstCommands = _lstCommands.Where(command => !string.IsNullOrEmpty(command.CommandText)).ToList();
+
+                _persistenceDataContext.ClienteRepository.ExecuteCommandDefinition(_lstCommands);
             }
 
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
         }
 
-        private void UpdateClienteCelular(long cdCliente, string nome, string telefone, string enviarSMS)
+        private CommandDefinition UpdateClienteCelular(long cdCliente, string nome, string telefone, string enviarSMS)
         {
             try
             {
@@ -74,38 +76,29 @@ namespace HBSIS.GE.FileImporter.Consumer.FileImporterStrategies
                         clienteCelular.NmContato = nome;
                         clienteCelular.IdEnviarSMS = enviaSMS;
 
-                        _persistenceDataContext.ClienteCelularRepository.InsertImportacao(clienteCelular);
+                        return _persistenceDataContext.ClienteCelularRepository.GetInsertImportacaoCommand(clienteCelular);
                     }
 
                     else
                     {
-                        _persistenceDataContext.ClienteCelularRepository.AtualizarNomeContato(clienteCelular.CdCelular, nome);
+                        return _persistenceDataContext.ClienteCelularRepository.GetAtualizarNomeContadoCommand(clienteCelular.CdCelular, nome);
                     }
                 }
+
+                return new CommandDefinition();
             }
 
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
         }
 
-        private void CreateCliente(ClienteSpreadsheetLine clienteExcel)
-        {
-            Cliente cliente = new Cliente();
-
-            // Campos fixos
-            cliente.NmCliente = clienteExcel.Cliente;
-            cliente.DsEndereco = clienteExcel.Rua;
-            cliente.NmBairro = clienteExcel.Bairro;
-            cliente.NmCidade = clienteExcel.Cidade;
-            cliente.NmEstado = clienteExcel.Estado;
-        }
-        
-        private void UpdateCliente(Cliente cliente, ClienteSpreadsheetLine clienteExcel)
+        private CommandDefinition UpdateCliente(Cliente cliente, ClienteSpreadsheetLine clienteExcel)
         {
             try
             {
+                #region Validações e conversões
                 cliente.DsObservacao = clienteExcel.Tipo.HasValue() ?
                     clienteExcel.Tipo :
                     cliente.DsObservacao;
@@ -120,32 +113,33 @@ namespace HBSIS.GE.FileImporter.Consumer.FileImporterStrategies
 
                 cliente.TempoTratativaDevEntrega = clienteExcel.TempoTratativa.HasValue() ?
                     GetHoursWithMinutesFromString(clienteExcel.TempoTratativa) :
-                    cliente.TempoTratativaDevEntrega;
+                    new DateTime(1900, 01, 01, 00, 00, 00);
 
                 cliente.IdDiasRestricao = clienteExcel.RestricaoDias.HasValue() ?
-                    GetNumberFromString(clienteExcel.RestricaoDias) :
-                    cliente.IdDiasRestricao;
+                    ConvertDiasRestricoes(clienteExcel.RestricaoDias) :
+                    0;
 
                 cliente.DtInicioExpediente = clienteExcel.PrimeiraAbertura.HasValue() ?
                     GetHoursWithMinutesFromString(clienteExcel.PrimeiraAbertura) :
-                    cliente.DtInicioExpediente;
+                    new DateTime(1900, 01, 01, 00, 00, 00);
 
                 cliente.DtFimExpediente = clienteExcel.PrimeiroFechamento.HasValue() ?
                     GetHoursWithMinutesFromString(clienteExcel.PrimeiroFechamento) :
-                    cliente.DtFimExpediente;
+                    new DateTime(1900, 01, 01, 00, 00, 00);
 
                 cliente.DtInicioExpedienteAlternativo = clienteExcel.SegundaAbertura.HasValue() ?
                     GetHoursWithMinutesFromString(clienteExcel.SegundaAbertura) :
-                    cliente.DtInicioExpedienteAlternativo;
+                    new DateTime(1900, 01, 01, 00, 00, 00);
 
                 cliente.DtFimExpedienteAlternativo = clienteExcel.SegundoFechamento.HasValue() ?
                     GetHoursWithMinutesFromString(clienteExcel.SegundoFechamento) :
-                    cliente.DtFimExpedienteAlternativo;
+                    new DateTime(1900, 01, 01, 00, 00, 00);
+                #endregion
 
-                _persistenceDataContext.ClienteRepository.UpdateImportacao(cliente);
+                return _persistenceDataContext.ClienteRepository.GetUpdateImportacaoCommand(cliente);
             }
 
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -169,6 +163,33 @@ namespace HBSIS.GE.FileImporter.Consumer.FileImporterStrategies
             return number;
         }
 
+        private int ConvertDiasRestricoes(string txtDiasRestricoes)
+        {
+            int[] diasSemana = new int[7];
+            int somaBinaria = 0;
+
+            foreach (char txtDia in txtDiasRestricoes)
+            {
+                int dia = GetNumberFromString(txtDia.ToString());
+
+                if (dia == 0) continue;
+
+                // Atribui ao vetor para evitar que seja somado o mesmo dia mais de uma vez em caso de erro de digitação.
+                // Ex: 221 -> Resultado = 21. O dia 2 (segunda-feira) não pode ser somado mais de uma vez.
+                diasSemana[dia - 1] = 1;
+            }
+
+            for (int i = 0; i < 7; i++)
+            {
+                if (diasSemana[i] == 1)
+                {
+                    somaBinaria += (int)Math.Pow(2, i);
+                }
+            }
+
+            return somaBinaria;
+        }
+
         private DateTime GetMinutesWithSecondsFromString(string textToFind)
         {
             textToFind = Regex.Match(textToFind, @"[0-9]{1,2}:[0-9]{1,2}").Value;
@@ -176,7 +197,7 @@ namespace HBSIS.GE.FileImporter.Consumer.FileImporterStrategies
             string[] timePlaces = textToFind.Split(":");
             int minutes = 0;
             int seconds = 0;
-            
+
             if (timePlaces.Count() >= 2)
             {
                 minutes = GetNumberFromString(timePlaces[0]);
@@ -185,7 +206,7 @@ namespace HBSIS.GE.FileImporter.Consumer.FileImporterStrategies
                 minutes = minutes > 59 ? 0 : minutes;
                 seconds = seconds > 59 ? 0 : seconds;
             }
-            
+
             return new DateTime(1900, 01, 01, 00, minutes, seconds);
         }
 
@@ -197,7 +218,7 @@ namespace HBSIS.GE.FileImporter.Consumer.FileImporterStrategies
             int hours = 0;
             int minutes = 0;
 
-            if(timePlaces.Count() >= 2)
+            if (timePlaces.Count() >= 2)
             {
                 hours = GetNumberFromString(timePlaces[0]);
                 minutes = GetNumberFromString(timePlaces[1]);

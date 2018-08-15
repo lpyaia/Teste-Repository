@@ -33,6 +33,24 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Utils
             return (d, 0);
         }
 
+        /// <summary>
+        ///     Calcular a distância em linha reta entre duas coordenadas em graus decimais (DD), em metros
+        /// </summary>
+        /// <param name="lat1">Latitude 1</param>
+        /// <param name="lon1">Longitude 1</param>
+        /// <param name="lat2">Latitude 2</param>
+        /// <param name="lon2">Longitude 2</param>
+        /// <returns>Distância em metros</returns>
+        public static (double distancia, int tempo) DistanciaLinhaReta(decimal lat1, decimal lon1, decimal lat2, decimal lon2)
+        {
+            double doubleLat1 = Convert.ToDouble(lat1);
+            double doubleLon1 = Convert.ToDouble(lon1);
+            double doubleLat2 =  Convert.ToDouble(lat2);
+            double doubleLon2 = Convert.ToDouble(lon2);
+
+            return DistanciaLinhaReta(doubleLat1, doubleLon1, doubleLat2, doubleLon2);
+        }
+
         public static (double distancia, int tempo) Distancia(double lat1, double lon1, double lat2, double lon2)
         {
             PersistenceDataContext persistenceDataContext = new PersistenceDataContext();
@@ -41,11 +59,10 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Utils
             config = persistenceDataContext.ConfiguracaoRepository.GetAll().FirstOrDefault();
             var googleDistance = new GoogleMapsDistance(new DefaultWebRequester(), new GoogleMapsRequestSigner(config.DsClientIdApiMapa, config.DsChavePrivadaApiMapa));
 
-            if (config != null &&
-                !string.IsNullOrEmpty(config.DsClientIdApiMapa) &&
-                !string.IsNullOrEmpty(config.DsChavePrivadaApiMapa)
-            )
+            if (config != null && !string.IsNullOrEmpty(config.DsClientIdApiMapa) && !string.IsNullOrEmpty(config.DsChavePrivadaApiMapa))
+            {
                 return googleDistance.DistanciaGoogleMaps(lat1, lon1, lat2, lon2);
+            }
 
             return DistanciaLinhaReta(lat1, lon1, lat2, lon2);
         }

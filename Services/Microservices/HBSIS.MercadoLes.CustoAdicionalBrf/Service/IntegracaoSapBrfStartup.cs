@@ -1,7 +1,7 @@
 ﻿using HBSIS.Framework.Commons.Config;
 using HBSIS.Framework.Commons.Helper;
 using HBSIS.MercadoLes.Commons.Base.ServiceControl;
-using HBSIS.MercadoLes.Messages.Message;
+using HBSIS.MercadoLes.Services.Messages.Message;
 using System;
 
 namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service

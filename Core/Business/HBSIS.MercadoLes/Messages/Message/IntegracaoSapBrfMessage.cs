@@ -1,7 +1,7 @@
 ﻿using HBSIS.MercadoLes.Commons.Base.Message;
 using System;
 
-namespace HBSIS.MercadoLes.Messages.Message
+namespace HBSIS.MercadoLes.Services.Messages.Message
 {
     public class IntegracaoSapBrfMessage : BaseMessage<IntegracaoSapBrfMessage>
     {

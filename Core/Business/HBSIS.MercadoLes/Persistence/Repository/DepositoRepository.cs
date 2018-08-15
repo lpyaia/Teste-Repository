@@ -55,5 +55,37 @@ namespace HBSIS.MercadoLes.Persistence.Repository
                 return depositosUnidadeNegocio;
             }
         }
+
+        public IEnumerable<Deposito> GetDepositosComGeoCoordenadas()
+        {
+            using (var dapperConnection = AbreConexao())
+            {
+                PersistenceDataContext persistence = new PersistenceDataContext();
+
+                dapperConnection.Open();
+
+                var depositosUnidadeNegocio = dapperConnection
+                    .Query<Deposito>(@"SELECT * FROM OPMDM.TB_DEPOSITO Deposito
+                                    INNER JOIN OPMDM.TB_PONTO_INTERESSE PontoInteresse ON PontoInteresse.CdPontoInteresse = Deposito.CdPontoInteresse",
+                    new[]
+                    {
+                        typeof(Deposito),
+                        typeof(PontoInteresse)
+                    },
+                    objects =>
+                    {
+                        Deposito Deposito = objects[0] as Deposito;
+                        PontoInteresse PontoInteresse = objects[1] as PontoInteresse;
+
+                        if (Deposito != null)
+                            Deposito.PontoInteresse = PontoInteresse;
+
+                        return Deposito;
+                    },
+                    splitOn: "CdPontoInteresse").AsList();
+
+                return depositosUnidadeNegocio;
+            }
+        }
     }
 }

@@ -35,9 +35,14 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.XmlBuilders
             subIndicadoresDivergenciaKm.Add(AvaliarSombraCelularOuCelularDesligado(ocorrencias.ToList()));
             subIndicadoresDivergenciaKm.Add(AvaliarPNPRota(parada));
 
+            _divergenciaKm.KMPrevisto = rota.VlDistanciaTotalPrevista;
+            _divergenciaKm.KMRealizado = rota.VlDistanciaTotalRealizada;
+
             // Se todas os sub indicadores forem verdadeiros significa que houve divergência no Km
             bool houveDivergencia = subIndicadoresDivergenciaKm.Count(indicador => indicador) == subIndicadoresDivergenciaKm.Count;
-            _divergenciaKm.HouveDivergencia = Convert.ToInt16(houveDivergencia);
+
+            if (!houveDivergencia)
+                _divergenciaKm.SetExibirOcorrenciaNoXml(false);
 
             return _divergenciaKm;
         }

@@ -1,5 +1,5 @@
 ﻿using HBSIS.MercadoLes.Commons.Base.Service;
-using HBSIS.MercadoLes.Messages.Message;
+using HBSIS.MercadoLes.Services.Messages.Message;
 using System;
 using System.Linq;
 using HBSIS.MercadoLes.Persistence;
@@ -28,68 +28,15 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
             _integrator = new IntegracaoSapBrfIntegrator(configurator);
             _configurator = configurator;
 
-            //var cdRota = 1154411;
+#if DEBUG
+            var cdRota = 1333592;
+            //var cdRota = 1333593;
+            //var cdRota = 1333596;
+            //var cdRota = 1333602;
+            //var cdRota = 1333603;
 
-            //var rota = _dbContext.RotaRepository.GetRotaIndicadoresFluxoLES(cdRota);
-            //var ocorrenciasRota = _dbContext.OcorrenciaRepository.GetOcorrenciasCompletasOrdenadoDtInclusao(cdRota);
-            //var metaPainelIndicadores = _dbContext.MetasPainelIndicadoresRepository.GetByUnidadeNegocio(rota.CdUnidadeNegocio);
-            //var baldeiosEntregaRota = _dbContext.BaldeioEntregaRepository.GetBaldeiosMultiTransporteByRotaDestino(cdRota);
-            //var unidadeNegocioRota = _dbContext.UnidadeNegocioRepository.GetUnidadesNegocio(rota.CdUnidadeNegocio);
-            //var depositosUnidadeNegocioRota = _dbContext.DepositoRepository.GetDepositosComGeoCoordenadas(rota.CdUnidadeNegocio);
-            //var veiculoRota = _dbContext.VeiculoRepository.GetVeiculos(rota.CdPlacaVeiculo).FirstOrDefault();
-            //var tipoVeiculoRota = _dbContext.TipoVeiculoRepository.GetTipoVeiculo(veiculoRota.CdTipoVeiculo).FirstOrDefault();
-            //var deslocamentosAlmoco = _dbContext.DeslocamentoAlmocoRotaRepository.GetDeslocamentosPIM(cdRota);
-            //var deslocamentosAbastecimento = _dbContext.DeslocamentoAbastecimentoRotaRepository.GetDeslocamentosPIM(cdRota);
-            //var deslocamentosPernoite = _dbContext.DeslocamentoPernoiteRotaRepository.GetDeslocamentosPIM(cdRota);
-            //var paradas = _dbContext.ParadasTratadasAnaliticoRepository.Get(cdRota);
-
-            //_dbContext.EntregaRepository.EntregasComUnidadeNegocio(rota.Entregas);
-            //_dbContext.EntregaRepository.EntregasComCliente(rota.Entregas);
-
-            //Integracao.SapBrf.Entities.Integracao integracaoXml = new Integracao.SapBrf.Entities.Integracao();
-
-            //integracaoXml.NumeroRota = rota.CdRotaNegocio;
-
-            //// MultiTransporte
-            //integracaoXml.MultiTransporte = MultiTransporteNode.Processar(baldeiosEntregaRota);
-
-            //integracaoXml.Data = rota.DtRota.ToString("yyyy-MM-ddTHH:mm:ssZ");
-            //integracaoXml.SetDtData(rota.DtRota);
-            //integracaoXml.Placa = rota.CdPlacaVeiculo;
-
-            //// BRF não envia código do motorista
-            //integracaoXml.CpfMotorista = null;
-
-            //integracaoXml.CnpjTransportador = rota.Transportadora?.NrCnpj ?? "";
-            //integracaoXml.UnidadeNegocio = rota.CdUnidadeNegocio;
-
-            //// Indicadores Fluxo LES
-            //integracaoXml.Ocorrencias.AdicionarOcorrencia(DivergenciaDiariaOcorrencia.Processar(rota));
-            //integracaoXml.Ocorrencias.AdicionarOcorrencia(DivergenciaPernoiteOcorrencia.Processar(rota));
-            //integracaoXml.Ocorrencias.AdicionarOcorrencia(CustoDescargaOcorrencia.Processar(rota));
-            //integracaoXml.Ocorrencias.AdicionarOcorrencia(DevolucaoTransportadorOcorrencia.Processar(rota));
-            //integracaoXml.Ocorrencias.AdicionarOcorrencia(ReentregaOcorrencia.Processar(rota));
-            //integracaoXml.Ocorrencias.AdicionarOcorrencia(AdicionalBalsaOcorrencia.Processar(ocorrenciasRota));
-
-            //integracaoXml.Ocorrencias.AdicionarOcorrencia(DivergenciaKmOcorrencia.Processar(rota, ocorrenciasRota,
-            //    deslocamentosAlmoco,
-            //    deslocamentosAbastecimento,
-            //    deslocamentosPernoite,
-            //    paradas,
-            //    metaPainelIndicadores.VlMetaAderencia));
-
-            //integracaoXml.Ocorrencias.AdicionarOcorrencia(AdicionalMeiaPernoiteOcorrencia.Processar(ocorrenciasRota, depositosUnidadeNegocioRota, rota));
-            //integracaoXml.Ocorrencias.AdicionarOcorrencia(DiariaClienteOcorrencia.Processar(rota, tipoVeiculoRota));
-
-            //var objRequest = ConverterObjetoRequisicaoWS(integracaoXml);
-
-            //#region Criação do arquivo XML
-            //var xml = XmlParser.ObjectToXml(integracaoXml);
-            //Console.Write(xml + "\n\n");
-            //XmlParser.CreateXmlFile(xml, @"C:\FluxoLES\xml", rota.CdRota.ToString());
-            //#endregion
-
-            //_integrator.Enviar(objRequest);
+            ProcessarRotaFinalizada(cdRota);
+#endif
         }
 
         public IIntegracaoSapBrfIntegrator Integrator { get; set; }
@@ -100,11 +47,14 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
 
             LoggerHelper.Info($"INFO: Rota {message.CdRota} recebida.");
 
-            bool resultado = retrier.TryWithDelay(() => ProcessarRotaFinalizada(message.CdRota), _tentativas, _tempoEspera);
-
-            if (!resultado)
+            try
             {
-                LoggerHelper.Warning($"ATENÇÃO: A ROTA {message.CdRota} NÃO FOI FINALIZADA CORRETAMENTE.");
+                ProcessarRotaFinalizada(message.CdRota);
+            }
+
+            catch(Exception ex)
+            {
+                LoggerHelper.Error($"Exception: {ex.Message}");
             }
 
             return ResultBuilder.Success();
@@ -120,6 +70,7 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
             var baldeiosEntregaRota = _dbContext.BaldeioEntregaRepository.GetBaldeiosMultiTransporteByRotaDestino(cdRota);
             var unidadesNegocio = _dbContext.UnidadeNegocioRepository.GetAll();
             var depositosUnidadeNegocioRota = _dbContext.DepositoRepository.GetDepositosComGeoCoordenadas(rota.CdUnidadeNegocio);
+            var depositos = _dbContext.DepositoRepository.GetDepositosComGeoCoordenadas();
             var veiculoRota = _dbContext.VeiculoRepository.GetVeiculos(rota.CdPlacaVeiculo).FirstOrDefault();
             var tipoVeiculoRota = _dbContext.TipoVeiculoRepository.GetTipoVeiculo(veiculoRota.CdTipoVeiculo).FirstOrDefault();
             var deslocamentosAlmoco = _dbContext.DeslocamentoAlmocoRotaRepository.GetDeslocamentosPIM(cdRota);
@@ -153,7 +104,7 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
 
                     // Indicadores Fluxo LES
                     integracaoXml.Ocorrencias.AdicionarOcorrencia(DivergenciaDiariaOcorrencia.Processar(rota));
-                    integracaoXml.Ocorrencias.AdicionarOcorrencia(DivergenciaPernoiteOcorrencia.Processar(rota));
+                    integracaoXml.Ocorrencias.AdicionarOcorrencia(DivergenciaPernoiteOcorrencia.Processar(rota, ocorrenciasRota, depositos));
                     integracaoXml.Ocorrencias.AdicionarOcorrencia(CustoDescargaOcorrencia.Processar(rota));
                     integracaoXml.Ocorrencias.AdicionarOcorrencia(DevolucaoTransportadorOcorrencia.Processar(rota));
                     integracaoXml.Ocorrencias.AdicionarOcorrencia(ReentregaOcorrencia.Processar(rota));
@@ -177,14 +128,14 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
                     XmlParser.CreateXmlFile(xml, @"C:\FluxoLES\xml", rota.CdRota.ToString());
                     #endregion
 
-                    _integrator.Enviar(objRequest);
+                    //_integrator.Enviar(objRequest);
 
                     retorno = true;
                 }
 
                 catch (Exception ex)
                 {
-                    retorno = false;
+                    throw ex;
                 }
 
                 return retorno;
@@ -258,8 +209,9 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
                 {
                     CnpjTransportador = integracao.CnpjTransportador,
                     Data = integracao.GetDtData(),
+                    DataSpecified = true,
                     CpfMotorista = integracao.CpfMotorista,
-                    MultiTransporte = integracao.MultiTransporte.NumeroRota.ConvertAll(x => x.ToString()).ToArray(),
+                    MultiTransporte = integracao.MultiTransporte?.NumeroRota?.ConvertAll(x => x.ToString()).ToArray() ?? null,
                     NumeroRota = integracao.NumeroRota.ToString(),
                     Placa = integracao.Placa,
                     UnidadeNegocio = integracao.UnidadeNegocio,
@@ -405,7 +357,10 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
 
             ocorrenciaWS.Codigo = divergenciaKM.Codigo;
             ocorrenciaWS.Nome = divergenciaKM.Nome;
-            ocorrenciaWS.HouveDivergencia = divergenciaKM.HouveDivergencia.ToString();
+
+            // Atualizar o WSDL
+            //ocorrenciaWS.KMPrevisto = divergenciaKM.KMPrevisto;
+            //ocorrenciaWS.KMRealizado = divergenciaKM.KMRealizado;
         }
 
         private static void DivergenciaPernoiteOcorrenciaWS(Entities.Ocorrencia ocorrencia, DT_CUSTO_ADICIONAL_FRETE_HBSIS_RequestIntegracaoOcorrencia ocorrenciaWS)
@@ -414,7 +369,10 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
 
             ocorrenciaWS.Codigo = divergenciaPernoite.Codigo;
             ocorrenciaWS.Nome = divergenciaPernoite.Nome;
-            ocorrenciaWS.Quantidade = divergenciaPernoite.Quantidade.ToString();
+
+            // Atualizar o WSDL
+            //ocorrenciaWS.QuantidadePernoitePrevista = divergenciaPernoite.QuantidadePrevista;
+            //ocorrenciaWS.QuantidadePernoiteRealizada = divergenciaPernoite.QuantidadeRealizada;
         }
 
         private static void DivergenciaDiariaOcorrenciaWS(Entities.Ocorrencia ocorrencia, DT_CUSTO_ADICIONAL_FRETE_HBSIS_RequestIntegracaoOcorrencia ocorrenciaWS)

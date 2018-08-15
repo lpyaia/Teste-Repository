@@ -1,4 +1,5 @@
-﻿using HBSIS.MercadoLes.Commons.Helpers;
+﻿using HBSIS.Framework.Commons.Helper;
+using HBSIS.MercadoLes.Commons.Helpers;
 using HBSIS.MercadoLes.Commons.Integration;
 using HBSIS.MercadoLes.Commons.Integration.Config;
 using SI_CUSTO_ADICIONAL_FRETE_OUTService;
@@ -44,6 +45,10 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Wrapper
         protected override bool SendInternal(SI_CUSTO_ADICIONAL_FRETE_OUTRequest request, out SI_CUSTO_ADICIONAL_FRETE_OUTResponse response)
         {
             response = Channel.SI_CUSTO_ADICIONAL_FRETE_OUTAsync(request).GetAwaiter().GetResult();
+
+            LoggerHelper.Info($"Rota = {request.MT_CUSTO_ADICIONAL_FRETE_HBSIS_Request.Integracao.NumeroRota} - " +
+                $"Status = {response.MT_CUSTO_ADICIONAL_FRETE_HBSIS_Response.Status} - " +
+                $"Mensagem = {response.MT_CUSTO_ADICIONAL_FRETE_HBSIS_Response.Mensagem}");
 
             bool isValid = !string.IsNullOrEmpty(response.MT_CUSTO_ADICIONAL_FRETE_HBSIS_Response.Status);
 

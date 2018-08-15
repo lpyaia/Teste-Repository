@@ -56,8 +56,18 @@ namespace HBSIS.Framework.Data.Dapper
             using (var dapperConnection = AbreConexao())
             {
                 dapperConnection.Open();
-
                 return dapperConnection.Query<TEntity>($"SELECT * FROM OPMDM.{tableName}");
+            }
+        }
+
+        public void ExecuteCommandDefinition(List<CommandDefinition> commands)
+        {
+            using (var dapperConnection = AbreConexao())
+            {
+                dapperConnection.Open();
+
+                foreach (var command in commands)
+                    dapperConnection.Execute(command);
             }
         }
 

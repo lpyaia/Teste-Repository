@@ -3,10 +3,10 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
 	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	<AssemblyName>HBSIS.MercadoLes.Services.Messages</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Infra\" />
     <Folder Include="Commons\" />
     <Folder Include="Messages\" />
     <Folder Include="Persistence\" />

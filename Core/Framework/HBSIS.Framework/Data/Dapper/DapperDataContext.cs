@@ -22,16 +22,6 @@ namespace HBSIS.Framework.Data.Dapper
             ConnectionString = Configuration.Actual.GetSqlConnectionString();
         }
 
-        //public IDbConnection DbConnection
-        //{
-        //    get
-        //    {
-        //        string connString = Configuration.Actual.GetSqlConnectionString();
-
-        //        return new SqlConnection(connString);
-        //    }
-        //}
-
         public IRepository<TEntity, TId> GetRepository<TEntity, TId>()
             where TEntity : class, IEntity<TId>
             where TId : IEquatable<TId>

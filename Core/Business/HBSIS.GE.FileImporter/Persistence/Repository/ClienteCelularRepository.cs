@@ -53,7 +53,7 @@ namespace HBSIS.GE.FileImporter.Services.Persistence.Repository
             {
                 dapperConnection.Open();
 
-                dapperConnection.ExecuteScalar(@"
+                dapperConnection.ExecuteAsync(@"
                     INSERT INTO [OPMDM].[TB_CLIENTE_CELULAR]
                         ([CdCliente], [NrCelular], [DtCriacao], [DtExclusao], [IdExcluido], [NmContato], [IdEnviarSMS])
                     VALUES 
@@ -71,18 +71,50 @@ namespace HBSIS.GE.FileImporter.Services.Persistence.Repository
             }
         }
 
+        public CommandDefinition GetInsertImportacaoCommand(ClienteCelular clienteCelular)
+        {
+            CommandDefinition commandDefinition = new CommandDefinition(@"
+                    INSERT INTO [OPMDM].[TB_CLIENTE_CELULAR]
+                        ([CdCliente], [NrCelular], [DtCriacao], [DtExclusao], [IdExcluido], [NmContato], [IdEnviarSMS])
+                    VALUES 
+                        (@CdCliente, @NrCelular, @DtCriacao, @DtExclusao, @IdExcluido, @NmContato, @IdEnviarSMS)",
+                    new
+                    {
+                        CdCliente = clienteCelular.CdCliente,
+                        NrCelular = clienteCelular.NrCelular,
+                        DtCriacao = clienteCelular.DtCriacao,
+                        DtExclusao = (DateTime?)null,
+                        IdExcluido = clienteCelular.IdExcluido,
+                        NmContato = clienteCelular.NmContato,
+                        IdEnviarSMS = clienteCelular.IdEnviarSMS
+                    });
+
+            return commandDefinition;
+        }
+
         public void AtualizarNomeContato(long cdCelular, string nome)
         {
             using (var dapperConnection = AbreConexao())
             {
                 dapperConnection.Open();
 
-                dapperConnection.ExecuteScalar(@"
+                dapperConnection.ExecuteAsync(@"
                     UPDATE [OPMDM].[TB_CLIENTE_CELULAR]
                     SET NmContato = @NmContato
                     WHERE CdCelular = @CdCelular",
                     new { CdCelular = cdCelular, NmContato = nome });
             }
+        }
+
+        public CommandDefinition GetAtualizarNomeContadoCommand(long cdCelular, string nome)
+        {
+            CommandDefinition commandDefinition = new CommandDefinition(@"
+                    UPDATE[OPMDM].[TB_CLIENTE_CELULAR]
+                    SET NmContato = @NmContato
+                    WHERE CdCelular = @CdCelular",
+                    new { CdCelular = cdCelular, NmContato = nome });
+
+            return commandDefinition;
         }
     }
 }

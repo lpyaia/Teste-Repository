@@ -20,6 +20,7 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Entities
         public Integracao()
         {
             Ocorrencias = new List<Ocorrencia>();
+            MultiTransporte = new MultiTransporte();
             _dtData = new DateTime();
         }
 

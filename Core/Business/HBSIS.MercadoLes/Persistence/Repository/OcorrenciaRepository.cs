@@ -136,5 +136,20 @@ namespace HBSIS.MercadoLes.Persistence.Repository
                 return ocorrencias;
             }
         }
+
+        public IEnumerable<Ocorrencia> GetOcorrenciasRepouso(long cdRota)
+        {
+            using (var dapperConnection = AbreConexao())
+            {
+                var ocorrencias = dapperConnection
+                    .Query<Ocorrencia>(@"
+                        SELECT * FROM OPMDM.TB_OCORRENCIA 
+                        WHERE (IdOcorrencia = 10 OR IdOcorrencia = 11) AND CdRota = @CdRota
+                        ORDER BY CdRota, DtInclusao ASC", 
+                        new { CdRota = cdRota });
+
+                return ocorrencias;
+            }
+        }
     }
 }

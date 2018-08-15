@@ -8,6 +8,7 @@ using HBSIS.GE.FileImporter.Services.Commons.Config;
 using HBSIS.GE.FileImporter.Services.Commons.Helpers;
 using HBSIS.GE.FileImporter.Services.Commons.Logging.Message;
 using System;
+using System.Threading.Tasks;
 
 namespace HBSIS.GE.FileImporter.Services.Commons.Base.Service
 {

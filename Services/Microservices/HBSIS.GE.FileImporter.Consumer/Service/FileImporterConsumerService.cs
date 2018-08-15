@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using System.Text;
 using System;
 using HBSIS.GE.FileImporter.Consumer.Extensions;
+using System.Threading;
 
 namespace HBSIS.GE.FileImporter.Consumer.Service
 {
@@ -22,6 +23,8 @@ namespace HBSIS.GE.FileImporter.Consumer.Service
         private IConfiguration _configurator;
         private string _endpointWebServiceGE;
         private HttpClient client;
+        private Thread[] threads;
+        private int limitThread = 4;
 
         /// <summary>
         /// Key: Nome do tipo do arquivo a ser processado.
@@ -48,19 +51,7 @@ namespace HBSIS.GE.FileImporter.Consumer.Service
         {
             try
             {
-                if (message.FileType.ToUpper().Contains("GE-CLIENTES-01-"))
-                {
-                    ClienteSpreadsheetLine clienteMessage = (ClienteSpreadsheetLine)message.Data;
-
-                    ClienteFileImporter clienteFileImporter = new ClienteFileImporter();
-                    clienteFileImporter.ImportData(clienteMessage);
-                }
-
-                var data = new { fileName = message.FileName, totalFileRows = message.TotalFileRows };
-                string jsonData = JsonConvert.SerializeObject(data);
-
-                HttpResponseMessage response = client.PostAsync("Servico.svc/servico/AtualizarStatusImportacaoArquivos",
-                        new StringContent(jsonData, Encoding.UTF8, "application/json")).GetAwaiter().GetResult();
+                ConsumeMessage(message);   
             }
 
             catch (Exception ex)
@@ -70,6 +61,22 @@ namespace HBSIS.GE.FileImporter.Consumer.Service
             }
 
             return ResultBuilder.Success();
+        }
+
+        private void ConsumeMessage(FileImporterMessage message)
+        {
+            if (message.FileType.ToUpper().Contains("GE-CLIENTES-01-"))
+            {
+                ClienteSpreadsheetLine clienteMessage = (ClienteSpreadsheetLine)message.Data;
+
+                ClienteFileImporter clienteFileImporter = new ClienteFileImporter();
+                clienteFileImporter.ImportData(clienteMessage);
+            }
+
+            var data = new { fileName = message.FileName, totalFileRows = message.TotalFileRows };
+            string jsonData = JsonConvert.SerializeObject(data);
+
+            client.PostAsync("Servico.svc/servico/AtualizarStatusImportacaoArquivos", new StringContent(jsonData, Encoding.UTF8, "application/json"));
         }
 
         protected override Result ValidateMessage(FileImporterMessage message)
