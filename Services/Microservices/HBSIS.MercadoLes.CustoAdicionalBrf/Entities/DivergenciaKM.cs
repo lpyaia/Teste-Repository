@@ -7,6 +7,7 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Entities
     {
         public decimal KMPrevisto { get; set; }
         public decimal KMRealizado { get; set; }
+        public bool HouveDivergencia { get; set; }
 
         public DivergenciaKm()
         {

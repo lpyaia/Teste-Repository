@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="1.50.5" />
+    <PackageReference Include="Dapper.Contrib" Version="1.50.5" />
     <PackageReference Include="DnsClient" Version="1.0.7" />
     <PackageReference Include="EasyNetQ" Version="2.3.3" />
     <PackageReference Include="EasyNetQ.Management.Client" Version="1.0.0" />

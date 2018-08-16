@@ -41,6 +41,8 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.XmlBuilders
             // Se todas os sub indicadores forem verdadeiros significa que houve divergência no Km
             bool houveDivergencia = subIndicadoresDivergenciaKm.Count(indicador => indicador) == subIndicadoresDivergenciaKm.Count;
 
+            _divergenciaKm.HouveDivergencia = houveDivergencia;
+
             if (!houveDivergencia)
                 _divergenciaKm.SetExibirOcorrenciaNoXml(false);
 

@@ -81,7 +81,7 @@ namespace HBSIS.GE.FileImporter.Consumer.FileImporterStrategies
 
                     else
                     {
-                        return _persistenceDataContext.ClienteCelularRepository.GetAtualizarNomeContadoCommand(clienteCelular.CdCelular, nome);
+                        return _persistenceDataContext.ClienteCelularRepository.GetAtualizarNomeContadoCommand(clienteCelular.CdCelular, nome, enviaSMS);
                     }
                 }
 
@@ -147,7 +147,7 @@ namespace HBSIS.GE.FileImporter.Consumer.FileImporterStrategies
 
         private bool GetBooleanFromString(string textToFind)
         {
-            if (textToFind.ToLower().Contains("sim") || textToFind == "1")
+            if (textToFind.Trim().ToLower().Contains("sim") || textToFind == "1")
                 return true;
 
             return false;

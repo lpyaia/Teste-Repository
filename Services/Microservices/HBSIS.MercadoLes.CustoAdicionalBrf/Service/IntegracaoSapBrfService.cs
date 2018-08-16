@@ -11,6 +11,9 @@ using HBSIS.Framework.Commons.Result;
 using HBSIS.Framework.Commons.Helper;
 using SI_CUSTO_ADICIONAL_FRETE_OUTService;
 using System.Collections.Generic;
+using System.Net;
+using System.Xml;
+using System.IO;
 
 namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
 {
@@ -29,13 +32,13 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
             _configurator = configurator;
 
 #if DEBUG
-            var cdRota = 1333592;
-            //var cdRota = 1333593;
-            //var cdRota = 1333596;
-            //var cdRota = 1333602;
-            //var cdRota = 1333603;
+            var cdRota = 1333629;
 
             ProcessarRotaFinalizada(cdRota);
+
+            cdRota = 1333631;
+            ProcessarRotaFinalizada(cdRota);
+
 #endif
         }
 
@@ -43,8 +46,6 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
 
         protected override Result Process(IntegracaoSapBrfMessage message)
         {
-            Retrier<bool> retrier = new Retrier<bool>();
-
             LoggerHelper.Info($"INFO: Rota {message.CdRota} recebida.");
 
             try
@@ -56,6 +57,8 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
             {
                 LoggerHelper.Error($"Exception: {ex.Message}");
             }
+
+            LoggerHelper.Info($"INFO: Rota {message.CdRota} concluida.");
 
             return ResultBuilder.Success();
         }
@@ -77,6 +80,7 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
             var deslocamentosAbastecimento = _dbContext.DeslocamentoAbastecimentoRotaRepository.GetDeslocamentosPIM(cdRota);
             var deslocamentosPernoite = _dbContext.DeslocamentoPernoiteRotaRepository.GetDeslocamentosPIM(cdRota);
             var paradas = _dbContext.ParadasTratadasAnaliticoRepository.Get(cdRota);
+            decimal valorMetaAderenciaUnidadeNegocio = metaPainelIndicadores?.VlMetaAderencia ?? 0;
 
             rota.Entregas = _dbContext.EntregaRepository.EntregasComUnidadeNegocio(rota.Entregas).ToList();
             rota.Entregas = _dbContext.EntregaRepository.EntregasComCliente(rota.Entregas).ToList();
@@ -115,7 +119,7 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
                         deslocamentosAbastecimento,
                         deslocamentosPernoite,
                         paradas,
-                        metaPainelIndicadores.VlMetaAderencia));
+                        valorMetaAderenciaUnidadeNegocio));
 
                     integracaoXml.Ocorrencias.AdicionarOcorrencia(AdicionalMeiaPernoiteOcorrencia.Processar(ocorrenciasRota, depositosUnidadeNegocioRota, rota));
                     integracaoXml.Ocorrencias.AdicionarOcorrencia(DiariaClienteOcorrencia.Processar(rota, tipoVeiculoRota));
@@ -125,10 +129,11 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
                     #region Criação do arquivo XML
                     var xml = XmlParser.ObjectToXml(integracaoXml);
                     Console.Write(xml + "\n\n");
-                    XmlParser.CreateXmlFile(xml, @"C:\FluxoLES\xml", rota.CdRota.ToString());
+                    XmlParser.CreateXmlFile(xml, @"C:\FluxoLES\xml", rota.CdRotaNegocio.ToString());
                     #endregion
 
-                    //_integrator.Enviar(objRequest);
+                    _integrator.Enviar(objRequest);
+                    //Execute(xml);
 
                     retorno = true;
                 }
@@ -142,6 +147,49 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
             }
 
             return retorno;
+        }
+
+        public void Execute(string xmlContent)
+        {
+            HttpWebRequest request = CreateWebRequest();
+            XmlDocument soapEnvelopeXml = new XmlDocument();
+            soapEnvelopeXml.LoadXml($@"<?xml version=""1.0"" encoding=""utf-8""?>
+                <soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:cus=""http://www.brf.com/hbsis/CUSTO_ADICIONAL_FRETE"">
+                    <soapenv:Header/>                  
+                        <soapenv:Body>
+                        <cus:MT_CUSTO_ADICIONAL_FRETE_HBSIS_Request>
+                            {xmlContent}
+                        </cus:MT_CUSTO_ADICIONAL_FRETE_HBSIS_Request>
+                      </soapenv:Body>
+                    </soapenv:Envelope>");
+
+            using (Stream stream = request.GetRequestStream())
+            {
+                soapEnvelopeXml.Save(stream);
+            }
+
+            using (WebResponse response = request.GetResponse())
+            {
+                using (StreamReader rd = new StreamReader(response.GetResponseStream()))
+                {
+                    string soapResult = rd.ReadToEnd();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Create a soap webrequest to [Url]
+        /// </summary>
+        /// <returns></returns>
+        public HttpWebRequest CreateWebRequest()
+        {
+            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(@"http://web.brasilfoods.com:8101/XISOAPAdapter/MessageServlet?senderParty=&senderService=BC_HB_SIS&receiverParty=&receiverService=&interface=SI_CUSTO_ADICIONAL_FRETE_OUT&interfaceNamespace=http://www.brf.com/hbsis/CUSTO_ADICIONAL_FRETE");
+            webRequest.Headers.Add(@"SOAP:Action");
+            webRequest.ContentType = "text/xml;charset=\"utf-8\"";
+            webRequest.Accept = "text/xml";
+            webRequest.Method = "POST";
+            webRequest.Credentials = new System.Net.NetworkCredential("hbsis", "brf6230@");
+            return webRequest;
         }
 
         private SI_CUSTO_ADICIONAL_FRETE_OUTRequest ConverterObjetoRequisicaoWS(Integracao integracao)
@@ -357,6 +405,7 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
 
             ocorrenciaWS.Codigo = divergenciaKM.Codigo;
             ocorrenciaWS.Nome = divergenciaKM.Nome;
+            ocorrenciaWS.HouveDivergencia = divergenciaKM.HouveDivergencia.ToString();
 
             // Atualizar o WSDL
             //ocorrenciaWS.KMPrevisto = divergenciaKM.KMPrevisto;
@@ -369,6 +418,7 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
 
             ocorrenciaWS.Codigo = divergenciaPernoite.Codigo;
             ocorrenciaWS.Nome = divergenciaPernoite.Nome;
+            ocorrenciaWS.Quantidade = divergenciaPernoite.QuantidadeRealizada.ToString();
 
             // Atualizar o WSDL
             //ocorrenciaWS.QuantidadePernoitePrevista = divergenciaPernoite.QuantidadePrevista;

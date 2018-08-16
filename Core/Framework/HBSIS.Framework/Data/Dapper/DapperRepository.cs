@@ -9,6 +9,7 @@ using Dapper;
 using System.Data.SqlClient;
 using HBSIS.Framework.Commons.Utils;
 using HBSIS.Framework.Commons.Data;
+using Dapper.Contrib.Extensions;
 
 namespace HBSIS.Framework.Data.Dapper
 {
@@ -78,7 +79,20 @@ namespace HBSIS.Framework.Data.Dapper
 
         public void Insert(TEntity entity)
         {
-            throw new NotImplementedException();
+            using (var dapperConnection = AbreConexao())
+            {
+                dapperConnection.Open();
+
+                try
+                {
+                    dapperConnection.Insert<TEntity>(entity);
+                }
+
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
         }
 
         public void Update(TEntity entity)

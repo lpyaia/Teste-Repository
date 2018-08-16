@@ -14,6 +14,7 @@ using System.Text;
 using System;
 using HBSIS.GE.FileImporter.Consumer.Extensions;
 using System.Threading;
+using HBSIS.Core.HBSIS.GE.FileImporter.Infra.Entities;
 
 namespace HBSIS.GE.FileImporter.Consumer.Service
 {
@@ -49,6 +50,8 @@ namespace HBSIS.GE.FileImporter.Consumer.Service
 
         protected override Result Process(FileImporterMessage message)
         {
+            bool erroImportacaoLinha = false;
+
             try
             {
                 ConsumeMessage(message);   
@@ -56,8 +59,26 @@ namespace HBSIS.GE.FileImporter.Consumer.Service
 
             catch (Exception ex)
             {
+                erroImportacaoLinha = true;
                 LoggerHelper.Error($"Process => {ex.Message} - INNER EXCEPTION: {ex.GetInnerExceptionMessage()}");
                 throw ex;
+            }
+
+            finally
+            {
+                LinhaImportacaoArquivo linhaImportacao = new LinhaImportacaoArquivo()
+                {
+                    DsConteudoLinha = message.Data.JsonSerialize(),
+                    DsNomeArquivo = message.FileName,
+                    DtInclusao = DateTime.Now,
+                    IdErroImportacao = erroImportacaoLinha,
+                    VlNumeroLinha = message.CountRows,
+                    VlTotalLinhasArquivo = message.TotalFileRows,
+                    // Deixar variável
+                    IdTipoImportacao = 1
+                };
+
+                _dbContext.LinhaImportacaoArquivoRepository.Insert(linhaImportacao);
             }
 
             return ResultBuilder.Success();

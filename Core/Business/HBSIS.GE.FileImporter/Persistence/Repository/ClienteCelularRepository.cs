@@ -106,13 +106,13 @@ namespace HBSIS.GE.FileImporter.Services.Persistence.Repository
             }
         }
 
-        public CommandDefinition GetAtualizarNomeContadoCommand(long cdCelular, string nome)
+        public CommandDefinition GetAtualizarNomeContadoCommand(long cdCelular, string nome, bool enviarSMS)
         {
             CommandDefinition commandDefinition = new CommandDefinition(@"
                     UPDATE[OPMDM].[TB_CLIENTE_CELULAR]
-                    SET NmContato = @NmContato
+                    SET NmContato = @NmContato, IdExcluido = 0, IdEnviarSMS = @EnviarSMS
                     WHERE CdCelular = @CdCelular",
-                    new { CdCelular = cdCelular, NmContato = nome });
+                    new { CdCelular = cdCelular, NmContato = nome, EnviarSMS = enviarSMS });
 
             return commandDefinition;
         }
