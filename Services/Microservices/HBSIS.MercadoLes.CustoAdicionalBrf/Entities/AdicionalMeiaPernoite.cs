@@ -11,7 +11,7 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Entities
         {
             HouveDivergencia = 0;
             Nome = "AdicionalMeiaPernoite";
-            Codigo = "9";
+            Codigo = "09";
         }
 
         public override string ToString()

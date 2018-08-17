@@ -22,6 +22,10 @@ namespace HBSIS.GE.FileImporter.Producer.FileProcessStrategies
                 if (rowColumn.ItemArray.Count() == 30)
                 {
                     clienteSpreadsheetLine.Codigo = rowColumn[0].ToString();
+
+                    if(string.IsNullOrEmpty(clienteSpreadsheetLine.Codigo))
+                        continue;
+
                     clienteSpreadsheetLine.Cliente = rowColumn[1].ToString();
                     clienteSpreadsheetLine.Rua = rowColumn[2].ToString();
                     clienteSpreadsheetLine.Bairro = rowColumn[3].ToString();

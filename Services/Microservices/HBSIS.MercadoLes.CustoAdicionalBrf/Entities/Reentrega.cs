@@ -14,7 +14,7 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Entities
         {
             Nome = "Reentrega";
             Itens = new List<Item>();
-            Codigo = "7";
+            Codigo = "07";
         }
 
 

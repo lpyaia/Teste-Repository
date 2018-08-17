@@ -14,7 +14,7 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Entities
         {
             Nome = "AdicionalBalsa";
             Itens = new Balsas();
-            Codigo = "8";
+            Codigo = "08";
         }
 
         public void AdicionarItem(string nomeBalsa)

@@ -8,7 +8,7 @@
         public DivergenciaPernoite()
         {
             Nome = "DivergenciaPernoite";
-            Codigo = "2";
+            Codigo = "02";
         }
 
         public override string ToString()

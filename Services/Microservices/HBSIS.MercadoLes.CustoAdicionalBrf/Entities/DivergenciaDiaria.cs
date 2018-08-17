@@ -9,7 +9,7 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Entities
         public DivergenciaDiaria()
         {
             Nome = "DivergenciaDiaria";
-            Codigo = "1";
+            Codigo = "01";
         }
     }
 }

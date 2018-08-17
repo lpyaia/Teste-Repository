@@ -32,13 +32,8 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
             _configurator = configurator;
 
 #if DEBUG
-            var cdRota = 1333629;
-
+            var cdRota = 1333634;
             ProcessarRotaFinalizada(cdRota);
-
-            cdRota = 1333631;
-            ProcessarRotaFinalizada(cdRota);
-
 #endif
         }
 
@@ -53,7 +48,7 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
                 ProcessarRotaFinalizada(message.CdRota);
             }
 
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LoggerHelper.Error($"Exception: {ex.Message}");
             }
@@ -94,16 +89,16 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
                     integracaoXml.NumeroRota = rota.CdRotaNegocio;
 
                     // MultiTransporte
-                    integracaoXml.MultiTransporte = MultiTransporteNode.Processar(baldeiosEntregaRota);
+                    integracaoXml.MultiTransporte = MultiTransporteNode.Processar(baldeiosEntregaRota, rota);
 
                     integracaoXml.Data = rota.DtRota.ToString("yyyy-MM-ddTHH:mm:ssZ");
                     integracaoXml.SetDtData(rota.DtRota);
                     integracaoXml.Placa = rota.CdPlacaVeiculo;
 
                     // BRF não envia código do motorista
-                    integracaoXml.CpfMotorista = null;
+                    integracaoXml.CpfMotorista = string.Empty;
 
-                    integracaoXml.CnpjTransportador = rota.Transportadora?.NrCnpj ?? "";
+                    integracaoXml.CnpjTransportador = rota.Transportadora?.NrCnpj ?? string.Empty;
                     integracaoXml.UnidadeNegocio = rota.CdUnidadeNegocio;
 
                     // Indicadores Fluxo LES
@@ -127,7 +122,7 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
                     var objRequest = ConverterObjetoRequisicaoWS(integracaoXml);
 
                     #region Criação do arquivo XML
-                    var xml = XmlParser.ObjectToXml(integracaoXml);
+                    var xml = XmlParser.ObjectToXml(objRequest);
                     Console.Write(xml + "\n\n");
                     XmlParser.CreateXmlFile(xml, @"C:\FluxoLES\xml", rota.CdRotaNegocio.ToString());
                     #endregion
@@ -199,16 +194,16 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
 
             var ocorrenciasWS = new DT_CUSTO_ADICIONAL_FRETE_HBSIS_RequestIntegracaoOcorrencia[integracao.Ocorrencias.Where(x => x.ExibirOcorrenciaNoXml()).Count()];
 
-            foreach(var ocorrencia in integracao.Ocorrencias.Where(x => x.ExibirOcorrenciaNoXml()))
+            foreach (var ocorrencia in integracao.Ocorrencias.Where(x => x.ExibirOcorrenciaNoXml()))
             {
-                var ocorrenciaWS = new DT_CUSTO_ADICIONAL_FRETE_HBSIS_RequestIntegracaoOcorrencia();
+                var ocorrenciaWS = InicializaOcorrencia();
 
                 if (ocorrencia.GetType() == typeof(DivergenciaDiaria))
                 {
                     DivergenciaDiariaOcorrenciaWS(ocorrencia, ocorrenciaWS);
                 }
 
-                else if(ocorrencia.GetType() == typeof(DivergenciaPernoite))
+                else if (ocorrencia.GetType() == typeof(DivergenciaPernoite))
                 {
                     DivergenciaPernoiteOcorrenciaWS(ocorrencia, ocorrenciaWS);
                 }
@@ -270,6 +265,47 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
             return objRequest;
         }
 
+        private DT_CUSTO_ADICIONAL_FRETE_HBSIS_RequestIntegracaoOcorrencia InicializaOcorrencia()
+        {
+            DT_CUSTO_ADICIONAL_FRETE_HBSIS_RequestIntegracaoOcorrencia ocorrenciaWS = new DT_CUSTO_ADICIONAL_FRETE_HBSIS_RequestIntegracaoOcorrencia();
+
+            ocorrenciaWS.Codigo = string.Empty;
+            ocorrenciaWS.HouveDivergencia = string.Empty;
+            ocorrenciaWS.Nome = string.Empty;
+            ocorrenciaWS.Quantidade = string.Empty;
+            ocorrenciaWS.QuantidadeDiariaPrevista = string.Empty;
+            ocorrenciaWS.QuantidadeDiariaRealizada = string.Empty;
+            ocorrenciaWS.KMPrevisto = string.Empty;
+            ocorrenciaWS.KMRealizado = string.Empty;
+            ocorrenciaWS.QuantidadePernoitePrevista = string.Empty;
+            ocorrenciaWS.QuantidadePernoiteRealizada = string.Empty;
+            ocorrenciaWS.Itens = InicializaItens();
+            ocorrenciaWS.Itens.Item = new DT_CUSTO_ADICIONAL_FRETE_HBSIS_RequestIntegracaoOcorrenciaItensItem[1] { InicializaItem() };
+
+            return ocorrenciaWS;
+        }
+
+        private static DT_CUSTO_ADICIONAL_FRETE_HBSIS_RequestIntegracaoOcorrenciaItens InicializaItens()
+        {
+            return new DT_CUSTO_ADICIONAL_FRETE_HBSIS_RequestIntegracaoOcorrenciaItens()
+            {
+                NomeBalsa = new string[1] { string.Empty },
+            };
+        }
+
+        private static DT_CUSTO_ADICIONAL_FRETE_HBSIS_RequestIntegracaoOcorrenciaItensItem InicializaItem()
+        {
+            return new DT_CUSTO_ADICIONAL_FRETE_HBSIS_RequestIntegracaoOcorrenciaItensItem()
+            {
+                CodigoCliente = string.Empty,
+                Motivo = string.Empty,
+                Quantidade = string.Empty,
+                ValorDescargaPrevisto = string.Empty,
+                ValorDescargaRealizado = string.Empty
+            };
+
+        }
+
         private static void AdicionalMeiaPernoiteOcorrenciaWS(Entities.Ocorrencia ocorrencia, DT_CUSTO_ADICIONAL_FRETE_HBSIS_RequestIntegracaoOcorrencia ocorrenciaWS)
         {
             AdicionalMeiaPernoite adicionalMeiaPernoite = (AdicionalMeiaPernoite)ocorrencia;
@@ -289,12 +325,10 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
             ocorrenciaWS.Nome = adicionalBalsa.Nome;
             ocorrenciaWS.Quantidade = adicionalBalsa.Quantidade.ToString();
 
-            ocorrenciaWS.Itens = new DT_CUSTO_ADICIONAL_FRETE_HBSIS_RequestIntegracaoOcorrenciaItens();
+            ocorrenciaWS.Itens = InicializaItens();
 
             foreach (var item in adicionalBalsa.Itens.NomeBalsa)
             {
-                var ocorrenciaWsItem = new DT_CUSTO_ADICIONAL_FRETE_HBSIS_RequestIntegracaoOcorrenciaItensItem();
-
                 lstNomeBalsa.Add(item);
             }
 
@@ -311,11 +345,11 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
             ocorrenciaWS.Nome = reentrega.Nome;
             ocorrenciaWS.Quantidade = reentrega.Quantidade.ToString();
 
-            ocorrenciaWS.Itens = new DT_CUSTO_ADICIONAL_FRETE_HBSIS_RequestIntegracaoOcorrenciaItens();
+            ocorrenciaWS.Itens = InicializaItens();
 
             foreach (var item in reentrega.Itens)
             {
-                var ocorrenciaWsItem = new DT_CUSTO_ADICIONAL_FRETE_HBSIS_RequestIntegracaoOcorrenciaItensItem();
+                var ocorrenciaWsItem = InicializaItem();
 
                 ocorrenciaWsItem.CodigoCliente = item.CodigoClienteNegocio;
                 ocorrenciaWsItem.Motivo = item.Motivo;
@@ -335,11 +369,11 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
             ocorrenciaWS.Codigo = diariaCliente.Codigo;
             ocorrenciaWS.Nome = diariaCliente.Nome;
 
-            ocorrenciaWS.Itens = new DT_CUSTO_ADICIONAL_FRETE_HBSIS_RequestIntegracaoOcorrenciaItens();
+            ocorrenciaWS.Itens = InicializaItens();
 
             foreach (var item in diariaCliente.Itens)
             {
-                var ocorrenciaWsItem = new DT_CUSTO_ADICIONAL_FRETE_HBSIS_RequestIntegracaoOcorrenciaItensItem();
+                var ocorrenciaWsItem = InicializaItem();
 
                 ocorrenciaWsItem.CodigoCliente = item.CodigoCliente;
                 ocorrenciaWsItem.Quantidade = item.Quantidade.ToString();
@@ -360,11 +394,11 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
             ocorrenciaWS.Nome = devolucaoTransportador.Nome;
             ocorrenciaWS.Quantidade = devolucaoTransportador.Quantidade.ToString();
 
-            ocorrenciaWS.Itens = new DT_CUSTO_ADICIONAL_FRETE_HBSIS_RequestIntegracaoOcorrenciaItens();
+            ocorrenciaWS.Itens = InicializaItens();
 
             foreach (var item in devolucaoTransportador.Itens)
             {
-                var ocorrenciaWsItem = new DT_CUSTO_ADICIONAL_FRETE_HBSIS_RequestIntegracaoOcorrenciaItensItem();
+                var ocorrenciaWsItem = InicializaItem();
 
                 ocorrenciaWsItem.CodigoCliente = item.CodigoClienteNegocio;
                 ocorrenciaWsItem.Motivo = item.Motivo;
@@ -383,15 +417,15 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
 
             ocorrenciaWS.Codigo = custoDescarga.Codigo;
             ocorrenciaWS.Nome = custoDescarga.Nome;
-            ocorrenciaWS.Itens = new DT_CUSTO_ADICIONAL_FRETE_HBSIS_RequestIntegracaoOcorrenciaItens();
+            ocorrenciaWS.Itens = InicializaItens();
 
             foreach (var item in custoDescarga.Itens)
             {
-                var ocorrenciaWsItem = new DT_CUSTO_ADICIONAL_FRETE_HBSIS_RequestIntegracaoOcorrenciaItensItem();
+                var ocorrenciaWsItem = InicializaItem();
 
                 ocorrenciaWsItem.CodigoCliente = item.CodigoClienteNegocio;
-                ocorrenciaWsItem.ValorDescargaPrevisto = item.ValorDescargaPrevisto.ToString();
-                ocorrenciaWsItem.ValorDescargaRealizado = item.ValorDescargaRealizado.ToString();
+                ocorrenciaWsItem.ValorDescargaPrevisto = item.ValorDescargaPrevisto.ToString("0.0000", System.Globalization.CultureInfo.InvariantCulture);
+                ocorrenciaWsItem.ValorDescargaRealizado = item.ValorDescargaRealizado.ToString("0.0000", System.Globalization.CultureInfo.InvariantCulture);
 
                 itens.Add(ocorrenciaWsItem);
             }
@@ -405,11 +439,8 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
 
             ocorrenciaWS.Codigo = divergenciaKM.Codigo;
             ocorrenciaWS.Nome = divergenciaKM.Nome;
-            ocorrenciaWS.HouveDivergencia = divergenciaKM.HouveDivergencia.ToString();
-
-            // Atualizar o WSDL
-            //ocorrenciaWS.KMPrevisto = divergenciaKM.KMPrevisto;
-            //ocorrenciaWS.KMRealizado = divergenciaKM.KMRealizado;
+            ocorrenciaWS.KMPrevisto = divergenciaKM.KMPrevisto.ToString("0.0000", System.Globalization.CultureInfo.InvariantCulture);
+            ocorrenciaWS.KMRealizado = divergenciaKM.KMRealizado.ToString("0.0000", System.Globalization.CultureInfo.InvariantCulture);
         }
 
         private static void DivergenciaPernoiteOcorrenciaWS(Entities.Ocorrencia ocorrencia, DT_CUSTO_ADICIONAL_FRETE_HBSIS_RequestIntegracaoOcorrencia ocorrenciaWS)
@@ -418,11 +449,8 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
 
             ocorrenciaWS.Codigo = divergenciaPernoite.Codigo;
             ocorrenciaWS.Nome = divergenciaPernoite.Nome;
-            ocorrenciaWS.Quantidade = divergenciaPernoite.QuantidadeRealizada.ToString();
-
-            // Atualizar o WSDL
-            //ocorrenciaWS.QuantidadePernoitePrevista = divergenciaPernoite.QuantidadePrevista;
-            //ocorrenciaWS.QuantidadePernoiteRealizada = divergenciaPernoite.QuantidadeRealizada;
+            ocorrenciaWS.QuantidadePernoitePrevista = divergenciaPernoite.QuantidadePrevista.ToString();
+            ocorrenciaWS.QuantidadePernoiteRealizada = divergenciaPernoite.QuantidadeRealizada.ToString();
         }
 
         private static void DivergenciaDiariaOcorrenciaWS(Entities.Ocorrencia ocorrencia, DT_CUSTO_ADICIONAL_FRETE_HBSIS_RequestIntegracaoOcorrencia ocorrenciaWS)
@@ -434,7 +462,7 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Service
             ocorrenciaWS.QuantidadeDiariaPrevista = divergenciaDiaria.QuantidadeDiariaPrevista.ToString();
             ocorrenciaWS.QuantidadeDiariaRealizada = divergenciaDiaria.QuantidadeDiariaRealizada.ToString();
         }
-        
+
         protected override Result ValidateMessage(IntegracaoSapBrfMessage message)
         {
             //if (Guid.Empty.Equals(message.IdTransporteParada)) return ResultBuilder.Warning(ValidationMessages.ParadaNaoInformada);

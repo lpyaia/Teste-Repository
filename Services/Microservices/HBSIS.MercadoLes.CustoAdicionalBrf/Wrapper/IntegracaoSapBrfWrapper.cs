@@ -44,7 +44,7 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Wrapper
 
         protected override bool SendInternal(SI_CUSTO_ADICIONAL_FRETE_OUTRequest request, out SI_CUSTO_ADICIONAL_FRETE_OUTResponse response)
         {
-            response = Channel.SI_CUSTO_ADICIONAL_FRETE_OUT(request);
+            response = Channel.SI_CUSTO_ADICIONAL_FRETE_OUTAsync(request).GetAwaiter().GetResult();
 
             LoggerHelper.Info($"Rota = {request.MT_CUSTO_ADICIONAL_FRETE_HBSIS_Request.Integracao.NumeroRota} - " +
                 $"Status = {response.MT_CUSTO_ADICIONAL_FRETE_HBSIS_Response.Status} - " +

@@ -13,7 +13,7 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Entities
         {
             Nome = "CustoDescarga";
             Itens = new List<Item>();
-            Codigo = "4";
+            Codigo = "04";
         }
 
         public void AdicionarItem(string codigoClienteNegocio, decimal valorDescargaPrevisto, decimal valorDescargaRealizado)

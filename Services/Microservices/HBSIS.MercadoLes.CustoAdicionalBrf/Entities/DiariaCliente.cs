@@ -13,7 +13,7 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Entities
         {
             Nome = "DiariaCliente";
             Itens = new List<Item>();
-            Codigo = "6";
+            Codigo = "06";
         }
         public class Item
         {

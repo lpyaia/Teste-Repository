@@ -12,7 +12,7 @@ namespace HBSIS.MercadoLes.CustoAdicionalBrf.Entities
         public DivergenciaKm()
         {
             Nome = "DivergenciaKM";
-            Codigo = "3";
+            Codigo = "03";
         }
 
         public override string ToString()
